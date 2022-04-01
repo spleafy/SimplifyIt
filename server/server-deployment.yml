@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simplifyit-server
+  labels:
+    app: simplifyit-server
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: simplifyit-server
+  template:
+    metadata:
+      labels:
+        app: simplifyit-server
+    spec:
+      containers:
+        - name: simplifyit-server
+          image: simplifyit/server:v.0.0.23
+          env:
+            - name: MONGODB_URL
+              value: "172.17.0.12"
+            - name: MONGODB_PORT
+              value: "27017"
+          ports:
+            - containerPort: 4000
+          livenessProbe:
+            httpGet:
+              path: /api
+              port: 4000
+            initialDelaySeconds: 3
+            periodSeconds: 10

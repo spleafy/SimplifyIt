@@ -1,0 +1,12 @@
+{
+  "reporter": [
+    "lcov",
+    "text-summary"
+  ],
+  "all": true,
+  "check_coverage": true,
+  "branches": 1,
+  "lines": 1,
+  "functions": 1,
+  "statements": 1
+}
