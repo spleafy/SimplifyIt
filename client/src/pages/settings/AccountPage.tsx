@@ -74,10 +74,9 @@ const AccountPage = () => {
 
   return (
     <>
-      <h1>Your Account</h1>
-      <div className="mt-10">
+      <div className="mt-10 flex gap-10">
         <div
-          className={`w-[100px] aspect-square rounded-full flex justify-center items-center relative`}
+          className={`w-[125px] h-[125px] aspect-square rounded-full flex justify-center items-center relative`}
           style={{
             backgroundColor: loggedUser.settings
               ? getColors(loggedUser.settings.profileColor)[500]
@@ -85,7 +84,7 @@ const AccountPage = () => {
           }}
         >
           <div
-            className={`absolute flex justify-center items-center transition-colors rounded-full cursor-pointer w-[50px] aspect-square hover:bg-slate-900/50 bg-slate-700/50 ${
+            className={`absolute flex justify-center items-center transition-colors rounded-full cursor-pointer w-[70px] aspect-square hover:bg-slate-900/50 bg-slate-700/50 ${
               expandedProfileColor
                 ? "hover:bg-slate-700/50"
                 : "hover:bg-slate-900/50"
@@ -140,7 +139,7 @@ const AccountPage = () => {
 
         <form
           onSubmit={handleSubmit(submit)}
-          className="w-[300px] mt-10"
+          className="w-[300px]"
           onChange={() => {
             setSavedUpdate(false);
           }}
@@ -195,7 +194,7 @@ const AccountPage = () => {
               },
             }}
           />
-          <div className="w-1/2 mt-4">
+          <div className="mt-4">
             <PrimaryButton
               submit={true}
               loading={submittingForm}

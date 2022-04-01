@@ -15,7 +15,7 @@ const HomePage = () => {
 
   return (
     <>
-      <Column width="full">
+      <Column>
         <h1>Home</h1>
       </Column>
       <Column width="[400px]" minWidth="[400px]">

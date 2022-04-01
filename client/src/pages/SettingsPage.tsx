@@ -13,7 +13,6 @@ const SettingsPage = () => {
   return (
     <>
       <Column width="[400px]">
-        <h1>Settings</h1>
         <div className="mt-10">
           <NavigationLink to={"account"}>
             Account <FiChevronRight />

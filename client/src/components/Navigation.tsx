@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { FiBell } from "react-icons/fi";
 // Components
 import NavigationLink from "./NavigationLink";
+import ActionButton from "./ActionButton";
 // Redux
 import { updateUser } from "../redux/userSlice";
 // Utils
@@ -14,25 +17,27 @@ const Navigation = () => {
 
   const loggedUser = useSelector((state: any) => state.user.user);
 
+  const [expandedSidebar, setExpandedSidebar] = useState(true);
+
   return (
-    <header className="h-full w-[400px] flex flex-col">
-      <h1
-        className="cursor-pointer"
-        onClick={() => {
-          navigate("/app/home");
-        }}
-      >
-        MeetDev
-      </h1>
-      <nav className="flex flex-col mt-8 justify-between h-full">
-        <div>
+    <>
+      <header className="flex justify-between items-center px-5 pb-5">
+        <h1
+          className="cursor-pointer"
+          onClick={() => {
+            navigate("/app/home");
+          }}
+        >
+          MeetDev
+        </h1>
+        <nav className="flex justify-between h-full gap-5">
           <NavigationLink to={"/app/home"}>Home</NavigationLink>
           {/* <NavigationLink to={"/app/workspace"}>Workspaces</NavigationLink> */}
           <NavigationLink to={"/app/discover"}>Discover</NavigationLink>
           <NavigationLink to={"/app/messages"}>Messages</NavigationLink>
           <NavigationLink to={"/app/settings"}>Settings</NavigationLink>
           <span
-            className="py-2 !text-red-600 cursor-pointer flex"
+            className="py-2 !text-red-600 cursor-pointer hidden"
             onClick={() => {
               localStorage.removeItem("X-Auth-Token");
               dispatch(updateUser({}));
@@ -42,19 +47,22 @@ const Navigation = () => {
           >
             Log Out
           </span>
-        </div>
-        <div
-          className="w-full flex cursor-pointer items-center"
-          onClick={() => {
-            navigate(`/app/u/${loggedUser.username}`);
-          }}
-        >
+        </nav>
+        <div className="flex cursor-pointer items-center gap-5">
+          <div className="">
+            <ActionButton>
+              <FiBell size={18} className="my-1" />
+            </ActionButton>
+          </div>
           <div
             className="rounded-full w-[45px] aspect-square mr-3 flex justify-center items-center"
             style={{
               backgroundColor: loggedUser.settings
                 ? getColors(loggedUser.settings.profileColor)[500]
                 : "#f3f3f3",
+            }}
+            onClick={() => {
+              navigate(`/app/u/${loggedUser.username}`);
             }}
           >
             {loggedUser.fullname ? (
@@ -66,10 +74,10 @@ const Navigation = () => {
               <></>
             )}
           </div>
-          <span>{loggedUser.username}</span>
+          {/* <span>{loggedUser.username}</span> */}
         </div>
-      </nav>
-    </header>
+      </header>
+    </>
   );
 };
 
