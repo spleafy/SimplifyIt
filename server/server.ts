@@ -47,12 +47,14 @@ import authReset from "./api/user/auth/authReset";
 // User Endpoints
 import fetchLoggedUserData from "./api/user/fetchLoggedUserData";
 import fetchUserData from "./api/user/fetchUserData";
+import searchUser from "./api/user/searchUser";
 import followUser from "./api/user/followUser";
 import unfollowUser from "./api/user/unfollowUser";
 import fetchUserFollowers from "./api/user/fetchUserFollowers";
 import fetchUserFollowing from "./api/user/fetchUserFollowing";
+import fetchUserNotifications from "./api/user/fetchUserNotifications";
 
-// Setting Endpoints
+// Settings Endpoints
 import updateUserAccount from "./api/user/settings/updateUserAccount";
 import updateUserProfileColor from "./api/user/settings/updateUserProfileColor";
 import updateUserThemeColor from "./api/user/settings/updateUserThemeColor";
@@ -82,13 +84,19 @@ app.get("/api/user/logged", verifyToken, fetchLoggedUserData);
 
 app.get("/api/user", verifyToken, fetchUserData);
 
-app.post("/api/user/follow", upload.none(), verifyToken, followUser);
+app.get("/api/user/search", verifyToken, searchUser);
 
-app.post("/api/user/unfollow", upload.none(), verifyToken, unfollowUser);
+app.get("/api/user", verifyToken, fetchUserData);
 
 app.get("/api/user/followers", verifyToken, fetchUserFollowers);
 
 app.get("/api/user/following", verifyToken, fetchUserFollowing);
+
+app.get("/api/user/notifications", verifyToken, fetchUserNotifications);
+
+app.post("/api/user/follow", upload.none(), verifyToken, followUser);
+
+app.post("/api/user/unfollow", upload.none(), verifyToken, unfollowUser);
 
 // Settings Routes
 app.post(

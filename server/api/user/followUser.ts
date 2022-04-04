@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import User from "../../models/database/user";
+import Notification from "../../models/database/notification";
 import ResponseMessage from "../../models/responseMessage";
 import ResponseUser from "../../models/responseUser";
 
@@ -21,6 +22,13 @@ const followUser = async (req: Request | any, res: Response) => {
         },
         { new: true }
       );
+
+      await new Notification({
+        userID: user._id,
+        type: "Action",
+        message: `${loggedUser.username} started following you!`,
+        data: loggedUser,
+      }).save();
 
       res.json(
         new ResponseMessage(200, {

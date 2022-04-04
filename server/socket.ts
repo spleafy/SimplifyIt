@@ -1,6 +1,4 @@
 import { Server } from "socket.io";
-// Models
-import Message from "./models/database/message";
 
 export const setupSocket = () => {
   const io = new Server(5000, {
@@ -13,8 +11,8 @@ export const setupSocket = () => {
 
   io.on("connection", (socket) => {
     socket.on("get-messages", async (id) => {
-      const messages = await Message.find({ _id: id }).skip(0).limit(10);
-      socket.to(id).emit("messages", { messages });
+      // const messages = await Message.find({ _id: id }).skip(0).limit(10);
+      // socket.to(id).emit("messages", { messages });
     });
 
     socket.on("send-message", (message, id) => {

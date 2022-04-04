@@ -73,11 +73,11 @@ input:-webkit-autofill {
 
 @layer components {
   #root {
-    @apply h-full flex flex-col py-5 dark:bg-gray-900 transition-colors;
+    @apply h-full flex dark:bg-gray-900 transition-colors;
   }
 
   main {
-    @apply h-full w-full flex;
+    @apply h-full w-full flex bg-slate-100/80 dark:bg-gray-800 transition-colors;
   }
 
   h1,

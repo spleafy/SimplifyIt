@@ -11,7 +11,7 @@ const Column = ({ width, minWidth, children }: ColumnProps) => {
     <div
       className={`${width ? "w-[400px]" : "w-full"} min-w-${
         minWidth ? minWidth : "fit"
-      } flex flex-col overflow-y-scroll px-5`}
+      } h-full flex flex-col overflow-y-scroll px-5`}
     >
       {children}
     </div>

@@ -8,10 +8,10 @@ import NotFoundPage from "../NotFoundPage";
 import Column from "../../components/Column";
 import PrimaryButton from "../../components/PrimaryButton";
 import SecondaryButton from "../../components/SecondaryButton";
+import ProfilePicture from "../../components/ProfilePicture";
 // Utils
 import { fecthUserData, fetchUserFollowing } from "../../utils/api";
 import { followUserAndUpdate, unfollowUserAndUpdate } from "../../utils/user";
-import { getColors } from "../../utils/utils";
 
 const FollowingPage = () => {
   const navigate = useNavigate();
@@ -63,22 +63,8 @@ const FollowingPage = () => {
                   >
                     <Link to={`/app/u/${singleUser.username}`}>
                       <div className="flex">
-                        <div
-                          className={`w-[50px] h-[50px] aspect-square rounded-full flex justify-center items-center mr-5`}
-                          style={{
-                            backgroundColor: singleUser.settings
-                              ? getColors(singleUser.settings.profileColor)[500]
-                              : "#f3f3f3",
-                          }}
-                        >
-                          {singleUser.fullname ? (
-                            <h1 className="text-white text-lg">
-                              {singleUser.fullname.split(" ")[0].charAt(0)}
-                              {singleUser.fullname.split(" ")[1].charAt(0)}
-                            </h1>
-                          ) : (
-                            <></>
-                          )}
+                        <div className={`w-[50px] h-[50px] mr-5`}>
+                          <ProfilePicture user={singleUser} size="lg" />
                         </div>
                         <div>
                           <h1 className="text-base">
@@ -140,7 +126,6 @@ const FollowingPage = () => {
             </div>
           </Column>
           <Column width="[400px]" minWidth="[400px]">
-            <h1>Friends</h1>
             {loggedUser.friends && loggedUser.friends.length > 0 ? (
               <h1>Has Friends</h1>
             ) : (

@@ -16,3 +16,12 @@ export interface UserType {
   };
   posts: [];
 }
+
+export interface NotificationType {
+  userID: string;
+  type: string;
+  message: string;
+  data: any;
+  opened: boolean;
+  date: any;
+}

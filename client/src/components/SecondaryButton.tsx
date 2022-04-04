@@ -1,9 +1,9 @@
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, ReactChild } from "react";
 // Components
 import Loading from "./Loading";
 
 interface SecondaryButtonProps {
-  children: any;
+  children: ReactChild | ReactChild[];
   submit?: boolean;
   click?: MouseEventHandler | any;
   loading?: boolean;
@@ -17,7 +17,7 @@ const SecondaryButton = ({
 }: SecondaryButtonProps) => {
   return (
     <button
-      className="border-2 border-theme-400 text-theme-500 hover:border-theme-500 hover:text-theme-600  transition-colors px-4 py-[10px] text-sm rounded-md w-full"
+      className="text-theme-500 bg-theme-100 hover:text-theme-600 hover:bg-theme-200 dark:text-theme-100 dark:bg-theme-900 dark:hover:bg-theme-800 dark:hover:text-theme-200 opacity-90 transition-colors px-8 py-[10px] text-sm rounded-md w-full whitespace-nowrap"
       type={submit ? "submit" : "button"}
       onClick={click}
     >

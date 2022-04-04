@@ -4,7 +4,7 @@ interface LabelProps {
 
 const Label = ({ children }: LabelProps) => {
   return (
-    <div className="absolute rounded-md bg-theme-500 text-theme-200 -top-2 left-full whitespace-nowrap text-xs px-3 py-1">
+    <div className="rounded-md bg-theme-200 text-theme-500 w-fit whitespace-nowrap text-xs px-3 py-1">
       {children}
     </div>
   );

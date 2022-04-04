@@ -156,3 +156,27 @@ export const updateUserDarkTheme = async (toggled: boolean) => {
 
   return response;
 };
+
+export const searchData = async (search: string) => {
+  const token = localStorage.getItem("X-Auth-Token");
+
+  const response = await fetchBackendAsync(
+    `api/user/search?search=${encodeURIComponent(search)}`,
+    "GET",
+    token ? { "X-Auth-Token": token } : {}
+  );
+
+  return response;
+};
+
+export const fetchNotifications = async () => {
+  const token = localStorage.getItem("X-Auth-Token");
+
+  const response = await fetchBackendAsync(
+    `api/user/notifications`,
+    "GET",
+    token ? { "X-Auth-Token": token } : {}
+  );
+
+  return response;
+};

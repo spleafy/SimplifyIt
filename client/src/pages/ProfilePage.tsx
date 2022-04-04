@@ -8,10 +8,10 @@ import Column from "../components/Column";
 import PrimaryButton from "../components/PrimaryButton";
 import SecondaryButton from "../components/SecondaryButton";
 import Loading from "../components/Loading";
+import ProfilePicture from "../components/ProfilePicture";
 // Utils
 import { fecthUserData } from "../utils/api";
 import { followUserAndUpdate, unfollowUserAndUpdate } from "../utils/user";
-import { getColors } from "../utils/utils";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -50,24 +50,9 @@ const ProfilePage = () => {
           {user ? (
             <>
               <Column>
-                <h1>Profile Page</h1>
                 <div className="flex flex-col w-full">
-                  <div
-                    className={`w-[100px] aspect-square rounded-full mt-10 flex justify-center items-center`}
-                    style={{
-                      backgroundColor: user.settings
-                        ? getColors(user.settings.profileColor)[500]
-                        : "#f3f3f3",
-                    }}
-                  >
-                    {user.fullname ? (
-                      <h1 className="text-white">
-                        {user.fullname.split(" ")[0].charAt(0)}
-                        {user.fullname.split(" ")[1].charAt(0)}
-                      </h1>
-                    ) : (
-                      <></>
-                    )}
+                  <div className={`w-[100px]`}>
+                    <ProfilePicture user={user} size="xl" />
                   </div>
                   <h1 className="mt-3">{user ? user.fullname : ""}</h1>
                   <h3 className="text-lg text-slate-600 dark:text-slate-300">
@@ -109,7 +94,7 @@ const ProfilePage = () => {
                   <div className="mt-5 flex gap-5 items-center">
                     {personalProfile ? (
                       <>
-                        <div className="w-[120px]">
+                        <div className="w-[150px]">
                           <SecondaryButton
                             click={() => {
                               navigate("/app/settings/account");
@@ -121,7 +106,7 @@ const ProfilePage = () => {
                       </>
                     ) : (
                       <>
-                        <div className="w-[120px]">
+                        <div className="w-[150px]">
                           {user.followers ? (
                             user.followers.includes(loggedUser._id) ? (
                               <SecondaryButton
@@ -154,7 +139,7 @@ const ProfilePage = () => {
                             <></>
                           )}
                         </div>
-                        <div className="w-[120px]">
+                        <div className="w-[150px]">
                           <SecondaryButton>More</SecondaryButton>
                         </div>
                       </>
@@ -181,7 +166,6 @@ const ProfilePage = () => {
                 </div>
               </Column>
               <Column width="[400px]" minWidth="[400px]">
-                <h1>Friends</h1>
                 {loggedUser.friends && loggedUser.friends.length > 0 ? (
                   <h1>Has Friends</h1>
                 ) : (
