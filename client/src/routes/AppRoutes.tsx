@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { FiSearch, FiBell } from "react-icons/fi";
-// import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 // Redux
-// import { updateUser } from "../redux/userSlice";
+import { updateUser } from "../redux/userSlice";
 // Pages
 import HomePage from "../pages/HomePage";
 import WorkspacePage from "../pages/WorkspacePage";
@@ -15,6 +14,7 @@ import NotFoundPage from "../pages/NotFoundPage";
 import UserRoutes from "./UserRoutes";
 // Components
 import Navigation from "../components/Navigation";
+import NavigationLink from "../components/NavigationLink";
 import TopNavigation from "../components/TopNavigation";
 import Loading from "../components/Loading";
 import SearchPanel from "../components/SearchPanel";
@@ -40,13 +40,15 @@ const AppRoutes = () => {
 
   const [notificationsShown, setNotificationsShown] = useState(false);
 
+  const [accountMenuShown, setAccountMenuShown] = useState(false);
+
   const notifications = useSelector(
     (state: any) => state.notifications.notifications
   );
 
   const loggedUser = useSelector((state: any) => state.user.user);
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   document.addEventListener(
     "keydown",
@@ -60,6 +62,7 @@ const AppRoutes = () => {
       if (e.keyCode === 27) {
         setSearchShown(false);
         setNotificationsShown(false);
+        setAccountMenuShown(false);
       }
     }, 150)
   );
@@ -214,20 +217,49 @@ const AppRoutes = () => {
                           )}
                         </>
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center">
-                          <h1>No notifications!</h1>
+                        <div className="w-full h-[200px] flex items-center justify-center">
+                          <span className="text-slate-700">
+                            No notifications!
+                          </span>
                         </div>
                       )}
                     </Panel>
                   </div>
                 </div>
                 <div
-                  className="w-[35px] cursor-pointer"
+                  className="w-[35px] cursor-pointer relative"
                   onClick={() => {
-                    navigate(`/app/u/${loggedUser.username}`);
+                    setAccountMenuShown(!accountMenuShown);
                   }}
                 >
                   <ProfilePicture user={loggedUser} size="xs" />
+                  <div
+                    className={`${
+                      accountMenuShown ? "flex" : "hidden"
+                    } absolute right-0 top-[50px]`}
+                  >
+                    <Panel width="200px">
+                      <NavigationLink to={`/app/u/${loggedUser.username}`}>
+                        My account
+                      </NavigationLink>
+                      <NavigationLink to={`/app/settings/account`}>
+                        Account settings
+                      </NavigationLink>
+                      <span
+                        className="py-2 flex items-center justify-between transition-colors px-3 text-red-700"
+                        onClick={() => {
+                          localStorage.removeItem("X-Auth-Token");
+                          dispatch(updateUser({}));
+                          document
+                            .querySelector("html")
+                            ?.classList.remove("dark");
+                          navigate("/auth/login");
+                        }}
+                      >
+                        Log out
+                      </span>
+                    </Panel>
+                  </div>
                 </div>
               </div>
             </TopNavigation>

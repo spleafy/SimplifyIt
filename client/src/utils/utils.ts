@@ -27,18 +27,18 @@ export const defineDate = (date: number) => {
     (Date.now() - date) / 3600000 > 1 &&
     (Date.now() - date) / 86400000 < 1
   ) {
-    return `${Number((Date.now() - date) / 3600000)}h`;
+    return `${parseInt(`${(Date.now() - date) / 3600000}`)}h`;
   } else if (
     (Date.now() - date) / 86400000 > 1 &&
     (Date.now() - date) / 2629800000 < 1
   ) {
-    return `${Number((Date.now() - date) / 86400000)}d`;
+    return `${parseInt(`${(Date.now() - date) / 86400000}`)}d`;
   } else if (
     (Date.now() - date) / 2629800000 > 1 &&
     (Date.now() - date) / 31557600000 < 1
   ) {
-    return `${Number((Date.now() - date) / 2629800000)}m`;
+    return `${parseInt(`${(Date.now() - date) / 2629800000}`)}m`;
   } else {
-    return `${Number((Date.now() - date) / 31557600000)}y`;
+    return `${parseInt(`${(Date.now() - date) / 31557600000}`)}y`;
   }
 };
