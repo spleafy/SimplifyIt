@@ -169,13 +169,26 @@ export const searchData = async (search: string) => {
   return response;
 };
 
-export const fetchNotifications = async () => {
+export const fetchUserNotifications = async () => {
   const token = localStorage.getItem("X-Auth-Token");
 
   const response = await fetchBackendAsync(
     `api/user/notifications`,
     "GET",
     token ? { "X-Auth-Token": token } : {}
+  );
+
+  return response;
+};
+
+export const updateNotificationState = async (id: string) => {
+  const token = localStorage.getItem("X-Auth-Token");
+
+  const response = await fetchBackendAsync(
+    `api/user/notifications/state`,
+    "PUT",
+    token ? { "X-Auth-Token": token } : {},
+    { id }
   );
 
   return response;

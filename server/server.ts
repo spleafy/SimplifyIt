@@ -59,6 +59,7 @@ import updateUserAccount from "./api/user/settings/updateUserAccount";
 import updateUserProfileColor from "./api/user/settings/updateUserProfileColor";
 import updateUserThemeColor from "./api/user/settings/updateUserThemeColor";
 import updateUserDarkTheme from "./api/user/settings/updateUserDarkTheme";
+import updateNotificationState from "./api/user/updateNotificationState";
 
 // Api Route
 app.get("/api", fetchApi);
@@ -125,6 +126,13 @@ app.post(
   upload.none(),
   verifyToken,
   updateUserDarkTheme
+);
+
+app.put(
+  "/api/user/notifications/state",
+  upload.none(),
+  verifyToken,
+  updateNotificationState
 );
 
 app.listen(PORT, HOST, () => {

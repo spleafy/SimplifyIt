@@ -4,9 +4,13 @@ const notificationSchema = new mongoose.Schema({
   userID: String,
   type: String,
   message: String,
-  data: mongoose.SchemaTypes.Mixed,
+  data: {
+    username: String,
+    fullname: String,
+    settings: mongoose.SchemaTypes.Mixed,
+  },
   opened: Boolean,
-  date: Date,
+  date: Number,
 });
 
 const Notification = mongoose.model("Notification", notificationSchema);

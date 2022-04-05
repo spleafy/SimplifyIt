@@ -23,15 +23,6 @@ const SearchPanel = ({ shown, setShown }: SearchPanelProps) => {
 
   const searchOptions = ["All", "Tasks", "People", "Chats"];
 
-  document.addEventListener(
-    "keyup",
-    _.debounce((e) => {
-      if (e.keyCode === 27) {
-        setShown(false);
-      }
-    }, 150)
-  );
-
   const { register } = useForm({
     mode: "all",
   });

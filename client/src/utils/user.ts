@@ -1,13 +1,15 @@
 import store from "../redux/store";
 import { userSlice } from "../redux/userSlice";
+import { notificationSlice } from "../redux/notificationSlice";
 // Utils
-import { fecthLoggedUserData } from "./api";
+import { fecthLoggedUserData, fetchUserNotifications } from "./api";
 import {
   followUser,
   unfollowUser,
   updateUserAccountColor,
   updateUserThemeColor,
   updateUserDarkTheme,
+  updateNotificationState,
 } from "./api";
 
 export const updateUserData = async () => {
@@ -16,6 +18,17 @@ export const updateUserData = async () => {
   if (stateUser.username === undefined) {
     const response = await fecthLoggedUserData();
     store.dispatch(userSlice.actions.updateUser(response.data.user));
+  }
+};
+
+export const updateUserNotifications = async () => {
+  const stateNotifications: any = store.getState().notifications.notifications;
+
+  if (stateNotifications.length === 0) {
+    const response = await fetchUserNotifications();
+    store.dispatch(
+      notificationSlice.actions.updateNotifications(response.data.notifications)
+    );
   }
 };
 
@@ -44,4 +57,11 @@ export const updateUserThemeColorAndUpdate = async (color: string) => {
 export const updateUserDarkThemeAndUpdate = async (toggled: boolean) => {
   const response = await updateUserDarkTheme(toggled);
   store.dispatch(userSlice.actions.updateUser(response.data.user));
+};
+
+export const updateNotificationStateAndUpdate = async (id: string) => {
+  const response = await updateNotificationState(id);
+  store.dispatch(
+    notificationSlice.actions.updateNotifications(response.data.notifications)
+  );
 };

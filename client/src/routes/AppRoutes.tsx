@@ -21,9 +21,13 @@ import SearchPanel from "../components/SearchPanel";
 import Panel from "../components/Panel";
 import ProfilePicture from "../components/ProfilePicture";
 // Utils
-import { authToken, fetchNotifications } from "../utils/api";
-import { updateUserData } from "../utils/user";
-import { getColors } from "../utils/utils";
+import { authToken } from "../utils/api";
+import {
+  updateUserData,
+  updateUserNotifications,
+  updateNotificationStateAndUpdate,
+} from "../utils/user";
+import { getColors, defineDate } from "../utils/utils";
 // Lodash
 import _ from "lodash";
 
@@ -36,7 +40,9 @@ const AppRoutes = () => {
 
   const [notificationsShown, setNotificationsShown] = useState(false);
 
-  const [notifications, setNotifications] = useState([]);
+  const notifications = useSelector(
+    (state: any) => state.notifications.notifications
+  );
 
   const loggedUser = useSelector((state: any) => state.user.user);
 
@@ -52,6 +58,7 @@ const AppRoutes = () => {
       }
 
       if (e.keyCode === 27) {
+        setSearchShown(false);
         setNotificationsShown(false);
       }
     }, 150)
@@ -65,23 +72,14 @@ const AppRoutes = () => {
         navigate("/auth");
       } else {
         await updateUserData();
+        await updateUserNotifications();
       }
 
       setLoading(false);
     };
 
     effect();
-  });
-
-  useEffect(() => {
-    const effect = async () => {
-      const response = await fetchNotifications();
-
-      setNotifications(response.data.notifications);
-    };
-
-    effect();
-  }, []);
+  }, [navigate]);
 
   const colors = getColors("all");
 
@@ -135,17 +133,21 @@ const AppRoutes = () => {
                   <div
                     className="flex items-center justify-center text-xl text-slate-700 aspect-square w-[35px] rounded-md transition-colors cursor-pointer hover:bg-slate-200/70"
                     onClick={() => {
-                      setNotificationsShown(true);
+                      setNotificationsShown(!notificationsShown);
                     }}
                   >
                     <FiBell />
-                    {notifications.some(
-                      (notification: any) => notification.opened === false
-                    ) ? (
-                      <>
-                        <div className="aspect-square w-[10px] bg-red-500 rounded-full absolute flex justify-center items-center text-white right-2 bottom-2 border-2 border-white"></div>
-                        <div className="aspect-square w-[10px] bg-red-500 rounded-full animate-ping absolute flex justify-center items-center text-white right-2 bottom-2 border-2 border-white"></div>
-                      </>
+                    {notifications.length > 0 ? (
+                      notifications.some(
+                        (notification: any) => !notification.opened
+                      ) ? (
+                        <>
+                          <div className="aspect-square w-[10px] bg-red-500 rounded-full absolute flex justify-center items-center text-white right-2 bottom-2 border-2 border-white"></div>
+                          <div className="aspect-square w-[10px] bg-red-500 rounded-full animate-ping absolute flex justify-center items-center text-white right-2 bottom-2 border-2 border-white"></div>
+                        </>
+                      ) : (
+                        <></>
+                      )
                     ) : (
                       <></>
                     )}
@@ -160,9 +162,32 @@ const AppRoutes = () => {
                         <>
                           {notifications.map(
                             (notification: any, index: number) => (
-                              <div key={index}>
-                                {notification.type === "Action" ? (
-                                  <div className="w-full flex items-center justify-between text-sm cursor-pointer hover:bg-theme-50 px-3 py-1 rounded-md">
+                              <div
+                                className={`w-full flex items-center text-sm cursor-pointer px-3 py-1 rounded-md mt-2 first:mt-0 ${
+                                  notification.opened
+                                    ? "bg-slate-100"
+                                    : "hover:bg-theme-50"
+                                }`}
+                                key={index}
+                                onClick={async () => {
+                                  if (!notification.opened) {
+                                    await updateNotificationStateAndUpdate(
+                                      notification._id
+                                    );
+                                  }
+
+                                  setNotificationsShown(false);
+                                }}
+                              >
+                                {notification.type === "Follow" ? (
+                                  <div
+                                    className="flex justify-between items-center w-full"
+                                    onClick={() => {
+                                      navigate(
+                                        `/app/u/${notification.data.username}`
+                                      );
+                                    }}
+                                  >
                                     <div className="flex gap-5 items-center">
                                       <div className="w-[35px]">
                                         <ProfilePicture
@@ -170,10 +195,15 @@ const AppRoutes = () => {
                                           size="xs"
                                         />
                                       </div>
-                                      <div>{notification.message}</div>
+                                      <div>
+                                        <strong>
+                                          {notification.data.username}
+                                        </strong>{" "}
+                                        {notification.message}
+                                      </div>
                                     </div>
-                                    <span className="text-slate-700">
-                                      Today
+                                    <span className="text-slate-500">
+                                      {defineDate(notification.date)}
                                     </span>
                                   </div>
                                 ) : (

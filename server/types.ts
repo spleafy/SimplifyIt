@@ -21,7 +21,11 @@ export interface NotificationType {
   userID: string;
   type: string;
   message: string;
-  data: any;
+  data: {
+    username: string;
+    fullname: string;
+    settings: any;
+  };
   opened: boolean;
-  date: any;
+  date: number;
 }
