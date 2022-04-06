@@ -30,7 +30,7 @@ const RegisterPage = () => {
       });
     } else {
       localStorage.setItem("X-Auth-Token", response.data.token);
-      navigate("/app");
+      navigate("/initial-setup");
     }
   };
 
@@ -108,7 +108,7 @@ const RegisterPage = () => {
               Privacy Policy
             </Link>
           </span>
-          <PrimaryButton submit={true}>Register</PrimaryButton>
+          <PrimaryButton submit={true}>Continue</PrimaryButton>
           <span className="block w-full text-center text-slate-400 pt-6 text-sm">
             Already have an account?&nbsp;
             <Link

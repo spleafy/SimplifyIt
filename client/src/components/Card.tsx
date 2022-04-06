@@ -17,7 +17,7 @@ const Card = ({
 }: CardProps) => {
   return (
     <div
-      className={`shadow-[0_0_20px_10px_rgba(0,0,0,0.1)] px-16 py-8 animate-scale bg-white flex flex-col rounded-md ${
+      className={`shadow-[0_0_20px_10px_rgba(0,0,0,0.1)] px-16 py-8 animate-scale bg-white flex flex-col rounded-md overflow-hidden ${
         width ? `w-[${width}]` : "w-full"
       } ${height ? `h-[${height}]` : "h-fit"}`}
     >

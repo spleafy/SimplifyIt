@@ -9,7 +9,8 @@ import ResponseUser from "../../../models/responseUser";
 import { UserType } from "../../../types";
 
 const authRegister = async (req: Request, res: Response) => {
-  const user: UserType = req.body;
+  const user: UserType = new ResponseUser(req.body).getUser();
+
   if (user) {
     const colors: string[] = [
       "slate",
@@ -32,11 +33,18 @@ const authRegister = async (req: Request, res: Response) => {
       "yellow",
     ];
 
-    user.password = await bcrypt.hash(user.password, 10);
-    user.settings = { profileColor: "", themeColor: "blue", darkTheme: false };
+    user.password = await bcrypt.hash(req.body.password, 10);
+    user.settings = {
+      profileColor: "",
+      themeColor: "blue",
+      darkTheme: false,
+      initialSetup: false,
+    };
     user.settings.profileColor =
       colors[Math.floor(Math.random() * colors.length) - 1];
+
     const createdUser = await new User(user).save();
+
     const token = jwt.sign(
       { id: createdUser._id },
       process.env.TOKEN_SECRET as string

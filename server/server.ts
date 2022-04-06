@@ -135,6 +135,12 @@ app.put(
   updateNotificationState
 );
 
+// Workspace Endpoints
+
+import createWorkspace from "./api/workspace/createWorkspace";
+
+app.post("/api/workspace/create", upload.none(), verifyToken, createWorkspace);
+
 app.listen(PORT, HOST, () => {
   console.log(`Server listening on port : http://${HOST}:${PORT}`);
 });
