@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema({
     profileColor: String,
     themeColor: String,
     darkTheme: Boolean,
+    initialSetup: Boolean,
   },
   posts: Array,
 });

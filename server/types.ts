@@ -13,6 +13,7 @@ export interface UserType {
     profileColor: string;
     themeColor: string;
     darkTheme: boolean;
+    initialSetup: boolean;
   };
   posts: [];
 }
@@ -28,4 +29,14 @@ export interface NotificationType {
   };
   opened: boolean;
   date: number;
+}
+
+export interface WorkspaceType {
+  administrators: string[];
+  users: string[];
+  name: string;
+  settings: {
+    allowUsersToCreate: boolean;
+    workspaceColor: string;
+  };
 }

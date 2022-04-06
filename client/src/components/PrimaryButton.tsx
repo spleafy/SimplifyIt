@@ -1,5 +1,5 @@
 import { MouseEventHandler, ReactChild } from "react";
-import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 // Components
 import Loading from "./Loading";
 
@@ -18,18 +18,18 @@ const PrimaryButton = ({
   loading,
   disabled,
 }: PrimaryButtonProps) => {
-  const loggedUser = useSelector((state: any) => state.user.user);
+  const location = useLocation();
 
   return (
     <button
       className={`${
-        loggedUser.settings
+        location.pathname.split("/")[1] === "app"
           ? "bg-theme-500 dark:bg-theme-600"
-          : "bg-primary-400"
+          : "bg-primary-500"
       } ${
-        loggedUser.settings
+        location.pathname.split("/")[1] === "app"
           ? "hover:bg-theme-600 dark:hover:bg-theme-700 disabled:bg-theme-300 dark:disabled:bg-theme-900"
-          : "hover:bg-primary-500"
+          : "hover:bg-primary-600"
       } transition-colors px-8 py-[10px] text-sm text-white rounded-md w-full whitespace-nowrap`}
       type={submit ? "submit" : "button"}
       onClick={click}
