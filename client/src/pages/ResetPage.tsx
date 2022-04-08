@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
 // Components
-import Card from "../components/Card";
+import PopUp from "../components/PopUp";
 import Form from "../components/Form";
 import FormField from "../components/FormField";
 import PrimaryButton from "../components/PrimaryButton";
@@ -47,7 +47,7 @@ const ResetPage = () => {
 
   return (
     <div className="flex justify-center items-center h-full w-full">
-      <Card width="480px" heading="Reset Password">
+      <PopUp width="480px" heading="Reset Password">
         {token ? (
           <Form submit={handleSubmit(submit)}>
             <FormField
@@ -103,7 +103,7 @@ const ResetPage = () => {
             </span>
           </div>
         )}
-      </Card>
+      </PopUp>
     </div>
   );
 };

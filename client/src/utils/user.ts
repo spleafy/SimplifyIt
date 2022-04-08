@@ -1,8 +1,13 @@
 import store from "../redux/store";
 import { userSlice } from "../redux/userSlice";
 import { notificationSlice } from "../redux/notificationSlice";
+import { workspaceSlice } from "../redux/workspaceSlice";
 // Utils
-import { fecthLoggedUserData, fetchUserNotifications } from "./api";
+import {
+  fecthLoggedUserData,
+  fetchUserNotifications,
+  fetchUserWorkspace,
+} from "./api";
 import {
   followUser,
   unfollowUser,
@@ -28,6 +33,17 @@ export const updateUserNotifications = async () => {
     const response = await fetchUserNotifications();
     store.dispatch(
       notificationSlice.actions.updateNotifications(response.data.notifications)
+    );
+  }
+};
+
+export const updateWorkspace = async () => {
+  const stateWorkspace: any = store.getState().workspace.workspace;
+
+  if (!stateWorkspace.name) {
+    const response = await fetchUserWorkspace();
+    store.dispatch(
+      workspaceSlice.actions.updateWorkspace(response.data.workspace)
     );
   }
 };

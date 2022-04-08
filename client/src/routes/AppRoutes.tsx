@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import { FiSearch, FiBell } from "react-icons/fi";
+import { MagnifyingGlass, Bell, Trash } from "phosphor-react";
 import { useSelector, useDispatch } from "react-redux";
 // Redux
 import { updateUser } from "../redux/userSlice";
@@ -8,16 +8,18 @@ import { updateNotifications } from "../redux/notificationSlice";
 // Pages
 import HomePage from "../pages/HomePage";
 import WorkspacePage from "../pages/WorkspacePage";
-import SettingsPage from "../pages/SettingsPage";
 import MessagesPage from "../pages/MessagesPage";
+import PeoplePage from "../pages/PeoplePage";
+import TeamsPage from "../pages/TeamsPage";
 import NotFoundPage from "../pages/NotFoundPage";
-import InitialSetupPage from "../pages/InitialPage";
 // Routes
 import UserRoutes from "./UserRoutes";
+import SettingsRoutes from "./SettingsRoutes";
+import ChallangesRoutes from "./ChallangesRoutes";
 // Components
 import Navigation from "../components/Navigation";
-import NavigationLink from "../components/NavigationLink";
 import TopNavigation from "../components/TopNavigation";
+import NavigationLink from "../components/NavigationLink";
 import Loading from "../components/Loading";
 import SearchPanel from "../components/SearchPanel";
 import Panel from "../components/Panel";
@@ -28,6 +30,7 @@ import {
   updateUserData,
   updateUserNotifications,
   updateNotificationStateAndUpdate,
+  updateWorkspace,
 } from "../utils/user";
 import { getColors, defineDate } from "../utils/utils";
 // Lodash
@@ -78,6 +81,7 @@ const AppRoutes = () => {
       } else {
         await updateUserData();
         await updateUserNotifications();
+        await updateWorkspace();
       }
 
       setLoading(false);
@@ -127,16 +131,16 @@ const AppRoutes = () => {
                   <span className="w-full">Top Navigation</span>
                   <div className="flex justify-center items-center w-full">
                     <div
-                      className="w-[300px] text-slate-600 bg-slate-100 rounded-md py-2 px-3 flex items-center justify-between gap-3 text-sm cursor-pointer transition-colors hover:text-theme-500"
+                      className="w-[300px] text-slate-600 bg-slate-100 dark:bg-slate-800 dark:text-white rounded-md py-2 px-3 flex items-center justify-between gap-3 text-sm cursor-pointer transition-colors hover:text-theme-500"
                       onClick={() => {
                         setSearchShown(true);
                       }}
                     >
                       <div className="flex gap-3 items-center">
-                        <FiSearch />
+                        <MagnifyingGlass />
                         Search
                       </div>
-                      <div className="px-2 py-1 text-xs bg-gray-200 rounded-md text-slate-800">
+                      <div className="px-2 py-1 text-xs bg-gray-200/60 rounded-md text-slate-800 dark:bg-gray-700 dark:text-slate-200">
                         Shift + S
                       </div>
                     </div>
@@ -144,19 +148,19 @@ const AppRoutes = () => {
                   <div className="flex items-center w-full justify-end gap-5">
                     <div className="relative">
                       <div
-                        className="flex items-center justify-center text-xl text-slate-700 aspect-square w-[35px] rounded-md transition-colors cursor-pointer hover:bg-slate-200/70"
+                        className="flex items-center justify-center text-xl text-slate-600 aspect-square w-[35px] rounded-md transition-colors cursor-pointer hover:bg-slate-200/70 dark:text-slate-200 dark:hover:bg-slate-800"
                         onClick={() => {
                           setNotificationsShown(!notificationsShown);
                         }}
                       >
-                        <FiBell />
+                        <Bell />
                         {notifications.length > 0 ? (
                           notifications.some(
                             (notification: any) => !notification.opened
                           ) ? (
                             <>
-                              <div className="aspect-square w-[10px] bg-red-500 rounded-full absolute flex justify-center items-center text-white right-2 bottom-2 border-2 border-white"></div>
-                              <div className="aspect-square w-[10px] bg-red-500 rounded-full animate-ping absolute flex justify-center items-center text-white right-2 bottom-2 border-2 border-white"></div>
+                              <div className="aspect-square w-[10px] bg-red-500 rounded-full absolute flex justify-center items-center text-white right-[6px] bottom-[6px] border-2 border-white"></div>
+                              <div className="aspect-square w-[10px] bg-red-500 rounded-full animate-ping absolute flex justify-center items-center text-white right-[6px] bottom-[6px] border-2 border-white"></div>
                             </>
                           ) : (
                             <></>
@@ -176,11 +180,7 @@ const AppRoutes = () => {
                               {notifications.map(
                                 (notification: any, index: number) => (
                                   <div
-                                    className={`w-full flex items-center text-sm cursor-pointer px-3 py-1 rounded-md mt-2 first:mt-0 ${
-                                      notification.opened
-                                        ? "bg-slate-100"
-                                        : "hover:bg-theme-50"
-                                    }`}
+                                    className={`w-full flex items-center text-sm cursor-pointer px-3 py-1 rounded-md mt-2 first:mt-0 relative`}
                                     key={index}
                                     onClick={async () => {
                                       if (!notification.opened) {
@@ -192,6 +192,13 @@ const AppRoutes = () => {
                                       setNotificationsShown(false);
                                     }}
                                   >
+                                    <div
+                                      className={`absolute left-0 top-50 w-[5px] h-[5px] rounded-full aspect-square bg-theme-400 ${
+                                        !notification.opened ? "flex" : "hidden"
+                                      }`}
+                                    >
+                                      <div className="w-full h-full rounded-full bg-theme-400 animate-ping"></div>
+                                    </div>
                                     {notification.type === "Follow" ? (
                                       <div
                                         className="flex justify-between items-center w-full"
@@ -212,7 +219,7 @@ const AppRoutes = () => {
                                             <strong>
                                               {notification.data.username}
                                             </strong>{" "}
-                                            {notification.message}
+                                            started following you!
                                           </div>
                                         </div>
                                         <span className="text-slate-500">
@@ -222,6 +229,9 @@ const AppRoutes = () => {
                                     ) : (
                                       <></>
                                     )}
+                                    <div className="ml-2 text-base hover:text-red-500 hover:bg-slate-100/50 dark:hover:bg-slate-700 p-1 rounded-md transition-colors">
+                                      <Trash />
+                                    </div>
                                   </div>
                                 )
                               )}
@@ -249,14 +259,20 @@ const AppRoutes = () => {
                         } absolute right-0 top-[50px]`}
                       >
                         <Panel width="200px">
-                          <NavigationLink to={`/app/u/${loggedUser.username}`}>
-                            My account
+                          <NavigationLink
+                            to={`/app/u/${loggedUser.username}`}
+                            variant={"basic"}
+                          >
+                            My Account
                           </NavigationLink>
-                          <NavigationLink to={`/app/settings/account`}>
-                            Account settings
+                          <NavigationLink
+                            to={`/app/settings/account`}
+                            variant={"basic"}
+                          >
+                            My Settings
                           </NavigationLink>
                           <span
-                            className="py-2 flex items-center justify-between transition-colors px-3 text-red-700"
+                            className="py-2 flex items-center justify-between transition-colors px-3 text-red-700 dark:text-red-700"
                             onClick={() => {
                               localStorage.removeItem("X-Auth-Token");
                               dispatch(updateUser({}));
@@ -280,8 +296,10 @@ const AppRoutes = () => {
                     <Route path="home" element={<HomePage />} />
                     <Route path="workspace" element={<WorkspacePage />} />
                     <Route path="messages" element={<MessagesPage />} />
-                    <Route path="initial" element={<InitialSetupPage />} />
-                    <Route path="settings/*" element={<SettingsPage />} />
+                    <Route path="people" element={<PeoplePage />} />
+                    <Route path="teams" element={<TeamsPage />} />
+                    <Route path="challanges/*" element={<ChallangesRoutes />} />
+                    <Route path="settings/*" element={<SettingsRoutes />} />
                     <Route path="u/*" element={<UserRoutes />} />
                     <Route path="*" element={<NotFoundPage />} />
                   </Routes>

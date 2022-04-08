@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 // Components
-import Card from "../components/Card";
+import PopUp from "../components/PopUp";
 import Form from "../components/Form";
 import FormField from "../components/FormField";
 import PrimaryButton from "../components/PrimaryButton";
@@ -38,7 +38,7 @@ const ForgotPage = () => {
   return (
     <div className="flex justify-center items-center h-full w-full">
       {!sentEmail ? (
-        <Card width="480px" heading="Hope we can help!">
+        <PopUp width="480px" heading="Hope we can help!">
           <Form submit={handleSubmit(submit)}>
             <FormField
               name="email"
@@ -65,9 +65,9 @@ const ForgotPage = () => {
               </Link>
             </span>
           </Form>
-        </Card>
+        </PopUp>
       ) : (
-        <Card width="480px" heading="We sent you an email!">
+        <PopUp width="480px" heading="We sent you an email!">
           <h2 className="text-md mb-8 mt-3 text-slate-700 text-center">
             If you don't find the email, check the junk folder!
           </h2>
@@ -80,7 +80,7 @@ const ForgotPage = () => {
               Login Now
             </Link>
           </span>
-        </Card>
+        </PopUp>
       )}
     </div>
   );

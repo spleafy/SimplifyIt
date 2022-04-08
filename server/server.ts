@@ -138,8 +138,11 @@ app.put(
 // Workspace Endpoints
 
 import createWorkspace from "./api/workspace/createWorkspace";
+import getWorkspace from "./api/workspace/getWorkspace";
 
 app.post("/api/workspace/create", upload.none(), verifyToken, createWorkspace);
+
+app.get("/api/workspace", verifyToken, getWorkspace);
 
 app.listen(PORT, HOST, () => {
   console.log(`Server listening on port : http://${HOST}:${PORT}`);

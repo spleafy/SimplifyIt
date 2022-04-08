@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { FiArrowLeft } from "react-icons/fi";
+import { ArrowLeft } from "phosphor-react";
 // Pages
 import NotFoundPage from "../NotFoundPage";
 //Components
@@ -45,7 +45,7 @@ const FollowersPage = () => {
         <>
           <Column>
             <div className="flex items-center gap-5">
-              <FiArrowLeft
+              <ArrowLeft
                 size={24}
                 className="cursor-pointer stroke-slate-700 dark:stroke-slate-300"
                 onClick={() => {

@@ -26,7 +26,6 @@ const followUser = async (req: Request | any, res: Response) => {
       await new Notification({
         userID: user._id,
         type: "Follow",
-        message: `started following you!`,
         data: new ResponseUser(loggedUser).getUser(),
         opened: false,
         date: Date.now(),

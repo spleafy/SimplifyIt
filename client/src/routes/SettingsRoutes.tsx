@@ -1,15 +1,13 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 // Pages
-import AccountPage from "./settings/AccountPage";
-import NotFoundPage from "./NotFoundPage";
+import AccountSettingsPage from "../pages/settings/AccountSettingsPage";
+import NotFoundPage from "../pages/NotFoundPage";
 // Components
 import Column from "../components/Column";
 import NavigationLink from "../components/NavigationLink";
 import TopNavigation from "../components/TopNavigation";
-import PrimaryButton from "../components/PrimaryButton";
-import SecondaryButton from "../components/SecondaryButton";
 
-const SettingsPage = () => {
+const SettingsRoutes = () => {
   document.title = `Settings / ${process.env.REACT_APP_TITLE}`;
 
   return (
@@ -22,19 +20,18 @@ const SettingsPage = () => {
           <NavigationLink to={"security"} variant={"bordered"}>
             Security
           </NavigationLink>
-          <NavigationLink to={"application"} variant={"bordered"}>
-            Application
+          <NavigationLink to={"notifications"} variant={"bordered"}>
+            Notifications
           </NavigationLink>
-        </div>
-        <div className="flex gap-5 h-10">
-          <PrimaryButton>Save Changes</PrimaryButton>
-          <SecondaryButton>Reset Changes</SecondaryButton>
+          <NavigationLink to={"sounds"} variant={"bordered"}>
+            Sounds
+          </NavigationLink>
         </div>
       </TopNavigation>
       <Column>
         <Routes>
           <Route path="/" element={<Navigate to={"account"} />} />
-          <Route path="account" element={<AccountPage />} />
+          <Route path="account" element={<AccountSettingsPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Column>
@@ -42,4 +39,4 @@ const SettingsPage = () => {
   );
 };
 
-export default SettingsPage;
+export default SettingsRoutes;

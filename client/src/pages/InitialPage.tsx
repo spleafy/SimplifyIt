@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // Components
-import Card from "../components/Card";
+import PopUp from "../components/PopUp";
 import Form from "../components/Form";
 import FormField from "../components/FormField";
 import PrimaryButton from "../components/PrimaryButton";
@@ -15,6 +15,7 @@ import { updateUserData } from "../utils/user";
 import { authToken } from "../utils/api";
 // Redux
 import { updateUser } from "../redux/userSlice";
+import { updateWorkspace } from "../redux/workspaceSlice";
 
 const InitialSetupPage = () => {
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ const InitialSetupPage = () => {
 
     if (response.status === 200) {
       dispatch(updateUser(response.data.user));
+      dispatch(updateWorkspace(response.data.workspace));
       navigate("/app/home");
     }
   };
@@ -77,7 +79,7 @@ const InitialSetupPage = () => {
 
   return (
     <div className="w-full h-full flex justify-center items-center">
-      <Card heading="Let's setup your workspace" width="480px">
+      <PopUp heading="Let's setup your workspace" width="480px">
         <Form submit={handleSubmit(submit)}>
           <FormField
             register={register}
@@ -120,7 +122,7 @@ const InitialSetupPage = () => {
           <input type="text" {...register("color")} className="hidden" />
           <PrimaryButton submit={true}>Create</PrimaryButton>
         </Form>
-      </Card>
+      </PopUp>
     </div>
   );
 };

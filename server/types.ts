@@ -21,7 +21,6 @@ export interface UserType {
 export interface NotificationType {
   userID: string;
   type: string;
-  message: string;
   data: {
     username: string;
     fullname: string;

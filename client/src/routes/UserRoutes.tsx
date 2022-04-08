@@ -11,15 +11,13 @@ const UserRoutes = () => {
 
   return (
     <>
-      <main>
-        <Routes>
-          <Route path="/" element={<Navigate to={loggedUser.username} />} />
-          <Route path=":username" element={<ProfilePage />} />
-          <Route path=":username/followers" element={<FollowersPage />} />
-          <Route path=":username/following" element={<FollowingPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </main>
+      <Routes>
+        <Route path="/" element={<Navigate to={loggedUser.username} />} />
+        <Route path=":username" element={<ProfilePage />} />
+        <Route path=":username/followers" element={<FollowersPage />} />
+        <Route path=":username/following" element={<FollowingPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
     </>
   );
 };

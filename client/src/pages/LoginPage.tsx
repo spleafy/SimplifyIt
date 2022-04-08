@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 // Components
-import Card from "../components/Card";
+import PopUp from "../components/PopUp";
 import Form from "../components/Form";
 import FormField from "../components/FormField";
 import PrimaryButton from "../components/PrimaryButton";
@@ -43,7 +43,7 @@ const LoginPage = () => {
 
   return (
     <div className="flex justify-center items-center h-full w-full">
-      <Card width="480px" heading="Welcome back!">
+      <PopUp width="480px" heading="Welcome back!">
         <Form submit={handleSubmit(submit)}>
           <FormField
             name="username"
@@ -90,7 +90,7 @@ const LoginPage = () => {
             </Link>
           </span>
         </Form>
-      </Card>
+      </PopUp>
     </div>
   );
 };
