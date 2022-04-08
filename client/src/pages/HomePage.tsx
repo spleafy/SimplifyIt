@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import Column from "../components/Column";
 import SecondaryButton from "../components/SecondaryButton";
 import PrimaryButton from "../components/PrimaryButton";
-import Card from "../components/Card";
+import PopUp from "../components/PopUp";
 import Form from "../components/Form";
 import FormField from "../components/FormField";
 import SelectFormField from "../components/SelectFormField";
@@ -45,7 +45,7 @@ const HomePage = () => {
           <SecondaryButton>Secondary</SecondaryButton>
         </div>
         <div className="mt-5">
-          <Card width="480px" heading="Test Form">
+          <PopUp width="480px" heading="Test Form">
             <Form submit={handleSubmit(() => {})}>
               <FormField
                 name="field"
@@ -57,7 +57,19 @@ const HomePage = () => {
               />
               <PrimaryButton submit={true}>Submit</PrimaryButton>
             </Form>
-          </Card>
+          </PopUp>
+        </div>
+        <div className="mt-5 w-[300px]">
+          <SelectFormField
+            name="test"
+            label="Test Field"
+            placeholder="Test"
+            register={register}
+            error={{}}
+            setValue={setValue}
+            getValues={getValues}
+            options={["Ivan", "Gosho", "Martin"]}
+          />
         </div>
         <div className="w-[300px] mt-5">
           <FormField
@@ -86,21 +98,9 @@ const HomePage = () => {
           <Label>Label</Label>
         </div>
         <div className="mt-5">
-          <Card width="480px" heading="Card Heading">
-            <span>Card</span>
-          </Card>
-        </div>
-        <div className="mt-5 w-[300px]">
-          <SelectFormField
-            name="test"
-            label="Test Field"
-            placeholder="Test"
-            register={register}
-            error={{}}
-            setValue={setValue}
-            getValues={getValues}
-            options={["Ivan", "Gosho", "Martin"]}
-          />
+          <PopUp width="480px" heading="PopUp Heading">
+            <span>PopUp</span>
+          </PopUp>
         </div>
       </Column>
       <Column width="[400px]" minWidth="[400px]">

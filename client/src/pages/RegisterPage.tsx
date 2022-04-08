@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 // Components
 import Form from "../components/Form";
 import FormField from "../components/FormField";
-import Card from "../components/Card";
+import PopUp from "../components/PopUp";
 import PrimaryButton from "../components/PrimaryButton";
 // Utils
 import { submitForm } from "../utils/form";
@@ -45,7 +45,7 @@ const RegisterPage = () => {
 
   return (
     <div className="flex justify-center items-center h-full w-full">
-      <Card width="480px" heading="Happy to see you!">
+      <PopUp width="480px" heading="Happy to see you!">
         <Form submit={handleSubmit(submit)}>
           <FormField
             name="fullname"
@@ -119,7 +119,7 @@ const RegisterPage = () => {
             </Link>
           </span>
         </Form>
-      </Card>
+      </PopUp>
     </div>
   );
 };

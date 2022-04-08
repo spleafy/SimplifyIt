@@ -1,37 +1,21 @@
 import { ReactElement } from "react";
 
 interface CardProps {
-  heading?: string;
-  alignHeading?: string;
   children: ReactElement | HTMLElement | ReactElement[] | HTMLElement[];
   width?: string;
   height?: string;
+  className?: string;
 }
 
-const Card = ({
-  heading,
-  alignHeading,
-  children,
-  width,
-  height,
-}: CardProps) => {
+const Card = ({ children, width, height, className }: CardProps) => {
   return (
     <div
-      className={`shadow-[0_0_20px_10px_rgba(0,0,0,0.1)] px-16 py-8 animate-scale bg-white flex flex-col rounded-md overflow-hidden ${
-        width ? `w-[${width}]` : "w-full"
-      } ${height ? `h-[${height}]` : "h-fit"}`}
+      className={`bg-white dark:bg-slate-800 dark:text-white rounded-md shadow-md overflow-hidden max-w-[1400px] ${className}`}
+      style={{
+        width: width ? width : "fit-content",
+        height: height ? height : "fit-content",
+      }}
     >
-      {heading ? (
-        <div
-          className={`mb-8 mt-3 ${
-            alignHeading === "left" ? "text-left" : "text-center"
-          }`}
-        >
-          <h1>{heading}</h1>
-        </div>
-      ) : (
-        ""
-      )}
       {children}
     </div>
   );

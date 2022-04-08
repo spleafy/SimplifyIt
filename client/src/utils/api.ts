@@ -193,3 +193,15 @@ export const updateNotificationState = async (id: string) => {
 
   return response;
 };
+
+export const fetchUserWorkspace = async () => {
+  const token = localStorage.getItem("X-Auth-Token");
+
+  const response = await fetchBackendAsync(
+    `api/workspace`,
+    "GET",
+    token ? { "X-Auth-Token": token } : {}
+  );
+
+  return response;
+};

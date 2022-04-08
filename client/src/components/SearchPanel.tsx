@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { FiX } from "react-icons/fi";
+import { X } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 // Components
 import ProfilePicture from "./ProfilePicture";
+import Panel from "./Panel";
 // Utils
 import { searchData } from "../utils/api";
 // Lodash
@@ -21,7 +22,7 @@ const SearchPanel = ({ shown, setShown }: SearchPanelProps) => {
 
   const [searchResponse, setSearchResponse]: any = useState([]);
 
-  const searchOptions = ["All", "Tasks", "People", "Chats"];
+  const searchOptions = ["All", "Workspaces", "Tasks", "People", "Chats"];
 
   const { register } = useForm({
     mode: "all",
@@ -36,7 +37,7 @@ const SearchPanel = ({ shown, setShown }: SearchPanelProps) => {
       <div
         className={`fixed w-full h-full flex justify-center items-center bg-gray-900/50 z-20 top-0 left-0`}
       >
-        <div
+        <Panel
           className={`w-[650px] bg-white px-7 py-6 rounded-md flex items-start flex-col`}
         >
           <div className="flex justify-between w-full items-center gap-5">
@@ -52,7 +53,7 @@ const SearchPanel = ({ shown, setShown }: SearchPanelProps) => {
               autoComplete={"off"}
             />
 
-            <FiX
+            <X
               size={32}
               className="cursor-pointer text-slate-700"
               onClick={() => {
@@ -64,10 +65,10 @@ const SearchPanel = ({ shown, setShown }: SearchPanelProps) => {
             <div className="flex gap-5 items-center">
               {searchOptions.map((message, index) => (
                 <div
-                  className={`px-5 py-1 rounded-md mt-5 cursor-pointer transition-colors ${
+                  className={`px-5 py-1 rounded-md mt-5 cursor-pointer transition-colors dark:text-white ${
                     searchParams === message
                       ? "bg-theme-500 text-white"
-                      : "text-slate-800 hover:bg-theme-100"
+                      : "text-slate-800 hover:bg-theme-100 dark:hover:bg-transparent dark:hover:text-theme-500"
                   }`}
                   onClick={() => {
                     setSearchParams(message);
@@ -100,7 +101,7 @@ const SearchPanel = ({ shown, setShown }: SearchPanelProps) => {
           ) : (
             <></>
           )}
-        </div>
+        </Panel>
       </div>
     </>
   );

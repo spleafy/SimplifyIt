@@ -1,5 +1,5 @@
 import { ReactElement, useState } from "react";
-import { FiChevronDown } from "react-icons/fi";
+import { CaretDown } from "phosphor-react";
 
 interface FormFieldProps {
   name: string;
@@ -31,7 +31,12 @@ const SelectFormField = ({
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className={`flex flex-col relative ${className ? className : "mb-5"}`}>
+    <div
+      className={`flex flex-col relative ${className ? className : "mb-5"}`}
+      onMouseLeave={() => {
+        setExpanded(false);
+      }}
+    >
       {label ? (
         <label
           htmlFor={name}
@@ -65,13 +70,13 @@ const SelectFormField = ({
             <span className="text-gray-400">{placeholder}</span>
           )}
         </span>
-        <FiChevronDown className="stroke-gray-400" />
+        <CaretDown className="stroke-gray-400" />
       </div>
 
       <div
         className={`absolute ${
           expanded ? "flex" : "hidden"
-        } flex-col w-full border-[1px] rounded-md border-slate-200 top-[75px] bg-white max-h-[200px] overflow-y-auto`}
+        } flex-col w-full border-[1px] rounded-md border-slate-200 top-[75px] bg-white max-h-[200px] overflow-y-auto animate-slideTop`}
       >
         {options?.map((option: string, index: number) => (
           <div
