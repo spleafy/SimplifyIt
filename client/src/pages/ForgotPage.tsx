@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 // Components
 import PopUp from "../components/PopUp";
-import Form from "../components/Form";
-import FormField from "../components/FormField";
+import Form from "../components/form/Form";
+import TextFormField from "../components/form/TextFormField";
 import PrimaryButton from "../components/PrimaryButton";
 // Utils
 import { submitForm } from "../utils/form";
@@ -15,18 +15,36 @@ import {
 } from "../utils/validators";
 
 const ForgotPage = () => {
+  /**
+   * Document title
+   * @description Setting the document title
+   */
   document.title = `Forgot / ${process.env.REACT_APP_TITLE}`;
 
+  /**
+   * Email sent state
+   * @description Creating a useState variable, so we can toggle the state of the page if the email was sent successfuly
+   */
   const [sentEmail, setSentEmail] = useState(false);
 
+  /**
+   * Submit method
+   * @description Creating a submit method for the onSubmit event of the form
+   */
   const submit = async (values: any) => {
+    // Submit the form and await the response
     const response = await submitForm(values, "user/auth/forgot");
 
+    // If the response is 202, set the email sent state to true
     if (response.status === 202) {
       setSentEmail(true);
     }
   };
 
+  /**
+   * useForm hook deconstruction
+   * @description Deconstructing the useForm hook
+   */
   const {
     register,
     handleSubmit,
@@ -40,7 +58,7 @@ const ForgotPage = () => {
       {!sentEmail ? (
         <PopUp width="480px" heading="Hope we can help!">
           <Form submit={handleSubmit(submit)}>
-            <FormField
+            <TextFormField
               name="email"
               placeholder="Enter email:"
               label="Email:"

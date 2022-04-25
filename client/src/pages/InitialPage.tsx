@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // Components
 import PopUp from "../components/PopUp";
-import Form from "../components/Form";
-import FormField from "../components/FormField";
+import Form from "../components/form/Form";
+import TextFormField from "../components/form/TextFormField";
 import PrimaryButton from "../components/PrimaryButton";
 // Utils
 import { validateRequired } from "../utils/validators";
@@ -18,10 +18,22 @@ import { updateUser } from "../redux/userSlice";
 import { updateWorkspace } from "../redux/workspaceSlice";
 
 const InitialSetupPage = () => {
+  /**
+   * Navigate method
+   * @description Creating a navigate method from the useNavigate hook, so we can navigate through the app
+   */
   const navigate = useNavigate();
 
+  /**
+   * Dispatch method
+   * @description Crating a dispatch method from the useDispatch hook, so we can update the redux store
+   */
   const dispatch = useDispatch();
 
+  /**
+   * useForm deconstruction
+   * @description Deconstructing the useForm hook
+   */
   const {
     register,
     handleSubmit,
@@ -32,11 +44,18 @@ const InitialSetupPage = () => {
     mode: "all",
   });
 
+  /**
+   * Submit method
+   * @descritpion Creating a submit method for the form onSubmit method
+   */
   const submit = async (values: any) => {
+    // Getting the token from the local storage
     const token = localStorage.getItem("X-Auth-Token");
 
+    // Submitting the form and awaiting the response
     const response = await submitForm(values, "workspace/create", token);
 
+    // If the response is 200, update the user and update the workspace in the redux store, then navigate the user to the home page of the app
     if (response.status === 200) {
       dispatch(updateUser(response.data.user));
       dispatch(updateWorkspace(response.data.workspace));
@@ -44,23 +63,47 @@ const InitialSetupPage = () => {
     }
   };
 
+  /**
+   * Logged user
+   * @description Getting the logged user from the redux store
+   */
   const loggedUser = useSelector((state: any) => state.user.user);
 
+  /**
+   * Workspace color state
+   * @description Creating a useState variable, so we can set the workspace color
+   */
   const [workspaceColor, setWorkspaceColor] = useState("slate");
 
+  /**
+   * Tailwind colors
+   * @constant
+   * @description Get all colors from the custom getColors method in utils/utils.ts
+   */
   const colors = getColors("all");
 
+  /**
+   * useEffect hook
+   * @description Creating a useEffect hook
+   */
   useEffect(() => {
+    // Reseting the form values, when we get the user back from the redux store
     reset({
       name: loggedUser.username ? `${loggedUser.username}'s Workspace` : "",
       color: "slate",
     });
   }, [reset, loggedUser]);
 
+  /**
+   * useEffect hook
+   * @description Creating a useEffect hook
+   */
   useEffect(() => {
     const effect = async () => {
+      // Authenticating the token
       const response = await authToken();
 
+      // If the token is not valid, we navigate the user to the authentication pages, if it is valid we update the user data
       if (response.status !== 200) {
         navigate("/auth");
       } else {
@@ -71,7 +114,12 @@ const InitialSetupPage = () => {
     effect();
   }, [navigate]);
 
+  /**
+   * useEffect hook
+   * @description Creating a useEffect hook
+   */
   useEffect(() => {
+    // If the logged user has passed the initial setup, he will be navigated to the home page
     if (loggedUser.settings && loggedUser.settings.initialSetup) {
       navigate("/app/home");
     }
@@ -81,7 +129,7 @@ const InitialSetupPage = () => {
     <div className="w-full h-full flex justify-center items-center">
       <PopUp heading="Let's setup your workspace" width="480px">
         <Form submit={handleSubmit(submit)}>
-          <FormField
+          <TextFormField
             register={register}
             label="Workspace name:"
             name="name"

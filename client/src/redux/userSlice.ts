@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+/**
+ * User slice
+ * @description Exporting the userSlice
+ */
 export const userSlice = createSlice({
   name: "user",
   initialState: {
@@ -12,7 +16,14 @@ export const userSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
+/**
+ * userSlice actions
+ * @description Exporting the deconstructed actions from the userSlice
+ */
 export const { updateUser } = userSlice.actions;
 
+/**
+ * userSlice reducer
+ * @description Exporting the whole reducer from the userSlice
+ */
 export default userSlice.reducer;

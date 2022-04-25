@@ -10,6 +10,17 @@ interface SecondaryButtonProps {
   variant?: string;
 }
 
+/**
+ * SecondaryButton Params
+ * @param {Object} props
+ * @param {any} props.children The children of the button
+ * @param {boolean=} props.submit The submit boolean for changing the type of the button from "button" to type "submit"
+ * @param {any=} props.click The function for the onClick event
+ * @param {boolean=} props.loading The loading boolean to toggle the loading state of the button
+ * @param {string=} props.variant The variant of the second button
+ * @returns Element
+ */
+
 const SecondaryButton = ({
   children,
   submit,

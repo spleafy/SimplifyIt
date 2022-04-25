@@ -8,6 +8,16 @@ interface NavigationLinkProps {
   variant?: string;
 }
 
+/**
+ * NavigationLink Params
+ * @param {Object} props
+ * @param {string} props.to The location that the link would redirect to
+ * @param {any} props.children The children of the element
+ * @param {string=} props.className The additional classes for styling the component
+ * @param {string=} props.variant The variant of the navigation link
+ * @returns Element
+ */
+
 const NavigationLink = ({
   to,
   children,

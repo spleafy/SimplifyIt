@@ -6,6 +6,9 @@ export default class ResponseUser {
     fullname: string;
     email: string;
     username: string;
+    jobtitle?: string;
+    website?: string;
+    location?: string;
     friends: string[];
     followers: string[];
     following: string[];
@@ -20,6 +23,9 @@ export default class ResponseUser {
     fullname: string;
     email: string;
     username: string;
+    jobtitle?: string;
+    website?: string;
+    location?: string;
     friends: string[];
     followers: string[];
     following: string[];
@@ -34,6 +40,9 @@ export default class ResponseUser {
         fullname: user.fullname,
         email: user.email,
         username: user.username,
+        jobtitle: user.jobtitle,
+        website: user.website,
+        location: user.location,
         friends: user.friends,
         followers: user.followers,
         following: user.following,
@@ -51,6 +60,9 @@ export default class ResponseUser {
       fullname: this.user?.fullname,
       email: this.user?.email,
       username: this.user?.username,
+      jobtitle: this.user?.jobtitle,
+      website: this.user?.website,
+      location: this.user?.location,
       friends: this.user?.friends,
       followers: this.user?.followers,
       following: this.user?.following,

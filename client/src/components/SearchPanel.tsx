@@ -15,18 +15,61 @@ interface SearchPanelProps {
   setShown: any;
 }
 
+/**
+ * SearchPanel Params
+ * @param {Object} props
+ * @param {boolean} props.shown The boolean for toggling the state of the search panel
+ * @param {any} props.setShown The useState hook for toggling the shown state
+ * @returns Element
+ */
+
 const SearchPanel = ({ shown, setShown }: SearchPanelProps) => {
+  /**
+   * Navigate Method
+   * @constant
+   * @description Creating a navigate method, so we can navigate through the application.
+   */
+
   const navigate = useNavigate();
+
+  /**
+   * Search params State
+   * @default All
+   * @description Creating a useState variable, so we can have filtered search, based on the user choice.
+   */
 
   const [searchParams, setSearchParams] = useState("All");
 
+  /**
+   * Search response state
+   * @default []
+   * @description Creating a useState variable, so we can set the response.
+   */
+
   const [searchResponse, setSearchResponse]: any = useState([]);
 
+  /**
+   * Search options array
+   * @constant
+   * @description Search options array, which will be displayed in the search panel.
+   */
+
   const searchOptions = ["All", "Workspaces", "Tasks", "People", "Chats"];
+
+  /**
+   * UseForm hook deconstruction
+   * @constant
+   * @description Deconstructing the useForm hook into variables
+   */
 
   const { register } = useForm({
     mode: "all",
   });
+
+  /**
+   * UseEffect hook
+   * @description Focuses the search input upon component creation.
+   */
 
   useEffect(() => {
     document.getElementsByName("search")[0]?.focus();
@@ -41,17 +84,20 @@ const SearchPanel = ({ shown, setShown }: SearchPanelProps) => {
           className={`w-[650px] bg-white px-7 py-6 rounded-md flex items-start flex-col`}
         >
           <div className="flex justify-between w-full items-center gap-5">
-            <input
-              {...register("search")}
-              type="text"
-              className="text-2xl w-full"
-              placeholder="Search..."
+            <form
               onChange={_.debounce(async (e) => {
                 const response = await searchData(e.target.value);
                 setSearchResponse(response.data.user);
               }, 300)}
-              autoComplete={"off"}
-            />
+            >
+              <input
+                {...register("search")}
+                type="text"
+                className="text-2xl w-full"
+                placeholder="Search..."
+                autoComplete={"off"}
+              />
+            </form>
 
             <X
               size={32}

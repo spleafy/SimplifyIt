@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+/**
+ * Workspace slice
+ * @description Exporting the workspaceSlice
+ */
 export const workspaceSlice = createSlice({
   name: "workspace",
   initialState: {
@@ -12,7 +16,14 @@ export const workspaceSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
+/**
+ * workspaceSlice actions
+ * @description Exporting the deconstructed actions from the workspaceSlice
+ */
 export const { updateWorkspace } = workspaceSlice.actions;
 
+/**
+ * workspaceSlice reducer
+ * @description Exporting the whole reducer from the workspaceSlice
+ */
 export default workspaceSlice.reducer;

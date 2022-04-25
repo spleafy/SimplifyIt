@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+/**
+ * Notification slice
+ * @description Exporting the notificationSlice
+ */
 export const notificationSlice = createSlice({
   name: "notifications",
   initialState: {
@@ -13,7 +17,14 @@ export const notificationSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
+/**
+ * notificationSlice actions
+ * @description Exporting the deconstructed actions from the notificationSlice
+ */
 export const { updateNotifications } = notificationSlice.actions;
 
+/**
+ * notificationSlice reducer
+ * @description Exporting the whole reducer from the notificationSlice
+ */
 export default notificationSlice.reducer;

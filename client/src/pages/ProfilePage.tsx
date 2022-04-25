@@ -11,32 +11,68 @@ import Loading from "../components/Loading";
 import ProfilePicture from "../components/ProfilePicture";
 // Utils
 import { fecthUserData } from "../utils/api";
-import { followUserAndUpdate, unfollowUserAndUpdate } from "../utils/user";
+import { addFriendAndUpdate, removeFriendAndUpdate } from "../utils/user";
 
 const ProfilePage = () => {
+  /**
+   * Navigate method
+   * @description Creating a navigate method, so we can navigate through the app
+   */
   const navigate = useNavigate();
 
+  /**
+   * Username
+   * @description Getting the username query param
+   */
   const { username } = useParams();
 
+  /**
+   * Logged user
+   * @description Getting the logged user from the redux store
+   */
   const loggedUser = useSelector((state: any) => state.user.user);
 
+  /**
+   * Loading state
+   * @description Creating a useState variable, so we can toggle the loading state of the page
+   */
   const [loading, setLoading]: any = useState(false);
 
+  /**
+   * User state
+   * @description Creating a useState variable, so we can toggle the user, if the wanted username is the same as the logged user's username, then we set the user to be the logged user
+   */
   const [user, setUser]: any = useState({});
 
+  /**
+   * Personal profile state
+   * @description Creating a useState variable, so we can toggle between a personal profile page and a non personal page
+   */
   const [personalProfile, setPersonalProfile] = useState(false);
 
+  /**
+   * UseEffect hook
+   * @description Creating a useEffect hook
+   */
   useEffect(() => {
     const effect = async () => {
+      // Setting the loading state to true
       setLoading(true);
+      // Checking to see if the logged user's username is the same as the wanted username
       if (loggedUser.username === username) {
+        // Setting the user to the logged user from the store
         setUser(loggedUser);
+        // Setting the personal profile state to true, because the wanted user is the logged user
         setPersonalProfile(true);
       } else {
+        // Fetch the wanted user from the backend
         const response = await fecthUserData(username);
+        // Set the user state to the fetched user
         setUser(response.data.user);
+        // Setting the personal profile state to false, because the wanted user is not the logged user
         setPersonalProfile(false);
       }
+      // Setting the loading state to false
       setLoading(false);
     };
 
@@ -63,28 +99,15 @@ const ProfilePage = () => {
                   </span>
                   <div className="flex mt-2">
                     <span
-                      className="flex mr-5 cursor-pointer"
+                      className={`flex mr-5 ${
+                        personalProfile ? "cursor-pointer" : ""
+                      }`}
                       onClick={() => {
-                        navigate("followers");
+                        if (personalProfile) {
+                          navigate("/app/a/friends");
+                        }
                       }}
                     >
-                      Followers:
-                      <h3 className="ml-2">
-                        {user.followers ? user.followers.length : 0}
-                      </h3>
-                    </span>
-                    <span
-                      className="flex mr-5 cursor-pointer"
-                      onClick={() => {
-                        navigate("following");
-                      }}
-                    >
-                      Following:
-                      <h3 className="ml-2">
-                        {user.following ? user.following.length : 0}
-                      </h3>
-                    </span>
-                    <span className="flex mr-5 cursor-pointer">
                       Friends:
                       <h3 className="ml-2">
                         {user.friends ? user.friends.length : 0}
@@ -107,33 +130,51 @@ const ProfilePage = () => {
                     ) : (
                       <>
                         <div className="w-[150px]">
-                          {user.followers ? (
-                            user.followers.includes(loggedUser._id) ? (
+                          {user.friends ? (
+                            user.friends.includes(loggedUser._id) ? (
                               <SecondaryButton
                                 click={async () => {
                                   const response: any =
-                                    await unfollowUserAndUpdate(user.username);
+                                    await removeFriendAndUpdate(user.username);
 
                                   if (response.status === 200) {
                                     setUser(response.data.user);
                                   }
                                 }}
                               >
-                                Following
+                                Friends
                               </SecondaryButton>
                             ) : (
-                              <PrimaryButton
-                                click={async () => {
-                                  const response: any =
-                                    await followUserAndUpdate(user.username);
+                              <>
+                                {loggedUser.friendRequests &&
+                                loggedUser.friendRequests.includes(user._id) ? (
+                                  <PrimaryButton
+                                    click={async () => {
+                                      const response: any =
+                                        await addFriendAndUpdate(user.username);
 
-                                  if (response.status === 200) {
-                                    setUser(response.data.user);
-                                  }
-                                }}
-                              >
-                                Follow
-                              </PrimaryButton>
+                                      if (response.status === 200) {
+                                        setUser(response.data.user);
+                                      }
+                                    }}
+                                  >
+                                    Cancel Request
+                                  </PrimaryButton>
+                                ) : (
+                                  <PrimaryButton
+                                    click={async () => {
+                                      const response: any =
+                                        await addFriendAndUpdate(user.username);
+
+                                      if (response.status === 200) {
+                                        setUser(response.data.user);
+                                      }
+                                    }}
+                                  >
+                                    Add Friend
+                                  </PrimaryButton>
+                                )}
+                              </>
                             )
                           ) : (
                             <></>

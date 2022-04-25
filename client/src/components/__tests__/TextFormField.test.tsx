@@ -6,7 +6,7 @@ import {
   fireEvent,
   waitFor,
 } from "@testing-library/react";
-import FormField from "../FormField";
+import TextFormField from "../form/TextFormField";
 import { validateRequired } from "../../utils/validators";
 
 const TestComponent = () => {
@@ -20,7 +20,7 @@ const TestComponent = () => {
 
   return (
     <form onSubmit={handleSubmit(jest.fn())}>
-      <FormField
+      <TextFormField
         name="test"
         placeholder="Test"
         label="Test"

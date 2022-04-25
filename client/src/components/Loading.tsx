@@ -2,6 +2,13 @@ interface LoadingProps {
   color?: string;
 }
 
+/**
+ * Loading Params
+ * @param {Object} props
+ * @param {string} props.color The color of the loading svg element
+ * @returns Element
+ */
+
 const Loading = ({ color }: LoadingProps) => {
   return (
     <svg
