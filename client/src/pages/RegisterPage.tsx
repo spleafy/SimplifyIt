@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 // Components
-import Form from "../components/Form";
-import FormField from "../components/FormField";
+import Form from "../components/form/Form";
+import TextFormField from "../components/form/TextFormField";
 import PopUp from "../components/PopUp";
 import PrimaryButton from "../components/PrimaryButton";
 // Utils
@@ -17,23 +17,43 @@ import {
 } from "../utils/validators";
 
 const RegisterPage = () => {
+  /**
+   * Document title
+   * @description Updating the document title
+   */
   document.title = `Register / ${process.env.REACT_APP_TITLE}`;
 
+  /**
+   * Navigate method
+   * @description Creating a navigate method from the useNavigate hook, so we can navigate through the app
+   */
   const navigate = useNavigate();
 
+  /**
+   * Submit method
+   * @description Creating a submit method for the onSubmit event of the form
+   */
   const submit = async (values: any) => {
+    // Submit the form and await the response
     const response = await submitForm(values, "user/auth/register");
+    // If the response is not 200, create an error
     if (response.status !== 200) {
       setError("password", {
         type: "manual",
         message: "An error occured!",
       });
     } else {
+      // Set the token from the response to the localStorage
       localStorage.setItem("X-Auth-Token", response.data.token);
+      // Navigate the user to the initial setup page
       navigate("/initial-setup");
     }
   };
 
+  /**
+   * useForm deconstruction
+   * @description Deconstructing the useForm hook
+   */
   const {
     register,
     handleSubmit,
@@ -47,7 +67,7 @@ const RegisterPage = () => {
     <div className="flex justify-center items-center h-full w-full">
       <PopUp width="480px" heading="Happy to see you!">
         <Form submit={handleSubmit(submit)}>
-          <FormField
+          <TextFormField
             name="fullname"
             placeholder="Enter name:"
             label="Full Name:"
@@ -58,7 +78,7 @@ const RegisterPage = () => {
               required: (v: any) => validateRequired(v),
             }}
           />
-          <FormField
+          <TextFormField
             name="email"
             placeholder="Enter email:"
             label="Email:"
@@ -71,7 +91,7 @@ const RegisterPage = () => {
               backend: async (v: any) => await validateEmailBackend(v, false),
             }}
           />
-          <FormField
+          <TextFormField
             name="username"
             placeholder="Enter username:"
             label="Username:"
@@ -86,7 +106,7 @@ const RegisterPage = () => {
                 await validateUsernameBackend(v, false),
             }}
           />
-          <FormField
+          <TextFormField
             name="password"
             placeholder="Enter password:"
             label="Password:"

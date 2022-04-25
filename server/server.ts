@@ -56,9 +56,6 @@ import fetchUserNotifications from "./api/user/fetchUserNotifications";
 
 // Settings Endpoints
 import updateUserAccount from "./api/user/settings/updateUserAccount";
-import updateUserProfileColor from "./api/user/settings/updateUserProfileColor";
-import updateUserThemeColor from "./api/user/settings/updateUserThemeColor";
-import updateUserDarkTheme from "./api/user/settings/updateUserDarkTheme";
 import updateNotificationState from "./api/user/updateNotificationState";
 
 // Api Route
@@ -105,27 +102,6 @@ app.post(
   upload.none(),
   verifyToken,
   updateUserAccount
-);
-
-app.post(
-  "/api/user/settings/account/color",
-  upload.none(),
-  verifyToken,
-  updateUserProfileColor
-);
-
-app.post(
-  "/api/user/settings/theme/color",
-  upload.none(),
-  verifyToken,
-  updateUserThemeColor
-);
-
-app.post(
-  "/api/user/settings/theme/dark",
-  upload.none(),
-  verifyToken,
-  updateUserDarkTheme
 );
 
 app.put(

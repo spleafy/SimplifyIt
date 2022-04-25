@@ -5,7 +5,7 @@ import {
   fireEvent,
   waitFor,
 } from "@testing-library/react";
-import AuthForm from "../AuthForm";
+import Form from "../form/Form";
 import { useForm } from "react-hook-form";
 
 interface TestComponentProps {
@@ -16,10 +16,10 @@ const TestComponent = ({ submit }: TestComponentProps) => {
   const { handleSubmit } = useForm();
 
   return (
-    <AuthForm heading="Test Heading" submit={handleSubmit(submit)}>
+    <Form submit={handleSubmit(submit)}>
       <input type="text" placeholder="input" />
       <button type="submit">Submit</button>
-    </AuthForm>
+    </Form>
   );
 };
 
@@ -32,14 +32,6 @@ describe("Form Tests", () => {
     const form = screen.getByTestId("form");
 
     expect(form).toBeInTheDocument();
-  });
-
-  test("Form has heading", () => {
-    render(<TestComponent />);
-
-    const heading = screen.getByText(/Test Heading/i);
-
-    expect(heading).toBeInTheDocument();
   });
 
   test("Form has children rendered", () => {

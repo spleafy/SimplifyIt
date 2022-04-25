@@ -2,8 +2,8 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 // Components
 import PopUp from "../components/PopUp";
-import Form from "../components/Form";
-import FormField from "../components/FormField";
+import Form from "../components/form/Form";
+import TextFormField from "../components/form/TextFormField";
 import PrimaryButton from "../components/PrimaryButton";
 // Utils
 import { submitForm } from "../utils/form";
@@ -15,12 +15,26 @@ import {
 } from "../utils/validators";
 
 const LoginPage = () => {
+  /**
+   * Document title
+   * @description Updating the document title
+   */
   document.title = `Login / ${process.env.REACT_APP_TITLE}`;
 
+  /**
+   * Navigate method
+   * @description Creating a navigate method from the useNavigate hook, so we can navigate through the app
+   */
   const navigate = useNavigate();
 
+  /**
+   * Submit method
+   * @description Creating a submit method for the onSubmit form event
+   */
   const submit = async (values: any) => {
+    // We submit the form and await for the response
     const response = await submitForm(values, "user/auth/login");
+    // If the response isn't 200, we set an error to the password field, if it is, we set the token in the localStorage and navigate the user to the home page
     if (response.status !== 200) {
       setError("password", {
         type: "manual",
@@ -32,6 +46,10 @@ const LoginPage = () => {
     }
   };
 
+  /**
+   * useForm deconstruction
+   * @description Deconstructing the useForm hook
+   */
   const {
     register,
     handleSubmit,
@@ -45,7 +63,7 @@ const LoginPage = () => {
     <div className="flex justify-center items-center h-full w-full">
       <PopUp width="480px" heading="Welcome back!">
         <Form submit={handleSubmit(submit)}>
-          <FormField
+          <TextFormField
             name="username"
             placeholder="Enter username:"
             label="Username:"
@@ -59,7 +77,7 @@ const LoginPage = () => {
               backend: async (v: any) => await validateUsernameBackend(v, true),
             }}
           />
-          <FormField
+          <TextFormField
             name="password"
             placeholder="Enter password:"
             label="Password:"

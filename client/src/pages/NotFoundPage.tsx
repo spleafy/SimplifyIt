@@ -2,6 +2,10 @@
 import { Link } from "react-router-dom";
 
 const NotFoundPage = () => {
+  /**
+   * Document title
+   * @description Updating the document title
+   */
   document.title = `Not Found / ${process.env.REACT_APP_TITLE}`;
 
   return (

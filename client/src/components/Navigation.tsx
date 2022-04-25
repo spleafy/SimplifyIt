@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import {
   HouseLine,
   PresentationChart,
@@ -13,14 +12,16 @@ import NavigationLink from "./NavigationLink";
 import NavigationLabel from "./NavigationLabel";
 
 const Navigation = () => {
+  /**
+   * Navigation
+   * @constant
+   * @description Creating a navigate method, so we can programmatically navigate through the application.
+   */
+
   const navigate = useNavigate();
 
-  const workspace = useSelector((state: any) => state.workspace.workspace);
-
-  console.log(workspace);
-
   return (
-    <header className="h-full w-[250px] max-w-[250px] min-w-[250px] flex flex-col py-5 border-r-[1px] border-slate-200 dark:border-slate-600">
+    <header className="h-full w-[250px] max-w-[250px] min-w-[250px] flex flex-col py-5 border-r-[1px] border-slate-200 dark:border-slate-600 dark:bg-slate-900">
       <h1
         className="cursor-pointer px-8"
         onClick={() => {
@@ -51,7 +52,7 @@ const Navigation = () => {
               Messages
             </div>
           </NavigationLink>
-          <NavigationLabel>People</NavigationLabel>
+          <NavigationLabel>Social</NavigationLabel>
           <NavigationLink to={"/app/people"}>
             <div className="flex gap-3 items-center">
               <Users />
@@ -72,7 +73,6 @@ const Navigation = () => {
           </NavigationLink>
         </div>
       </nav>
-      <div className="self-end flex w-full h-[50px] bg-slate-200 rounded-md cursor-pointer opacity-70"></div>
     </header>
   );
 };

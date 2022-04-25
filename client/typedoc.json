@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "normalTypeScriptOptions": "here"
+  },
+  "entryPoints": ["src/"],
+  "out": "docs"
+}

@@ -7,28 +7,42 @@ import Column from "../components/Column";
 import SecondaryButton from "../components/SecondaryButton";
 import PrimaryButton from "../components/PrimaryButton";
 import PopUp from "../components/PopUp";
-import Form from "../components/Form";
-import FormField from "../components/FormField";
-import SelectFormField from "../components/SelectFormField";
+import Form from "../components/form/Form";
+import TextFormField from "../components/form/TextFormField";
+import SelectFormField from "../components/form/SelectFormField";
 import NavigationLink from "../components/NavigationLink";
-import ToggleSwitch from "../components/ToggleSwitch";
 import Label from "../components/Label";
 // Utils
 import { validateRequired } from "../utils/validators";
 
 const HomePage = () => {
+  /**
+   * Document title
+   * @description Changing the document title
+   */
   document.title = `Home / ${process.env.REACT_APP_TITLE}`;
 
+  /**
+   * Navigate method
+   * @description Creating a navigate method from the useNavigate hook, so we can navigate through the app
+   */
   const navigate = useNavigate();
 
+  /**
+   * Logged user state
+   * @description Getting the logged user state from the redux store
+   */
   const loggedUser = useSelector((state: any) => state.user.user);
 
+  /**
+   * useForm hoom deconstruction
+   * @description Deconstructing the useForm hook
+   */
   const {
     register,
     handleSubmit,
     // setError,
     setValue,
-    getValues,
     formState: { errors },
   } = useForm({
     mode: "all",
@@ -47,7 +61,7 @@ const HomePage = () => {
         <div className="mt-5">
           <PopUp width="480px" heading="Test Form">
             <Form submit={handleSubmit(() => {})}>
-              <FormField
+              <TextFormField
                 name="field"
                 label="Test Field"
                 placeholder="Test"
@@ -67,12 +81,11 @@ const HomePage = () => {
             register={register}
             error={{}}
             setValue={setValue}
-            getValues={getValues}
             options={["Ivan", "Gosho", "Martin"]}
           />
         </div>
         <div className="w-[300px] mt-5">
-          <FormField
+          <TextFormField
             name="test"
             label="Test Field"
             placeholder="Test"
@@ -80,12 +93,22 @@ const HomePage = () => {
             error={{}}
           />
         </div>
-        <div className="mt-5">
-          <ToggleSwitch toggled={false} onToggle={() => {}} />
+        {/* <div className="mt-5">
+          <ToggleSwitch
+            toggled={false}
+            onToggle={() => {}}
+            name="nottoggled"
+            register={register}
+          />
         </div>
         <div className="mt-5">
-          <ToggleSwitch toggled={true} onToggle={() => {}} />
-        </div>
+          <ToggleSwitch
+            toggled={true}
+            onToggle={() => {}}
+            name="toggled"
+            register={register}
+          />
+        </div> */}
         <div className="mt-5 w-[100px]">
           <NavigationLink to={""}>Link</NavigationLink>
         </div>

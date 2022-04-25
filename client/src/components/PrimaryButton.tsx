@@ -11,6 +11,17 @@ interface PrimaryButtonProps {
   disabled?: boolean;
 }
 
+/**
+ * PrimaryButton Params
+ * @param {Object} props
+ * @param {any} props.children The children of the button
+ * @param {boolean=} props.submit The submit boolean for changing the type of the button from "button" to type "submit"
+ * @param {any=} props.click The function for the onClick event
+ * @param {boolean=} props.loading The loading boolean to toggle the loading state of the button
+ * @param {boolean=} props.disabled The disabled boolean to toggle the disabled state of the button
+ * @returns Element
+ */
+
 const PrimaryButton = ({
   children,
   submit,
@@ -18,6 +29,12 @@ const PrimaryButton = ({
   loading,
   disabled,
 }: PrimaryButtonProps) => {
+  /**
+   * Location
+   * @constant
+   * @description Getting the location from the useLocation method, so we have access to the url.
+   */
+
   const location = useLocation();
 
   return (

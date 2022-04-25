@@ -6,6 +6,15 @@ interface PanelProps {
   className?: string;
 }
 
+/**
+ * Panel Params
+ * @param {Object} props
+ * @param {any} props.children The children of the element
+ * @param {string} props.width The width of the element
+ * @param {string} props.className The additional classes for styling the component
+ * @returns Element
+ */
+
 const Panel = ({ children, width, className }: PanelProps) => {
   return (
     <div

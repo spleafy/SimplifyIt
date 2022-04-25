@@ -6,6 +6,14 @@ interface ProfilePictureProps {
   size: string;
 }
 
+/**
+ * ProfilePicture Params
+ * @param {Object} props
+ * @param {Object} props.user The user object
+ * @param {string} props.size The size of the text for the component
+ * @returns Element
+ */
+
 const ProfilePicture = ({ user, size }: ProfilePictureProps) => {
   return (
     <div

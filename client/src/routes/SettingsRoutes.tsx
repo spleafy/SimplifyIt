@@ -8,6 +8,10 @@ import NavigationLink from "../components/NavigationLink";
 import TopNavigation from "../components/TopNavigation";
 
 const SettingsRoutes = () => {
+  /**
+   * Document title
+   * @description Updating the document title
+   */
   document.title = `Settings / ${process.env.REACT_APP_TITLE}`;
 
   return (

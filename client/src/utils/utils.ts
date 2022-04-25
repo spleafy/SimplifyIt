@@ -1,3 +1,9 @@
+// Redux
+import store from "../redux/store";
+import { pushError, deleteError } from "../redux/errorSlice";
+// Lodash
+import _ from "lodash";
+
 const colors = require("tailwindcss/colors");
 
 delete colors["warmGray"];
@@ -10,7 +16,14 @@ delete colors["zinc"];
 delete colors["neutral"];
 delete colors["stone"];
 
-export const getColors = (color: string) => {
+/**
+ * getColors
+ * @param {string} color The tailwind keyword for the color e.g "blue", "yellow", "pink"
+ * @returns {Object}
+ * @description Method that returns all colors object or a specific color object
+ */
+export const getColors = (color: string): any => {
+  // If the passed color is all, then return the whole colors object, if not, then return the specific object
   if (color === "all") {
     return colors;
   } else {
@@ -18,9 +31,15 @@ export const getColors = (color: string) => {
   }
 };
 
-export const defineDate = (date: number) => {
+/**
+ * defineDate
+ * @param {number} date The date that was passed will be subtracted from the current date, so we get the time that has elapsed
+ * @returns {string}
+ * @description Method that returns the time that has elapsed from a passed date
+ */
+export const defineDate = (date: number): string => {
   if ((Date.now() - date) / 60000 < 1) {
-    return "< 1m";
+    return "< 1min";
   } else if ((Date.now() - date) / 3600000 < 1) {
     return "< 1h";
   } else if (
@@ -42,3 +61,42 @@ export const defineDate = (date: number) => {
     return `${parseInt(`${(Date.now() - date) / 31557600000}`)}y`;
   }
 };
+
+/**
+ * defineError
+ * @param {string} error The error that was thrown
+ * @returns {string}
+ * @description Method that converts the thrown error to a friendlier message
+ */
+export const defineError = (error: string): string => {
+  // if (error === "TypeError: NetworkError when attempting to fetch resource.") {
+  //   return "Couldn't connect to the API, try in a second!";
+  // }
+
+  // return error;
+
+  return "Couldn't connect to the API, try in a second!";
+};
+
+/**
+ * addError
+ * @param {any} data The thrown error object
+ * @description Method that creates a new error object from the thrown one, then passes it to the redux store. The function is debounced, because we don't want the same error pushed many times
+ */
+export const addError = _.debounce((data) => {
+  // Get all errors from the store
+  const errors = store.getState().errors.errors;
+
+  // Create the new user object
+  const error = {
+    id: errors.length,
+    message: data.toString(),
+  };
+
+  // Push the error to the redux store
+  store.dispatch(pushError(error));
+  // Create a timeout, with which the pushed error will be deleted
+  setTimeout(() => {
+    store.dispatch(deleteError(error.id));
+  }, 5000);
+}, 500);

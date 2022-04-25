@@ -7,6 +7,7 @@ import {
 // Components
 import AuthRoutes from "./routes/AuthRoutes";
 import AppRoutes from "./routes/AppRoutes";
+import ErrorPanel from "./components/ErrorPanel";
 // Pages
 import InitialSetupPage from "./pages/InitialPage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>
+      <ErrorPanel />
     </>
   );
 };

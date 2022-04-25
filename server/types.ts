@@ -6,6 +6,9 @@ export interface UserType {
   email: string;
   username: string;
   password: string;
+  jobtitle?: string;
+  website?: string;
+  location?: string;
   friends: string[];
   followers: string[];
   following: string[];

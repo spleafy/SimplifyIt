@@ -11,6 +11,14 @@ const updateUserAccount = async (req: Request | any, res: Response) => {
         fullname: req.body.fullname,
         username: req.body.username,
         email: req.body.email,
+        jobtitle: req.body.jobtitle,
+        website: req.body.website,
+        location: req.body.location,
+        $set: {
+          "settings.profileColor": req.body.profileColor,
+          "settings.themeColor": req.body.themeColor,
+          "settings.darkTheme": req.body.darkTheme,
+        },
       },
       { new: true }
     );

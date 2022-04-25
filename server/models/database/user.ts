@@ -5,6 +5,18 @@ const userSchema = new mongoose.Schema({
   email: String,
   username: String,
   password: String,
+  jobtitle: {
+    type: String,
+    required: false,
+  },
+  website: {
+    type: String,
+    required: false,
+  },
+  location: {
+    type: String,
+    required: false,
+  },
   friends: [String],
   followers: [String],
   following: [String],
