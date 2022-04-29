@@ -8,6 +8,8 @@ interface FieldProps {
   onBlur?: any;
   className?: string;
   readOnly?: boolean;
+  min?: number;
+  max?: number;
 }
 
 /**
@@ -20,8 +22,11 @@ interface FieldProps {
  * @param {any=} props.validators The validator functions of the field
  * @param {any=} props.onFocus The function for the onFocus event
  * @param {any=} props.onBlur The function for the onBlur event
+ * @param {any=} props.onChange The function for the onChange event
  * @param {string=} props.className The additional classes for the field
  * @param {boolean=} props.readOnly The boolean for the readOnly property of the field
+ * @param {number=} props.min The min length of the field
+ * @param {number=} props.max The max length of the field
  * @returns Element
  */
 
@@ -35,6 +40,8 @@ const Field = ({
   onBlur,
   className,
   readOnly,
+  min,
+  max,
 }: FieldProps) => {
   return (
     <input
@@ -49,6 +56,8 @@ const Field = ({
       onFocus={onFocus}
       onBlur={onBlur}
       readOnly={readOnly ? true : false}
+      minLength={min}
+      maxLength={max}
     />
   );
 };

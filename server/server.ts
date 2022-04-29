@@ -43,6 +43,7 @@ import authLogin from "./api/user/auth/authLogin";
 import authRegister from "./api/user/auth/authRegister";
 import authForgot from "./api/user/auth/authForgot";
 import authReset from "./api/user/auth/authReset";
+import authTwoFactor from "./api/user/auth/authTwoFactor";
 
 // User Endpoints
 import fetchLoggedUserData from "./api/user/fetchLoggedUserData";
@@ -69,6 +70,8 @@ app.post("/api/user/auth/register", upload.none(), authRegister);
 app.post("/api/user/auth/forgot", upload.none(), authForgot);
 
 app.post("/api/user/auth/reset", verifyToken, upload.none(), authReset);
+
+app.post("/api/user/auth/twofactor", verifyToken, upload.none(), authTwoFactor);
 
 // Validate Routes
 app.get("/api/user/validate/username", validateUsername);

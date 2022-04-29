@@ -15,6 +15,9 @@ interface FormFieldProps {
   validators?: any;
   className?: string;
   onFocus?: any;
+  onChange?: any;
+  min?: number;
+  max?: number;
 }
 
 /**
@@ -29,7 +32,10 @@ interface FormFieldProps {
  * @param {any} props.validators The validator functions of the field
  * @param {string=} props.className The additional classes for the text field component
  * @param {any=} props.onFocus The function for the onFocus event
+ * @param {any=} props.onChange The function for the onChange event
  * @param {boolean=} props.validating The validating boolean for async validation display
+ * @param {number=} props.min The min length of the field
+ * @param {number=} props.max The max length of the field
  * @returns Element
  */
 
@@ -45,6 +51,8 @@ const TextFormField = ({
   validators,
   className,
   onFocus,
+  min,
+  max,
 }: FormFieldProps) => {
   /**
    * Mutable Type
@@ -68,6 +76,8 @@ const TextFormField = ({
         validators={validators}
         register={register}
         onFocus={onFocus}
+        min={min}
+        max={max}
       />
       {type === "password" ? (
         <span

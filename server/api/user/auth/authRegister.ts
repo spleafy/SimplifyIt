@@ -39,6 +39,7 @@ const authRegister = async (req: Request, res: Response) => {
       themeColor: "blue",
       darkTheme: false,
       initialSetup: false,
+      twoFactor: false,
     };
     user.settings.profileColor =
       colors[Math.floor(Math.random() * colors.length) - 1];
@@ -49,11 +50,9 @@ const authRegister = async (req: Request, res: Response) => {
       { id: createdUser._id },
       process.env.TOKEN_SECRET as string
     );
-    res.json(
-      new ResponseMessage(200, { user: new ResponseUser(createdUser), token })
-    );
+    res.json(new ResponseMessage(200, { token }));
   } else {
-    res.json(new ResponseMessage(403, { user: null }));
+    res.json(new ResponseMessage(403));
   }
 };
 

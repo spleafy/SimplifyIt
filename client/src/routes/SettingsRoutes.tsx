@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 // Pages
 import AccountSettingsPage from "../pages/settings/AccountSettingsPage";
+import SecuritySettingsPage from "../pages/settings/SecuritySettingsPage";
 import NotFoundPage from "../pages/NotFoundPage";
 // Components
 import Column from "../components/Column";
@@ -36,6 +37,9 @@ const SettingsRoutes = () => {
         <Routes>
           <Route path="/" element={<Navigate to={"account"} />} />
           <Route path="account" element={<AccountSettingsPage />} />
+          <Route path="security" element={<SecuritySettingsPage />} />
+          <Route path="notifications" element={<AccountSettingsPage />} />
+          <Route path="sounds" element={<AccountSettingsPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Column>

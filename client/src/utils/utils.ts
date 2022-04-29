@@ -1,6 +1,13 @@
 // Redux
 import store from "../redux/store";
-import { pushError, deleteError } from "../redux/errorSlice";
+import {
+  pushError,
+  deleteError,
+  pushSuccess,
+  deleteSuccess,
+  pushWarning,
+  deleteWarning,
+} from "../redux/appActionSlice";
 // Lodash
 import _ from "lodash";
 
@@ -79,15 +86,55 @@ export const defineError = (error: string): string => {
 };
 
 /**
+ * defineSuccess
+ * @param success The successful action short message, so we can display a better message
+ * @returns {string}
+ * @description Method that converts the thrown success message to a friendlier message
+ */
+export const defineSuccess = (success: string): string => {
+  if (success === "message") {
+    return "Successfully created a message!";
+  }
+
+  if (success === "login") {
+    return "Successfully logged in!";
+  }
+
+  if (success === "register") {
+    return "Successfully registered!";
+  }
+
+  if (success === "settings") {
+    return "Successfully updated the settings!";
+  }
+
+  return success;
+};
+
+/**
+ * defineWarning
+ * @param warning The warning action short message, so we can display a better message
+ * @returns {string}
+ * @description Method that converts the thrown warning message to a friendlier message
+ */
+export const defineWarning = (warning: string): string => {
+  if (warning === "notsaved") {
+    return "You have unsaved work!";
+  }
+
+  return warning;
+};
+
+/**
  * addError
  * @param {any} data The thrown error object
  * @description Method that creates a new error object from the thrown one, then passes it to the redux store. The function is debounced, because we don't want the same error pushed many times
  */
 export const addError = _.debounce((data) => {
   // Get all errors from the store
-  const errors = store.getState().errors.errors;
+  const errors = store.getState().actions.errors;
 
-  // Create the new user object
+  // Create the new error object
   const error = {
     id: errors.length,
     message: data.toString(),
@@ -98,5 +145,51 @@ export const addError = _.debounce((data) => {
   // Create a timeout, with which the pushed error will be deleted
   setTimeout(() => {
     store.dispatch(deleteError(error.id));
+  }, 5000);
+}, 500);
+
+/**
+ * addSuccess
+ * @param {any} data The thrown success object
+ * @description Method that creates a new success object from the thrown one, then passes it to the redux store. The function is debounced, because we don't want the same success pushed many times
+ */
+export const addSuccess = _.debounce((data) => {
+  // Get all successes from the store
+  const successes = store.getState().actions.successes;
+
+  // Create the new success object
+  const success = {
+    id: successes.length,
+    message: data.toString(),
+  };
+
+  // Push the success to the redux store
+  store.dispatch(pushSuccess(success));
+  // Create a timeout, with which the pushed success will be deleted
+  setTimeout(() => {
+    store.dispatch(deleteSuccess(success.id));
+  }, 5000);
+}, 500);
+
+/**
+ * addWarning
+ * @param {any} data The thrown warning object
+ * @description Method that creates a new warning object from the thrown one, then passes it to the redux store. The function is debounced, because we do not want the same warning pushed many times
+ */
+export const addWarning = _.debounce((data) => {
+  // Get all warnings from the store
+  const warnings = store.getState().actions.warnings;
+
+  // Create the new warning object
+  const warning = {
+    id: warnings.length,
+    message: data.toString(),
+  };
+
+  // Push the warning to the redux store
+  store.dispatch(pushWarning(warning));
+  // Create a timeout, with which the pushed warning will be deleted
+  setTimeout(() => {
+    store.dispatch(deleteWarning(warning.id));
   }, 5000);
 }, 500);

@@ -6,6 +6,7 @@ import Form from "../components/form/Form";
 import TextFormField from "../components/form/TextFormField";
 import PrimaryButton from "../components/PrimaryButton";
 // Utils
+import { addSuccess } from "../utils/utils";
 import { submitForm } from "../utils/form";
 import {
   validateRequired,
@@ -41,8 +42,13 @@ const LoginPage = () => {
         message: "This password is invalid for this email!",
       });
     } else {
-      localStorage.setItem("X-Auth-Token", response.data.token);
-      navigate("/app");
+      if (response.data.twoFactorToken) {
+        navigate(`/auth/twofactor?token=${response.data.twoFactorToken}`);
+      } else {
+        addSuccess("login");
+        localStorage.setItem("X-Auth-Token", response.data.token);
+        navigate("/app");
+      }
     }
   };
 
