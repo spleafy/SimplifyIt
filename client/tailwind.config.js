@@ -17,15 +17,17 @@ module.exports = {
           "80%": { transform: "translateY(-2%)" },
           "100%": { transform: "translateY(0%)" },
         },
-        fadeOut: {
-          "0%": { opacity: 100 },
-          "100%": { opacity: 0 },
+        slideInOut: {
+          "0%": { transform: "translateX(120%)" },
+          "10%": { transform: "translateX(0%)" },
+          "90%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(120%)" },
         },
       },
       animation: {
         scale: "scale 0.5s ease-in-out forwards",
         slideTop: "slideTop 0.3s ease-in-out forwards",
-        fadeOut: "fadeOut 0.5s ease-in-out forwards 4s",
+        slideInOut: "slideInOut 3s ease-in-out forwards",
       },
       colors: {
         primary: colors.blue,

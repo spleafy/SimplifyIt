@@ -18,6 +18,7 @@ const updateUserAccount = async (req: Request | any, res: Response) => {
           "settings.profileColor": req.body.profileColor,
           "settings.themeColor": req.body.themeColor,
           "settings.darkTheme": req.body.darkTheme,
+          "settings.twoFactor": req.body.twoFactor,
         },
       },
       { new: true }

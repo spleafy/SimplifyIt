@@ -1,7 +1,5 @@
-import { IndexDirection } from "mongoose";
-
 export interface UserType {
-  _id: string | object | Buffer;
+  _id: string;
   fullname: string;
   email: string;
   username: string;

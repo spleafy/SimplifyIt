@@ -41,11 +41,11 @@ const PrimaryButton = ({
     <button
       className={`${
         location.pathname.split("/")[1] === "app"
-          ? "bg-theme-500 dark:bg-theme-600"
+          ? "bg-theme-500"
           : "bg-primary-500"
       } ${
         location.pathname.split("/")[1] === "app"
-          ? "hover:bg-theme-600 dark:hover:bg-theme-700 disabled:bg-theme-300 dark:disabled:bg-theme-900"
+          ? "hover:bg-theme-600 disabled:bg-theme-300 dark:disabled:bg-theme-900"
           : "hover:bg-primary-600"
       } transition-colors px-8 py-[10px] text-sm text-white rounded-md w-full whitespace-nowrap`}
       type={submit ? "submit" : "button"}

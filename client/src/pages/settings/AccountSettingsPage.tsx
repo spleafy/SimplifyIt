@@ -23,7 +23,7 @@ import {
   validateEmailRegex,
   validateEmailBackend,
 } from "../../utils/validators";
-import { getColors } from "../../utils/utils";
+import { getColors, addSuccess } from "../../utils/utils";
 
 const AccountSettingsPage = () => {
   /**
@@ -130,6 +130,7 @@ const AccountSettingsPage = () => {
       );
       // Checking if the status is 200, then we update the user settings, if not - display an error message
       if (response.status === 200) {
+        addSuccess("settings");
         dispatch(updateUser(response.data.user));
         setSavedUpdate(true);
       }
@@ -148,11 +149,14 @@ const AccountSettingsPage = () => {
 
   return (
     <div className="w-full flex justify-center">
-      <Card className="mb-20 p-8">
+      <Card className="mb-20 p-8" width="100%">
         <form
           onSubmit={handleSubmitSettings(submitSettings)}
           onChange={() => {
-            setSavedUpdate(false);
+            setSavedUpdate(
+              JSON.stringify(getValuesSettings()) ===
+                JSON.stringify(defaultValuesSettings)
+            );
           }}
         >
           <div className="flex w-full justify-between items-center">
@@ -380,7 +384,12 @@ const AccountSettingsPage = () => {
           <Separator />
           <div className="mt-10 flex flex-col gap-5">
             <div className="flex items-center justify-between">
-              <h4>Dark Mode</h4>
+              <div className="flex flex-col gap-2">
+                <h4>Dark Mode</h4>
+                <span className="subtitle">
+                  Enjoy the dark appearance of SimplifyIt.
+                </span>
+              </div>
               <ToggleSwitch
                 name="darkTheme"
                 register={registerSettings}

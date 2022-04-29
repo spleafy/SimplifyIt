@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import userSlice from "./userSlice";
 import notificationSlice from "./notificationSlice";
 import workspaceSlice from "./workspaceSlice";
-import errorSlice from "./errorSlice";
+import appActionSlice from "./appActionSlice";
 
 /**
  * Redux Store
@@ -13,6 +13,6 @@ export default configureStore({
     user: userSlice,
     notifications: notificationSlice,
     workspace: workspaceSlice,
-    errors: errorSlice,
+    actions: appActionSlice,
   },
 });

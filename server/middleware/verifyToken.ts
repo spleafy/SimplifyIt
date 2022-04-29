@@ -16,6 +16,7 @@ const verifyToken = (req: Request | any, res: Response, next: NextFunction) => {
             res.json(new ResponseMessage(403));
           } else {
             req.id = data.id;
+            req.code = data.code;
             next();
           }
         }

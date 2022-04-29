@@ -99,6 +99,10 @@ input:-webkit-autofill {
     @apply dark:text-white;
   }
 
+  .subtitle {
+    @apply text-slate-700 dark:text-slate-400;
+  }
+
   .tooltip {
     @apply relative;
   }

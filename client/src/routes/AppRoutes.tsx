@@ -229,7 +229,7 @@ const AppRoutes = () => {
                   <span className="w-full first-letter:uppercase"></span>
                   <div className="flex justify-center items-center w-full">
                     <div
-                      className="w-[300px] text-slate-600 bg-slate-100 dark:bg-slate-800 dark:text-white rounded-full py-2 px-5 flex items-center justify-between gap-3 text-sm cursor-pointer transition-colors hover:text-theme-500"
+                      className="w-[300px] text-slate-600 bg-slate-100 dark:bg-slate-800 dark:text-white rounded-full py-2 px-4 flex items-center justify-between gap-3 text-sm cursor-pointer transition-colors hover:text-theme-500"
                       onClick={() => {
                         setSearchShown(true);
                       }}
@@ -238,7 +238,7 @@ const AppRoutes = () => {
                         <MagnifyingGlass />
                         Search
                       </div>
-                      <div className="px-2 py-1 text-xs bg-gray-200/60 rounded-md text-slate-800 dark:bg-gray-700 dark:text-slate-200">
+                      <div className="px-3 py-1 text-xs bg-gray-200/60 rounded-md text-slate-800 dark:bg-gray-700 dark:text-slate-200">
                         Shift + S
                       </div>
                     </div>
