@@ -20,7 +20,7 @@ const authLogin = async (req: Request, res: Response) => {
       if (user.settings.twoFactor) {
         mail.setApiKey(process.env.SENDGRID_API_KEY as string);
 
-        const code = Math.floor(Math.random() * 10000);
+        const code = Math.floor(Math.random() * 9000 + 1000);
 
         const message = {
           to: user.email,
