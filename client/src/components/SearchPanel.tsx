@@ -85,8 +85,10 @@ const SearchPanel = ({ shown, setShown }: SearchPanelProps) => {
         >
           <div className="flex justify-between w-full items-center gap-5">
             <form
-              onChange={_.debounce(async (e) => {
-                const response = await searchData(e.target.value);
+              onChange={_.debounce(async () => {
+                const input: any = document.getElementsByName("search")[0];
+                const value = input.value;
+                const response = await searchData(value);
                 setSearchResponse(response.data.user);
               }, 300)}
             >
