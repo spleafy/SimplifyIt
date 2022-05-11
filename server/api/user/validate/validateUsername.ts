@@ -1,16 +1,20 @@
 import { Request, Response } from "express";
 import User from "../../../models/database/user";
 import ResponseMessage from "../../../models/responseMessage";
+// Utils
+import { validateObjectKeys } from "../../../utils";
 
 const validateUsername = async (req: Request, res: Response) => {
-  const username: string | undefined = req.query.username?.toString();
+  if (validateObjectKeys(req.query, ["username"])) {
+    const user = await User.findOne({ username: req.query.username });
 
-  const user = await User.findOne({ username: username });
-
-  if (user) {
-    res.json(new ResponseMessage(200, { registered: true }));
+    if (user) {
+      res.json(new ResponseMessage(200, { registered: true }));
+    } else {
+      res.json(new ResponseMessage(200, { registered: false }));
+    }
   } else {
-    res.json(new ResponseMessage(200, { registered: false }));
+    res.json(new ResponseMessage(403));
   }
 };
 

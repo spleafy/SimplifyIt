@@ -11,7 +11,11 @@ import Loading from "../components/Loading";
 import ProfilePicture from "../components/ProfilePicture";
 // Utils
 import { fecthUserData } from "../utils/api";
-import { addFriendAndUpdate, removeFriendAndUpdate } from "../utils/user";
+import {
+  sendFriendRequestAndUpdate,
+  cancelFriendRequestAndUpdate,
+  removeFriendAndUpdate,
+} from "../utils/user";
 
 const ProfilePage = () => {
   /**
@@ -33,10 +37,24 @@ const ProfilePage = () => {
   const loggedUser = useSelector((state: any) => state.user.user);
 
   /**
+   * Friend Requests State
+   * @description Getting the friend requests state from the redux store
+   */
+  const friendRequests = useSelector(
+    (state: any) => state.friendRequests.friendRequests
+  );
+
+  /**
    * Loading state
    * @description Creating a useState variable, so we can toggle the loading state of the page
    */
   const [loading, setLoading]: any = useState(false);
+
+  /**
+   * Processing state
+   * @description Creating a useState variable, so we can trigger the loading animation on the buttons
+   */
+  const [processing, setProcessing] = useState(false);
 
   /**
    * User state
@@ -98,16 +116,7 @@ const ProfilePage = () => {
                     {user.email ? user.email.toLowerCase() : ""}
                   </span>
                   <div className="flex mt-2">
-                    <span
-                      className={`flex mr-5 ${
-                        personalProfile ? "cursor-pointer" : ""
-                      }`}
-                      onClick={() => {
-                        if (personalProfile) {
-                          navigate("/app/a/friends");
-                        }
-                      }}
-                    >
+                    <span className="flex mr-5">
                       Friends:
                       <h3 className="ml-2">
                         {user.friends ? user.friends.length : 0}
@@ -130,46 +139,46 @@ const ProfilePage = () => {
                     ) : (
                       <>
                         <div className="w-[150px]">
-                          {user.friends ? (
-                            user.friends.includes(loggedUser._id) ? (
+                          {loggedUser.friends ? (
+                            loggedUser.friends.includes(user._id) ? (
                               <SecondaryButton
                                 click={async () => {
-                                  const response: any =
-                                    await removeFriendAndUpdate(user.username);
-
-                                  if (response.status === 200) {
-                                    setUser(response.data.user);
-                                  }
+                                  setProcessing(true);
+                                  await removeFriendAndUpdate(user._id);
+                                  setProcessing(false);
                                 }}
+                                loading={processing}
                               >
                                 Friends
                               </SecondaryButton>
                             ) : (
                               <>
-                                {loggedUser.friendRequests &&
-                                loggedUser.friendRequests.includes(user._id) ? (
+                                {friendRequests.sent &&
+                                friendRequests.sent.some(
+                                  ({ to }: any) => to === user._id
+                                ) ? (
                                   <PrimaryButton
                                     click={async () => {
-                                      const response: any =
-                                        await addFriendAndUpdate(user.username);
-
-                                      if (response.status === 200) {
-                                        setUser(response.data.user);
-                                      }
+                                      setProcessing(true);
+                                      await cancelFriendRequestAndUpdate(
+                                        user._id
+                                      );
+                                      setProcessing(false);
                                     }}
+                                    loading={processing}
                                   >
                                     Cancel Request
                                   </PrimaryButton>
                                 ) : (
                                   <PrimaryButton
                                     click={async () => {
-                                      const response: any =
-                                        await addFriendAndUpdate(user.username);
-
-                                      if (response.status === 200) {
-                                        setUser(response.data.user);
-                                      }
+                                      setProcessing(true);
+                                      await sendFriendRequestAndUpdate(
+                                        user._id
+                                      );
+                                      setProcessing(false);
                                     }}
+                                    loading={processing}
                                   >
                                     Add Friend
                                   </PrimaryButton>
@@ -215,7 +224,7 @@ const ProfilePage = () => {
                     <div className="w-auto">
                       <SecondaryButton
                         click={() => {
-                          navigate("/app/discover");
+                          navigate("/app/friends");
                         }}
                       >
                         Discover More

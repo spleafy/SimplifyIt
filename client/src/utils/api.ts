@@ -1,5 +1,5 @@
 import { createFormData } from "./form";
-import { addError } from "./utils";
+import { addError, addSuccess } from "./utils";
 
 /**
  * fetchBackendAsync
@@ -43,24 +43,7 @@ export const authToken = async () => {
   const token = localStorage.getItem("X-Auth-Token");
 
   const response = await fetchBackendAsync(
-    "api/user/validate/token",
-    "GET",
-    token ? { "X-Auth-Token": token } : {}
-  );
-
-  return response;
-};
-
-/**
- * fetchLoggedUserData
- * @returns {Object}
- * @description Method that fetches the logged user data from the backend
- */
-export const fecthLoggedUserData = async () => {
-  const token = localStorage.getItem("X-Auth-Token");
-
-  const response = await fetchBackendAsync(
-    "api/user/logged",
+    "api/v1/user/validate/token",
     "GET",
     token ? { "X-Auth-Token": token } : {}
   );
@@ -74,11 +57,11 @@ export const fecthLoggedUserData = async () => {
  * @returns {Object}
  * @description Method that fetches user's data from the backend
  */
-export const fecthUserData = async (username: string | undefined) => {
+export const fecthUserData = async (username?: string | undefined) => {
   const token = localStorage.getItem("X-Auth-Token");
 
   const response = await fetchBackendAsync(
-    `api/user?username=${encodeURIComponent(username ? username : "")}`,
+    `api/v1/user?username=${encodeURIComponent(username ? username : "")}`,
     "GET",
     token ? { "X-Auth-Token": token } : {}
   );
@@ -87,92 +70,152 @@ export const fecthUserData = async (username: string | undefined) => {
 };
 
 /**
- * addFriend
- * @param {string | undefined} username The username of the friend you want to add
+ * fetchFriendRequests
+ * @returns {Object}
+ * @description Method that fetches user's friend requests from the backend
+ */
+export const fetchFriendRequests = async () => {
+  const token = localStorage.getItem("X-Auth-Token");
+
+  const response = await fetchBackendAsync(
+    `api/v1/user/friend/request`,
+    "GET",
+    token ? { "X-Auth-Token": token } : {}
+  );
+
+  return response;
+};
+
+/**
+ * sendFriendRequest
+ * @param {string | undefined} id The id of the friend you want to send a friend request to
  * @returns {Object}
  * @description Method that sends a friend request to a user
  */
-export const addFriend = async (username: string | undefined) => {
+export const sendFriendRequest = async (id: string | undefined) => {
   const token = localStorage.getItem("X-Auth-Token");
 
   const response = await fetchBackendAsync(
-    `api/user/follow?username=${encodeURIComponent(username ? username : "")}`,
+    `api/v1/user/friend/request`,
     "POST",
     token ? { "X-Auth-Token": token } : {},
-    { username }
+    { id }
   );
+
+  if (response.status === 200) {
+    addSuccess("sendfriendrequest");
+  } else {
+    addError("sendfriendrequets");
+  }
 
   return response;
 };
 
-export const acceptFriendRequest = async () => {};
+/**
+ * acceptFriendRequest
+ * @param {string | undefined} id The id of the friend request that you want to accept
+ * @returns {Object}
+ * @description Method that fetches all of the user's friend requests from the backend
+ */
+export const acceptFriendRequest = async (id: string | undefined) => {
+  const token = localStorage.getItem("X-Auth-Token");
 
-export const removeFriendRequest = async () => {};
+  const response = await fetchBackendAsync(
+    `api/v1/user/friend/request/accept`,
+    "POST",
+    token ? { "X-Auth-Token": token } : {},
+    { id }
+  );
+
+  if (response.status === 200) {
+    addSuccess("acceptfriendrequest");
+  } else {
+    addError("acceptfriendrequets");
+  }
+
+  return response;
+};
+
+/**
+ * rejectFriendRequest
+ * @param {string | undefined} id The id of the user from whom you want to reject the request
+ * @returns {Object}
+ * @description Method that rejects a friend request
+ */
+export const rejectFriendRequest = async (id: string | undefined) => {
+  const token = localStorage.getItem("X-Auth-Token");
+
+  const response = await fetchBackendAsync(
+    `api/v1/user/friend/request/reject`,
+    "POST",
+    token ? { "X-Auth-Token": token } : {},
+    { id }
+  );
+
+  if (response.status === 200) {
+    addSuccess("rejectfriendrequest");
+  } else {
+    addError("rejectfriendrequets");
+  }
+
+  return response;
+};
+
+/**
+ * cancelFriendRequest
+ * @param {string | undefined} id The id of the user to whom you want to cancel the request
+ * @returns {Object}
+ * @description Method that cancels a friend request
+ */
+export const cancelFriendRequest = async (id: string | undefined) => {
+  const token = localStorage.getItem("X-Auth-Token");
+
+  const response = await fetchBackendAsync(
+    `api/v1/user/friend/request/cancel`,
+    "POST",
+    token ? { "X-Auth-Token": token } : {},
+    { id }
+  );
+
+  if (response.status === 200) {
+    addSuccess("cancelfriendrequest");
+  } else {
+    addError("cancelfriendrequets");
+  }
+
+  return response;
+};
 
 /**
  * removeFriend
- * @param {string | undefined} username The username of the friend that you want to remove
+ * @param {string | undefined} id The id of the friend that you want to remove
  * @returns {Object}
  * @description Method that removes a user from your friend list
  */
-export const removeFriend = async (username: string | undefined) => {
+export const removeFriend = async (id: string | undefined) => {
   const token = localStorage.getItem("X-Auth-Token");
 
   const response = await fetchBackendAsync(
-    `api/user/unfollow`,
+    `api/v1/user/friend/remove`,
     "POST",
     token ? { "X-Auth-Token": token } : {},
-    { username }
+    { id }
   );
+
+  if (response.status === 200) {
+    addSuccess("removefriend");
+  } else {
+    addError("removefriend");
+  }
 
   return response;
 };
 
-/**
- * fetchUserFollowers
- * @param {string} id The id of the user
- * @param {number=} start The start of the list with followers, for pagination
- * @param {number=} limit The number of users that will be sent back
- * @returns {Object}
- * @description Method that fetches user's followers from the backend
- */
-export const fetchUserFollowers = async (
-  id: string,
-  start: number = 0,
-  limit: number = 10
-) => {
+export const fetchFriends = async () => {
   const token = localStorage.getItem("X-Auth-Token");
 
   const response = await fetchBackendAsync(
-    `api/user/followers?id=${encodeURIComponent(id)}&start=${encodeURIComponent(
-      start
-    )}&limit=${encodeURIComponent(limit)}`,
-    "GET",
-    token ? { "X-Auth-Token": token } : {}
-  );
-
-  return response;
-};
-
-/**
- * fetchUserFollowing
- * @param {string} id The id of the user
- * @param {number=} start The start of the list with following users, for pagination
- * @param {number=} limit The number of users that will be sent back
- * @returns {Object}
- * @description Method that fetches user's following users from the backend
- */
-export const fetchUserFollowing = async (
-  id: string,
-  start: number = 0,
-  limit: number = 10
-) => {
-  const token = localStorage.getItem("X-Auth-Token");
-
-  const response = await fetchBackendAsync(
-    `api/user/following?id=${encodeURIComponent(id)}&start=${encodeURIComponent(
-      start
-    )}&limit=${encodeURIComponent(limit)}`,
+    `api/v1/user/friend`,
     "GET",
     token ? { "X-Auth-Token": token } : {}
   );
@@ -186,11 +229,13 @@ export const fetchUserFollowing = async (
  * @returns {Object}
  * @description Method that searches the data
  */
-export const searchData = async (search: string) => {
+export const searchData = async (search: string, param: string) => {
   const token = localStorage.getItem("X-Auth-Token");
 
   const response = await fetchBackendAsync(
-    `api/user/search?search=${encodeURIComponent(search)}`,
+    `api/v1/user/search?search=${encodeURIComponent(
+      search
+    )}&param=${encodeURIComponent(param)}`,
     "GET",
     token ? { "X-Auth-Token": token } : {}
   );
@@ -207,7 +252,7 @@ export const fetchUserNotifications = async () => {
   const token = localStorage.getItem("X-Auth-Token");
 
   const response = await fetchBackendAsync(
-    `api/user/notifications`,
+    `api/v1/user/notifications`,
     "GET",
     token ? { "X-Auth-Token": token } : {}
   );
@@ -225,7 +270,7 @@ export const updateNotificationState = async (id: string) => {
   const token = localStorage.getItem("X-Auth-Token");
 
   const response = await fetchBackendAsync(
-    `api/user/notifications/state`,
+    `api/v1/user/notifications/state`,
     "PUT",
     token ? { "X-Auth-Token": token } : {},
     { id }
@@ -243,7 +288,7 @@ export const fetchUserWorkspace = async () => {
   const token = localStorage.getItem("X-Auth-Token");
 
   const response = await fetchBackendAsync(
-    `api/workspace`,
+    `api/v1/workspace`,
     "GET",
     token ? { "X-Auth-Token": token } : {}
   );

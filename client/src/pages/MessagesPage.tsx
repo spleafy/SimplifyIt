@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Phone, VideoCamera, DotsThree } from "phosphor-react";
+import { Phone, VideoCamera, Info } from "phosphor-react";
 // Components
 import PrimaryButton from "../components/PrimaryButton";
 import ActionButton from "../components/ActionButton";
@@ -139,7 +139,7 @@ const MessagesPage = () => {
               className="!text-theme-500 tooltip"
               tooltip="Conversation information"
             >
-              <DotsThree />
+              <Info />
             </ActionButton>
           </div>
         </TopNavigation>

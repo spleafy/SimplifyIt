@@ -135,7 +135,7 @@ const HomePage = () => {
             <div className="w-auto">
               <SecondaryButton
                 click={() => {
-                  navigate("/app/discover");
+                  navigate("/app/friends");
                 }}
               >
                 Discover More

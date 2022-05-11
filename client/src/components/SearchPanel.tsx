@@ -62,7 +62,7 @@ const SearchPanel = ({ shown, setShown }: SearchPanelProps) => {
    * @description Deconstructing the useForm hook into variables
    */
 
-  const { register } = useForm({
+  const { register, getValues } = useForm({
     mode: "all",
   });
 
@@ -72,8 +72,8 @@ const SearchPanel = ({ shown, setShown }: SearchPanelProps) => {
    */
 
   useEffect(() => {
-    document.getElementsByName("search")[0]?.focus();
-  });
+    document.getElementsByName("search")[0].focus();
+  }, []);
 
   return (
     <>
@@ -86,9 +86,7 @@ const SearchPanel = ({ shown, setShown }: SearchPanelProps) => {
           <div className="flex justify-between w-full items-center gap-5">
             <form
               onChange={_.debounce(async () => {
-                const input: any = document.getElementsByName("search")[0];
-                const value = input.value;
-                const response = await searchData(value);
+                const response = await searchData(getValues("search"), "all");
                 setSearchResponse(response.data.user);
               }, 300)}
             >
@@ -132,7 +130,7 @@ const SearchPanel = ({ shown, setShown }: SearchPanelProps) => {
             <div className="flex w-full mt-5 flex-col">
               {searchResponse.map((user: any, index: number) => (
                 <div
-                  className="flex w-full hover:bg-theme-100 p-2 rounded-md transition-colors cursor-pointer gap-5 items-center mt-2"
+                  className="flex w-full hover:bg-theme-100 dark:hover:bg-slate-700 p-2 rounded-md transition-colors cursor-pointer gap-5 items-center mt-2"
                   key={index}
                   onClick={() => {
                     setShown(false);
@@ -142,7 +140,7 @@ const SearchPanel = ({ shown, setShown }: SearchPanelProps) => {
                   <div className="w-8">
                     <ProfilePicture user={user} size="xs" />
                   </div>
-                  <span className="">{user.username}</span>
+                  <span>{user.username}</span>
                 </div>
               ))}
             </div>
