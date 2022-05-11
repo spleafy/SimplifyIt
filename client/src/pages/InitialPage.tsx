@@ -53,7 +53,7 @@ const InitialSetupPage = () => {
     const token = localStorage.getItem("X-Auth-Token");
 
     // Submitting the form and awaiting the response
-    const response = await submitForm(values, "workspace/create", token);
+    const response = await submitForm(values, "workspace", token);
 
     // If the response is 200, update the user and update the workspace in the redux store, then navigate the user to the home page of the app
     if (response.status === 200) {

@@ -24,12 +24,13 @@ export const createFormData = (obj: any) => {
 export const submitForm = async (
   values: any,
   path: string,
-  token?: string | null
+  token?: string | null,
+  method?: string
 ) => {
   try {
     const data = await fetchBackendAsync(
-      `api/${path}`,
-      "POST",
+      `api/v1/${path}`,
+      method ? method : "POST",
       token ? { "X-Auth-Token": token } : {},
       values
     );

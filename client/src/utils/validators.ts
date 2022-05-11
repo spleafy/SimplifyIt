@@ -109,7 +109,7 @@ export const validateEmailBackend = _.debounce(
     ) {
       try {
         const data = await fetchBackendAsync(
-          `api/user/validate/email?email=${encodeURIComponent(value)}`
+          `api/v1/user/validate/email?email=${encodeURIComponent(value)}`
         );
 
         if (!data.data.registered && checkRegistered) {
@@ -149,7 +149,7 @@ export const validateUsernameBackend = _.debounce(
     if (value && value.length > 4 && /^[a-z0-9_-]{4,255}$/.test(value)) {
       try {
         const data = await fetchBackendAsync(
-          `api/user/validate/username?username=${encodeURIComponent(value)}`
+          `api/v1/user/validate/username?username=${encodeURIComponent(value)}`
         );
 
         if (!data.data.registered && checkRegistered) {

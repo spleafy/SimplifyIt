@@ -76,11 +76,25 @@ export const defineDate = (date: number): string => {
  * @description Method that converts the thrown error to a friendlier message
  */
 export const defineError = (error: string): string => {
-  // if (error === "TypeError: NetworkError when attempting to fetch resource.") {
-  //   return "Couldn't connect to the API, try in a second!";
-  // }
+  if (error === "sendfriendrequest") {
+    return "Couldn't send a friend request!";
+  }
 
-  // return error;
+  if (error === "acceptfriendrequest") {
+    return "Couldn't add as a friend!";
+  }
+
+  if (error === "rejectfriendrequest") {
+    return "Couldn't reject the friend request!";
+  }
+
+  if (error === "cancelfriendrequest") {
+    return "Couldn't cancell the friend request!";
+  }
+
+  if (error === "removefriend") {
+    return "Couldn't remove as a friend!";
+  }
 
   return "Couldn't connect to the API, try in a second!";
 };
@@ -106,6 +120,26 @@ export const defineSuccess = (success: string): string => {
 
   if (success === "settings") {
     return "Successfully updated the settings!";
+  }
+
+  if (success === "sendfriendrequest") {
+    return "Successfully sent a friend request!";
+  }
+
+  if (success === "acceptfriendrequest") {
+    return "Successfully added as a friend!";
+  }
+
+  if (success === "rejectfriendrequest") {
+    return "Successfully rejected the friend request!";
+  }
+
+  if (success === "cancelfriendrequest") {
+    return "Successfully cancelled the friend request!";
+  }
+
+  if (success === "removefriend") {
+    return "Successfully removed as a friend!";
   }
 
   return success;

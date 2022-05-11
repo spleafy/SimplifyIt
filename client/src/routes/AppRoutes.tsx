@@ -5,18 +5,22 @@ import { useSelector, useDispatch } from "react-redux";
 // Redux
 import { updateUser } from "../redux/userSlice";
 import { updateNotifications } from "../redux/notificationSlice";
+import {
+  updateSentFriendRequests,
+  updateReceivedFriendRequests,
+} from "../redux/friendRequestSlice";
+import { updateFriends } from "../redux/friendSlice";
 // Pages
 import HomePage from "../pages/HomePage";
 import WorkspacePage from "../pages/WorkspacePage";
 import MessagesPage from "../pages/MessagesPage";
-import PeoplePage from "../pages/PeoplePage";
 import TeamsPage from "../pages/TeamsPage";
 import NotFoundPage from "../pages/NotFoundPage";
 // Routes
 import UserRoutes from "./UserRoutes";
 import SettingsRoutes from "./SettingsRoutes";
 import ChallangesRoutes from "./ChallangesRoutes";
-import AccountRoutes from "./AccountRoutes";
+import FriendsRoutes from "./FriendsRoutes";
 // Components
 import Navigation from "../components/Navigation";
 import ActionButton from "../components/ActionButton";
@@ -33,6 +37,8 @@ import {
   updateUserNotifications,
   updateNotificationStateAndUpdate,
   updateWorkspace,
+  updateUserFriendRequests,
+  updateUserFriends,
 } from "../utils/user";
 import { getColors, defineDate } from "../utils/utils";
 // Lodash
@@ -160,6 +166,10 @@ const AppRoutes = () => {
         await updateUserNotifications();
         // Setting the workspace
         await updateWorkspace();
+        // Setting the user friend requests
+        await updateUserFriendRequests();
+        // Setting the user friends
+        await updateUserFriends();
       }
 
       setLoading(false);
@@ -229,7 +239,7 @@ const AppRoutes = () => {
                   <span className="w-full first-letter:uppercase"></span>
                   <div className="flex justify-center items-center w-full">
                     <div
-                      className="w-[300px] text-slate-600 bg-slate-100 dark:bg-slate-800 dark:text-white rounded-full py-2 px-4 flex items-center justify-between gap-3 text-sm cursor-pointer transition-colors hover:text-theme-500"
+                      className="w-[300px] text-slate-600 bg-slate-100 dark:bg-slate-800 dark:text-white rounded-full py-2 pr-2 pl-3 flex items-center justify-between gap-3 text-sm cursor-pointer transition-colors hover:text-theme-500"
                       onClick={() => {
                         setSearchShown(true);
                       }}
@@ -238,7 +248,7 @@ const AppRoutes = () => {
                         <MagnifyingGlass />
                         Search
                       </div>
-                      <div className="px-3 py-1 text-xs bg-gray-200/60 rounded-md text-slate-800 dark:bg-gray-700 dark:text-slate-200">
+                      <div className="px-3 py-1 text-xs bg-gray-200/60 text-slate-800 dark:bg-gray-700 dark:text-slate-200 rounded-full">
                         Shift + S
                       </div>
                     </div>
@@ -374,6 +384,9 @@ const AppRoutes = () => {
                               localStorage.removeItem("X-Auth-Token");
                               dispatch(updateUser({}));
                               dispatch(updateNotifications([]));
+                              dispatch(updateReceivedFriendRequests([]));
+                              dispatch(updateSentFriendRequests([]));
+                              dispatch(updateFriends([]));
                               document
                                 .querySelector("html")
                                 ?.classList.remove("dark");
@@ -393,12 +406,11 @@ const AppRoutes = () => {
                     <Route path="home" element={<HomePage />} />
                     <Route path="workspace" element={<WorkspacePage />} />
                     <Route path="messages" element={<MessagesPage />} />
-                    <Route path="people" element={<PeoplePage />} />
+                    <Route path="friends/*" element={<FriendsRoutes />} />
                     <Route path="teams" element={<TeamsPage />} />
                     <Route path="settings/*" element={<SettingsRoutes />} />
                     <Route path="challanges/*" element={<ChallangesRoutes />} />
                     <Route path="u/*" element={<UserRoutes />} />
-                    <Route path="a/*" element={<AccountRoutes />} />
                     <Route path="*" element={<NotFoundPage />} />
                   </Routes>
                 </main>

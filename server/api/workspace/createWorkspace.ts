@@ -20,7 +20,7 @@ const createWorkspace = async (req: Request | any, res: Response) => {
     }).save();
 
     if (workspace) {
-      const user: any = await User.updateOne(
+      const user: any = await User.findOneAndUpdate(
         { _id: req.id },
         {
           $set: {

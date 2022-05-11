@@ -7,16 +7,15 @@ import User from "../../../models/database/user";
 import ResponseMessage from "../../../models/responseMessage";
 // Types
 import { UserType } from "../../../types";
+// Utils
+import { validateObjectKeys } from "../../../utils";
 
 const authLogin = async (req: Request, res: Response) => {
-  const user: UserType | null = req.body
-    ? await User.findOne({
-        username: req.body.username,
-      })
-    : null;
-
-  if (user) {
-    if (await bcrypt.compare(req.body.password, user.password)) {
+  if (validateObjectKeys(req.body, ["username", "password"])) {
+    const user: UserType | null = await User.findOne({
+      username: req.body.username,
+    });
+    if (user && (await bcrypt.compare(req.body.password, user.password))) {
       if (user.settings.twoFactor) {
         mail.setApiKey(process.env.SENDGRID_API_KEY as string);
 

@@ -3,6 +3,8 @@ import userSlice from "./userSlice";
 import notificationSlice from "./notificationSlice";
 import workspaceSlice from "./workspaceSlice";
 import appActionSlice from "./appActionSlice";
+import friendRequestSlice from "./friendRequestSlice";
+import friendSlice from "./friendSlice";
 
 /**
  * Redux Store
@@ -14,5 +16,7 @@ export default configureStore({
     notifications: notificationSlice,
     workspace: workspaceSlice,
     actions: appActionSlice,
+    friendRequests: friendRequestSlice,
+    friends: friendSlice,
   },
 });

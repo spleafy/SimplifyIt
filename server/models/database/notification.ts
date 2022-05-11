@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const notificationSchema = new mongoose.Schema({
-  userID: String,
+  userId: String,
   type: String,
   data: {
     username: String,

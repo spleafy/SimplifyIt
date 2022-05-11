@@ -53,10 +53,10 @@ const Navigation = () => {
             </div>
           </NavigationLink>
           <NavigationLabel>Social</NavigationLabel>
-          <NavigationLink to={"/app/people"}>
+          <NavigationLink to={"/app/friends"}>
             <div className="flex gap-3 items-center">
               <Users />
-              People
+              Friends
             </div>
           </NavigationLink>
           <NavigationLink to={"/app/teams"}>

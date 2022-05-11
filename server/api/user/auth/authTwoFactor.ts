@@ -2,9 +2,11 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 // Models
 import ResponseMessage from "../../../models/responseMessage";
+// Utils
+import { validateObjectKeys } from "../../../utils";
 
 const authReset = async (req: Request | any, res: Response) => {
-  if (req.body && req.body.twofactorcode) {
+  if (validateObjectKeys(req.body, ["twofactorcode"])) {
     const code = Number(req.body.twofactorcode);
 
     if (code === req.code) {

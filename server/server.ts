@@ -33,11 +33,6 @@ import verifyToken from "./middleware/verifyToken";
 // Api Endpoint
 import fetchApi from "./api/fetchApi";
 
-// Validate Endpoints
-import validateUsername from "./api/user/validate/validateUsername";
-import validateEmail from "./api/user/validate/validateEmail";
-import validateToken from "./api/user/validate/validateToken";
-
 // Auth Endpoints
 import authLogin from "./api/user/auth/authLogin";
 import authRegister from "./api/user/auth/authRegister";
@@ -45,83 +40,128 @@ import authForgot from "./api/user/auth/authForgot";
 import authReset from "./api/user/auth/authReset";
 import authTwoFactor from "./api/user/auth/authTwoFactor";
 
+// Validate Endpoints
+import validateUsername from "./api/user/validate/validateUsername";
+import validateEmail from "./api/user/validate/validateEmail";
+import validateToken from "./api/user/validate/validateToken";
+
 // User Endpoints
-import fetchLoggedUserData from "./api/user/fetchLoggedUserData";
 import fetchUserData from "./api/user/fetchUserData";
-import searchUser from "./api/user/searchUser";
-import followUser from "./api/user/followUser";
-import unfollowUser from "./api/user/unfollowUser";
-import fetchUserFollowers from "./api/user/fetchUserFollowers";
-import fetchUserFollowing from "./api/user/fetchUserFollowing";
-import fetchUserNotifications from "./api/user/fetchUserNotifications";
+import fetchData from "./api/user/fetchData";
+import fetchNotifications from "./api/user/notifications/fetchNotifications";
 
 // Settings Endpoints
 import updateUserAccount from "./api/user/settings/updateUserAccount";
-import updateNotificationState from "./api/user/updateNotificationState";
+
+// Notifications Endpoints
+import updateNotificationState from "./api/user/notifications/updateNotificationState";
+
+// Friend Endpoints
+import createFriendRequest from "./api/user/friends/createFriendRequest";
+import acceptFriendRequest from "./api/user/friends/acceptFriendRequest";
+import cancelFriendRequest from "./api/user/friends/cancelFriendRequest";
+import rejectFriendRequest from "./api/user/friends/rejectFriendRequest";
+import fetchFriendRequests from "./api/user/friends/fetchFriendRequests";
+import fetchFriends from "./api/user/friends/fetchFriends";
+import removeFriend from "./api/user/friends/removeFriend";
+
+// Workspace Endpoints
+import createWorkspace from "./api/workspace/createWorkspace";
+import getWorkspace from "./api/workspace/getWorkspace";
 
 // Api Route
 app.get("/api", fetchApi);
 
 // Auth Routes
-app.post("/api/user/auth/login", upload.none(), authLogin);
+app.post("/api/v1/user/auth/login", upload.none(), authLogin);
 
-app.post("/api/user/auth/register", upload.none(), authRegister);
+app.post("/api/v1/user/auth/register", upload.none(), authRegister);
 
-app.post("/api/user/auth/forgot", upload.none(), authForgot);
+app.post("/api/v1/user/auth/forgot", upload.none(), authForgot);
 
-app.post("/api/user/auth/reset", verifyToken, upload.none(), authReset);
+app.post("/api/v1/user/auth/reset", verifyToken, upload.none(), authReset);
 
-app.post("/api/user/auth/twofactor", verifyToken, upload.none(), authTwoFactor);
+app.post(
+  "/api/v1/user/auth/twofactor",
+  verifyToken,
+  upload.none(),
+  authTwoFactor
+);
 
 // Validate Routes
-app.get("/api/user/validate/username", validateUsername);
+app.get("/api/v1/user/validate/username", validateUsername);
 
-app.get("/api/user/validate/email", validateEmail);
+app.get("/api/v1/user/validate/email", validateEmail);
 
-app.get("/api/user/validate/token", verifyToken, validateToken);
+app.get("/api/v1/user/validate/token", verifyToken, validateToken);
 
 // User Routes
-app.get("/api/user/logged", verifyToken, fetchLoggedUserData);
+app.get("/api/v1/user", verifyToken, fetchUserData);
 
-app.get("/api/user", verifyToken, fetchUserData);
-
-app.get("/api/user/search", verifyToken, searchUser);
-
-app.get("/api/user", verifyToken, fetchUserData);
-
-app.get("/api/user/followers", verifyToken, fetchUserFollowers);
-
-app.get("/api/user/following", verifyToken, fetchUserFollowing);
-
-app.get("/api/user/notifications", verifyToken, fetchUserNotifications);
-
-app.post("/api/user/follow", upload.none(), verifyToken, followUser);
-
-app.post("/api/user/unfollow", upload.none(), verifyToken, unfollowUser);
+app.get("/api/v1/user/search", verifyToken, fetchData);
 
 // Settings Routes
-app.post(
-  "/api/user/settings/account",
+app.put(
+  "/api/v1/user/settings/account",
   upload.none(),
   verifyToken,
   updateUserAccount
 );
 
+// Notification Routes
+app.get("/api/v1/user/notifications", verifyToken, fetchNotifications);
+
 app.put(
-  "/api/user/notifications/state",
+  "/api/v1/user/notifications/state",
   upload.none(),
   verifyToken,
   updateNotificationState
 );
 
-// Workspace Endpoints
+// Friend Routes
+app.get("/api/v1/user/friend/request", verifyToken, fetchFriendRequests);
 
-import createWorkspace from "./api/workspace/createWorkspace";
-import getWorkspace from "./api/workspace/getWorkspace";
+app.post(
+  "/api/v1/user/friend/request",
+  verifyToken,
+  upload.none(),
+  createFriendRequest
+);
 
-app.post("/api/workspace/create", upload.none(), verifyToken, createWorkspace);
+app.post(
+  "/api/v1/user/friend/request/reject",
+  verifyToken,
+  upload.none(),
+  rejectFriendRequest
+);
 
-app.get("/api/workspace", verifyToken, getWorkspace);
+app.post(
+  "/api/v1/user/friend/request/cancel",
+  verifyToken,
+  upload.none(),
+  cancelFriendRequest
+);
+
+app.post(
+  "/api/v1/user/friend/request/accept",
+  verifyToken,
+  upload.none(),
+  acceptFriendRequest
+);
+
+app.get("/api/v1/user/friend", verifyToken, fetchFriends);
+
+app.post(
+  "/api/v1/user/friend/remove",
+  verifyToken,
+  upload.none(),
+  removeFriend
+);
+
+// Workspace Routes
+app.post("/api/v1/workspace", upload.none(), verifyToken, createWorkspace);
+
+app.get("/api/v1/workspace", verifyToken, getWorkspace);
 
 app.listen(PORT, HOST, () => {
   console.log(`Server listening on port : http://${HOST}:${PORT}`);

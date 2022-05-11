@@ -68,7 +68,8 @@ const SecuritySettingsPage = () => {
     const response = await submitForm(
       values,
       "user/settings/account",
-      localStorage.getItem("X-Auth-Token")
+      localStorage.getItem("X-Auth-Token"),
+      "PUT"
     );
     // Checking if the status is 200, then we update the user settings, if not - display an error message
     if (response.status === 200) {

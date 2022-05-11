@@ -6,13 +6,21 @@ import User from "../../../models/database/user";
 import ResponseMessage from "../../../models/responseMessage";
 // Types
 import { UserType } from "../../../types";
+// Utils
+import { validateObjectKeys } from "../../../utils";
 
 const authForgot = async (req: Request, res: Response) => {
-  const user: UserType | null = req.body
-    ? await User.findOne({ email: req.body.email })
-    : null;
+  if (!validateObjectKeys(req.body, ["email"])) {
+    res.json(new ResponseMessage(401));
+    return;
+  }
 
-  if (user) {
+  const user: UserType | null = await User.findOne({ email: req.body.email });
+
+  if (!user) {
+    res.json(new ResponseMessage(403));
+    return;
+  } else {
     mail.setApiKey(process.env.SENDGRID_API_KEY as string);
 
     const token = jwt.sign(
@@ -31,8 +39,7 @@ const authForgot = async (req: Request, res: Response) => {
     const response = await mail.send(message);
 
     res.json(new ResponseMessage(response[0].statusCode));
-  } else {
-    res.json(new ResponseMessage(401));
+    return;
   }
 };
 
