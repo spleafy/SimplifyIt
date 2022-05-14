@@ -1,4 +1,4 @@
-import { ReactChild } from "react";
+import { ReactChild, FC } from "react";
 
 interface ColumnProps {
   width?: string;
@@ -15,7 +15,7 @@ interface ColumnProps {
  * @returns Element
  */
 
-const Column = ({ width, minWidth, children }: ColumnProps) => {
+const Column: FC<ColumnProps> = ({ width, minWidth, children }) => {
   return (
     <div
       className={`${width ? "w-[400px]" : "w-full"} min-w-${

@@ -1,7 +1,8 @@
+import { FC } from "react";
 import { useSelector } from "react-redux";
 import { Check, X } from "phosphor-react";
 // Components
-import Card from "../../components/Card";
+import Card from "../../components/basic/Card";
 // Utils
 import { getColors } from "../../utils/utils";
 import {
@@ -14,7 +15,7 @@ interface FriendRequestsPageProps {
   type: string;
 }
 
-const FriendRequestsPage = ({ type }: FriendRequestsPageProps) => {
+const FriendRequestsPage: FC<FriendRequestsPageProps> = ({ type }) => {
   /**
    * Friend Requests State
    * @description Getting the friend requests state from the redux store

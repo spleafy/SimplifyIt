@@ -6,7 +6,7 @@ import {
   waitFor,
 } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
-import Navigation from "../Navigation";
+import Navigation from "../navigation/Navigation";
 
 const TestComponent = () => {
   return (

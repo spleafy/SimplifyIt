@@ -1,17 +1,16 @@
-import { useState } from "react";
+import { useState, FC } from "react";
 import { useForm } from "react-hook-form";
 import { Phone, VideoCamera, Info } from "phosphor-react";
 // Components
-import PrimaryButton from "../components/PrimaryButton";
-import ActionButton from "../components/ActionButton";
-import ProfilePicture from "../components/ProfilePicture";
-import TopNavigation from "../components/TopNavigation";
+import Button from "../components/basic/Button";
+import ProfilePicture from "../components/basic/ProfilePicture";
+import TopNavigation from "../components/navigation/TopNavigation";
 // Redux
 import { useSelector } from "react-redux";
 // Socket IO
 import io from "socket.io-client";
 
-const MessagesPage = () => {
+const MessagesPage: FC = () => {
   /**
    * Document title
    * @description Updating the document title
@@ -69,7 +68,11 @@ const MessagesPage = () => {
         <div className="flex items-center justify-between w-full gap-5 cursor-pointer px-3 py-1 rounded-md">
           <div className="flex gap-5">
             <div className="w-[50px] aspect-square">
-              <ProfilePicture user={loggedUser} size="sm" />
+              <ProfilePicture
+                color={loggedUser.settings.profileColor}
+                name={loggedUser.fullname}
+                size="sm"
+              />
             </div>
             <div className="flex flex-col">
               <h2>Martin Petrov</h2>
@@ -86,7 +89,11 @@ const MessagesPage = () => {
         <div className="flex items-center justify-between w-full gap-5 cursor-pointer px-3 py-2 rounded-md">
           <div className="flex gap-5">
             <div className="w-[50px] aspect-square">
-              <ProfilePicture user={loggedUser} size="sm" />
+              <ProfilePicture
+                color={loggedUser.settings.profileColor}
+                name={loggedUser.fullname}
+                size="sm"
+              />
             </div>
             <div className="flex flex-col">
               <span className="text-base">Martin Petrov</span>
@@ -101,7 +108,11 @@ const MessagesPage = () => {
         <div className="flex items-center justify-between w-full gap-5 cursor-pointer px-3 py-1 bg-slate-200 rounded-md">
           <div className="flex gap-5">
             <div className="w-[50px] aspect-square">
-              <ProfilePicture user={loggedUser} size="sm" />
+              <ProfilePicture
+                color={loggedUser.settings.profileColor}
+                name={loggedUser.fullname}
+                size="sm"
+              />
             </div>
             <div className="flex flex-col">
               <span className="text-base">Martin Petrov</span>
@@ -118,29 +129,36 @@ const MessagesPage = () => {
         <TopNavigation>
           <div className="flex gap-5 items-center">
             <div className="w-9 h-9 flex gap-5">
-              <ProfilePicture user={loggedUser} size="sm" />
+              <ProfilePicture
+                color={loggedUser.settings.profileColor}
+                name={loggedUser.fullname}
+                size="sm"
+              />
             </div>
             <span>Martin Petrov</span>
           </div>
           <div className="flex gap-5 text-xl text-theme-500">
-            <ActionButton
+            <Button
+              variant="action"
               className="!text-theme-500 tooltip"
               tooltip="Start an audio call"
             >
               <Phone />
-            </ActionButton>
-            <ActionButton
+            </Button>
+            <Button
+              variant="action"
               className="!text-theme-500 tooltip"
               tooltip="Start a video call"
             >
               <VideoCamera />
-            </ActionButton>
-            <ActionButton
+            </Button>
+            <Button
+              variant="action"
               className="!text-theme-500 tooltip"
               tooltip="Conversation information"
             >
               <Info />
-            </ActionButton>
+            </Button>
           </div>
         </TopNavigation>
         <div className="overflow-auto">
@@ -162,7 +180,9 @@ const MessagesPage = () => {
             {...register("message")}
           />
           <div className="w-fit">
-            <PrimaryButton submit={true}>Send Message</PrimaryButton>
+            <Button variant="primary" submit={true}>
+              Send Message
+            </Button>
           </div>
         </form>
       </div>

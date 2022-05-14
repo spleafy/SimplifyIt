@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, FC } from "react";
 
 interface ToggleSwitchProps {
   getValues: any;
@@ -15,7 +15,7 @@ interface ToggleSwitchProps {
  * @returns Element
  */
 
-const ToggleSwitch = ({ name, register, getValues }: ToggleSwitchProps) => {
+const ToggleSwitch: FC<ToggleSwitchProps> = ({ name, register, getValues }) => {
   /**
    * Toggled State
    * @description Creating a useState variable, so we can toggle the "toggled" style of the component.

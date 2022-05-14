@@ -1,10 +1,10 @@
 import { render, screen, cleanup } from "@testing-library/react";
-import SecondaryButton from "../SecondaryButton";
+import Button from "../Button";
 
 afterEach(cleanup);
 
 test("Secondary button renders", () => {
-  render(<SecondaryButton>Test Button</SecondaryButton>);
+  render(<Button variant="secondary">Test Button</Button>);
 
   const button = screen.getByText(/Test Button/);
 

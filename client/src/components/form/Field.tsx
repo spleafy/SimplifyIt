@@ -1,3 +1,5 @@
+import { FC } from "react";
+
 interface FieldProps {
   name: string;
   placeholder: string;
@@ -30,7 +32,7 @@ interface FieldProps {
  * @returns Element
  */
 
-const Field = ({
+const Field: FC<FieldProps> = ({
   name,
   placeholder,
   type,
@@ -42,7 +44,7 @@ const Field = ({
   readOnly,
   min,
   max,
-}: FieldProps) => {
+}) => {
   return (
     <input
       name={name}

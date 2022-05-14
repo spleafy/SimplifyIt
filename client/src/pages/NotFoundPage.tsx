@@ -1,7 +1,8 @@
+import { FC } from "react";
 // Components
 import { Link } from "react-router-dom";
 
-const NotFoundPage = () => {
+const NotFoundPage: FC = () => {
   /**
    * Document title
    * @description Updating the document title

@@ -1,21 +1,21 @@
+import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 // Redux
 import { useSelector } from "react-redux";
 // Components
-import Column from "../components/Column";
-import SecondaryButton from "../components/SecondaryButton";
-import PrimaryButton from "../components/PrimaryButton";
-import PopUp from "../components/PopUp";
+import Column from "../components/basic/Column";
+import Button from "../components/basic/Button";
+import Card from "../components/basic/Card";
 import Form from "../components/form/Form";
 import TextFormField from "../components/form/TextFormField";
 import SelectFormField from "../components/form/SelectFormField";
-import NavigationLink from "../components/NavigationLink";
-import Label from "../components/Label";
+import NavigationLink from "../components/navigation/NavigationLink";
+import Label from "../components/basic/Label";
 // Utils
 import { validateRequired } from "../utils/validators";
 
-const HomePage = () => {
+const HomePage: FC = () => {
   /**
    * Document title
    * @description Changing the document title
@@ -53,13 +53,16 @@ const HomePage = () => {
       <Column>
         <h1 className="mt-10">Components</h1>
         <div className="w-[200px] mt-5">
-          <PrimaryButton>Primary</PrimaryButton>
+          <Button variant="primary">Primary</Button>
         </div>
         <div className="w-[200px] mt-5">
-          <SecondaryButton>Secondary</SecondaryButton>
+          <Button variant="secondary">Secondary</Button>
+        </div>
+        <div className="w-[200px] mt-5">
+          <Button variant="text">Text</Button>
         </div>
         <div className="mt-5">
-          <PopUp width="480px" heading="Test Form">
+          <Card variant="popup" width="480px" heading="Test Form">
             <Form submit={handleSubmit(() => {})}>
               <TextFormField
                 name="field"
@@ -69,9 +72,11 @@ const HomePage = () => {
                 error={errors.field}
                 validators={{ required: (v: any) => validateRequired(v) }}
               />
-              <PrimaryButton submit={true}>Submit</PrimaryButton>
+              <Button variant="primary" submit>
+                Submit
+              </Button>
             </Form>
-          </PopUp>
+          </Card>
         </div>
         <div className="mt-5 w-[300px]">
           <SelectFormField
@@ -121,9 +126,9 @@ const HomePage = () => {
           <Label>Label</Label>
         </div>
         <div className="mt-5">
-          <PopUp width="480px" heading="PopUp Heading">
-            <span>PopUp</span>
-          </PopUp>
+          <Card variant="popup" width="480px" heading="Card Heading">
+            <span>Card</span>
+          </Card>
         </div>
       </Column>
       <Column width="[400px]" minWidth="[400px]">
@@ -133,13 +138,14 @@ const HomePage = () => {
           <div className="h-full flex flex-col justify-center items-center w-[90%] self-center">
             <span className="pb-2">Looks kind of lonely...</span>
             <div className="w-auto">
-              <SecondaryButton
-                click={() => {
+              <Button
+                variant="secondary"
+                onClick={() => {
                   navigate("/app/friends");
                 }}
               >
                 Discover More
-              </SecondaryButton>
+              </Button>
             </div>
           </div>
         )}

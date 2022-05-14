@@ -1,14 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, FC } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 // Pages
 import NotFoundPage from "./NotFoundPage";
 //Components
-import Column from "../components/Column";
-import PrimaryButton from "../components/PrimaryButton";
-import SecondaryButton from "../components/SecondaryButton";
-import Loading from "../components/Loading";
-import ProfilePicture from "../components/ProfilePicture";
+import Column from "../components/basic/Column";
+import Button from "../components/basic/Button";
+import Loading from "../components/basic/Loading";
+import ProfilePicture from "../components/basic/ProfilePicture";
 // Utils
 import { fecthUserData } from "../utils/api";
 import {
@@ -17,7 +16,7 @@ import {
   removeFriendAndUpdate,
 } from "../utils/user";
 
-const ProfilePage = () => {
+const ProfilePage: FC = () => {
   /**
    * Navigate method
    * @description Creating a navigate method, so we can navigate through the app
@@ -60,7 +59,7 @@ const ProfilePage = () => {
    * User state
    * @description Creating a useState variable, so we can toggle the user, if the wanted username is the same as the logged user's username, then we set the user to be the logged user
    */
-  const [user, setUser]: any = useState({});
+  const [user, setUser]: any = useState(null);
 
   /**
    * Personal profile state
@@ -106,7 +105,11 @@ const ProfilePage = () => {
               <Column>
                 <div className="flex flex-col w-full">
                   <div className={`w-[100px]`}>
-                    <ProfilePicture user={user} size="xl" />
+                    <ProfilePicture
+                      color={user.settings.profileColor}
+                      name={user.fullname}
+                      size="xl"
+                    />
                   </div>
                   <h1 className="mt-3">{user ? user.fullname : ""}</h1>
                   <h3 className="text-lg text-slate-600 dark:text-slate-300">
@@ -127,13 +130,14 @@ const ProfilePage = () => {
                     {personalProfile ? (
                       <>
                         <div className="w-[150px]">
-                          <SecondaryButton
-                            click={() => {
+                          <Button
+                            variant="secondary"
+                            onClick={() => {
                               navigate("/app/settings/account");
                             }}
                           >
                             Edit Profile
-                          </SecondaryButton>
+                          </Button>
                         </div>
                       </>
                     ) : (
@@ -141,8 +145,9 @@ const ProfilePage = () => {
                         <div className="w-[150px]">
                           {loggedUser.friends ? (
                             loggedUser.friends.includes(user._id) ? (
-                              <SecondaryButton
-                                click={async () => {
+                              <Button
+                                variant="secondary"
+                                onClick={async () => {
                                   setProcessing(true);
                                   await removeFriendAndUpdate(user._id);
                                   setProcessing(false);
@@ -150,15 +155,16 @@ const ProfilePage = () => {
                                 loading={processing}
                               >
                                 Friends
-                              </SecondaryButton>
+                              </Button>
                             ) : (
                               <>
                                 {friendRequests.sent &&
                                 friendRequests.sent.some(
                                   ({ to }: any) => to === user._id
                                 ) ? (
-                                  <PrimaryButton
-                                    click={async () => {
+                                  <Button
+                                    variant="primary"
+                                    onClick={async () => {
                                       setProcessing(true);
                                       await cancelFriendRequestAndUpdate(
                                         user._id
@@ -168,10 +174,11 @@ const ProfilePage = () => {
                                     loading={processing}
                                   >
                                     Cancel Request
-                                  </PrimaryButton>
+                                  </Button>
                                 ) : (
-                                  <PrimaryButton
-                                    click={async () => {
+                                  <Button
+                                    variant="primary"
+                                    onClick={async () => {
                                       setProcessing(true);
                                       await sendFriendRequestAndUpdate(
                                         user._id
@@ -181,7 +188,7 @@ const ProfilePage = () => {
                                     loading={processing}
                                   >
                                     Add Friend
-                                  </PrimaryButton>
+                                  </Button>
                                 )}
                               </>
                             )
@@ -190,7 +197,7 @@ const ProfilePage = () => {
                           )}
                         </div>
                         <div className="w-[150px]">
-                          <SecondaryButton>More</SecondaryButton>
+                          <Button variant="secondary">More</Button>
                         </div>
                       </>
                     )}
@@ -222,13 +229,14 @@ const ProfilePage = () => {
                   <div className="h-full flex flex-col justify-center items-center w-[90%] self-center">
                     <span className="pb-2">Looks kind of lonely...</span>
                     <div className="w-auto">
-                      <SecondaryButton
-                        click={() => {
+                      <Button
+                        variant="secondary"
+                        onClick={() => {
                           navigate("/app/friends");
                         }}
                       >
                         Discover More
-                      </SecondaryButton>
+                      </Button>
                     </div>
                   </div>
                 )}

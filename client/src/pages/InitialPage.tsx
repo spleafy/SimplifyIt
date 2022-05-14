@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, FC } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // Components
-import PopUp from "../components/PopUp";
+import Card from "../components/basic/Card";
 import Form from "../components/form/Form";
 import TextFormField from "../components/form/TextFormField";
-import PrimaryButton from "../components/PrimaryButton";
+import Button from "../components/basic/Button";
 // Utils
 import { validateRequired } from "../utils/validators";
 import { submitForm } from "../utils/form";
@@ -17,7 +17,7 @@ import { authToken } from "../utils/api";
 import { updateUser } from "../redux/userSlice";
 import { updateWorkspace } from "../redux/workspaceSlice";
 
-const InitialSetupPage = () => {
+const InitialSetupPage: FC = () => {
   /**
    * Navigate method
    * @description Creating a navigate method from the useNavigate hook, so we can navigate through the app
@@ -127,7 +127,7 @@ const InitialSetupPage = () => {
 
   return (
     <div className="w-full h-full flex justify-center items-center">
-      <PopUp heading="Let's setup your workspace" width="480px">
+      <Card variant="popup" heading="Let's setup your workspace" width="480px">
         <Form submit={handleSubmit(submit)}>
           <TextFormField
             register={register}
@@ -168,9 +168,11 @@ const InitialSetupPage = () => {
             )}
           </div>
           <input type="text" {...register("color")} className="hidden" />
-          <PrimaryButton submit={true}>Create</PrimaryButton>
+          <Button variant="primary" submit={true}>
+            Create
+          </Button>
         </Form>
-      </PopUp>
+      </Card>
     </div>
   );
 };

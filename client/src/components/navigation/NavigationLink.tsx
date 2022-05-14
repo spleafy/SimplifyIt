@@ -1,4 +1,4 @@
-import { ReactChild } from "react";
+import { ReactChild, FC } from "react";
 import { NavLink } from "react-router-dom";
 
 interface NavigationLinkProps {
@@ -18,12 +18,12 @@ interface NavigationLinkProps {
  * @returns Element
  */
 
-const NavigationLink = ({
+const NavigationLink: FC<NavigationLinkProps> = ({
   to,
   children,
   className,
   variant,
-}: NavigationLinkProps) => {
+}) => {
   return (
     <NavLink
       to={to}

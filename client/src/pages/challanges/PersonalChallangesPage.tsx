@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, FC } from "react";
 import { useSelector } from "react-redux";
 import { Plus, Cards, Table, X } from "phosphor-react";
 import { useForm } from "react-hook-form";
@@ -6,16 +6,15 @@ import { DayPickerSingleDateController } from "react-dates";
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
 // Components
-import Card from "../../components/Card";
-import ActionButton from "../../components/ActionButton";
-import Separator from "../../components/Separator";
-import ProfilePicture from "../../components/ProfilePicture";
+import Card from "../../components/basic/Card";
+import Button from "../../components/basic/Button";
+import Separator from "../../components/basic/Separator";
+import ProfilePicture from "../../components/basic/ProfilePicture";
 import Form from "../../components/form/Form";
 import TextFormField from "../../components/form/TextFormField";
-import PopUp from "../../components/PopUp";
 import moment from "moment";
 
-const PersonalChallangesPage = () => {
+const PersonalChallangesPage: FC = () => {
   /**
    * Settings state
    * @description Creating UseState variable, so we can change the settings.
@@ -120,15 +119,17 @@ const PersonalChallangesPage = () => {
           }}
         >
           <h1>Personal Challanges</h1>
-          <ActionButton
+          <Button
+            variant="action"
             className="bg-slate-200/70 dark:bg-slate-800 w-[30px] h-[30px] text-sm tooltip"
             tooltip="Add a personal challange"
           >
             <Plus />
-          </ActionButton>
+          </Button>
         </div>
         <div className="flex gap-3">
-          <ActionButton
+          <Button
+            variant="action"
             className={`text-sm w-[30px] h-[30px] tooltip ${
               activeLayout === "cards"
                 ? "bg-slate-200/60 dark:bg-slate-700 hover:bg-slate-200/60 dark:hover:bg-slate-700"
@@ -145,8 +146,9 @@ const PersonalChallangesPage = () => {
             tooltip="Card layout"
           >
             <Cards fill="thin" />
-          </ActionButton>
-          <ActionButton
+          </Button>
+          <Button
+            variant="action"
             className={`text-sm w-[30px] h-[30px] tooltip ${
               activeLayout === "table"
                 ? "bg-slate-200/60 dark:bg-slate-700 hover:bg-slate-200/60 dark:hover:bg-slate-700"
@@ -163,7 +165,7 @@ const PersonalChallangesPage = () => {
             tooltip="Table layout"
           >
             <Table />
-          </ActionButton>
+          </Button>
         </div>
       </div>
       <>
@@ -232,7 +234,11 @@ const PersonalChallangesPage = () => {
                   <span>status: online</span>
                 </div>
                 <div className="w-[50px] aspect-square">
-                  <ProfilePicture user={loggedUser} size={"xs"} />
+                  <ProfilePicture
+                    color={loggedUser.settings.profileColor}
+                    name={loggedUser.fullname}
+                    size={"xs"}
+                  />
                 </div>
               </div>
               <Separator />
@@ -244,7 +250,11 @@ const PersonalChallangesPage = () => {
                   <span>status: online</span>
                 </div>
                 <div className="w-[50px] aspect-square">
-                  <ProfilePicture user={loggedUser} size={"xs"} />
+                  <ProfilePicture
+                    color={loggedUser.settings.profileColor}
+                    name={loggedUser.fullname}
+                    size={"xs"}
+                  />
                 </div>
               </div>
             </div>
@@ -263,7 +273,7 @@ const PersonalChallangesPage = () => {
             //   setShownDatePickerEnd(false);
             // }}
           >
-            <PopUp width="600px">
+            <Card variant="popup" width="600px">
               <div className="flex w-full justify-between items-center text-xl">
                 <h1>Create new challange</h1>
                 <X
@@ -380,7 +390,7 @@ const PersonalChallangesPage = () => {
                 </div>
                 <span className="text-slate-600">Visibility*</span>
               </Form>
-            </PopUp>
+            </Card>
           </div>
         </div>
       ) : (

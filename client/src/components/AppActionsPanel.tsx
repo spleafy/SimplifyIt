@@ -1,9 +1,10 @@
+import { FC } from "react";
 import { useSelector } from "react-redux";
 import { Warning, CheckCircle, WarningOctagon } from "phosphor-react";
 // Utils
 import { defineError, defineSuccess, defineWarning } from "../utils/utils";
 
-const AppActionsPanel = () => {
+const AppActionsPanel: FC = () => {
   /**
    * Errors State
    * @description Getting the failed actions stored in the redux store.

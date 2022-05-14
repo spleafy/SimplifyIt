@@ -1,9 +1,9 @@
-import { ReactElement, useState } from "react";
+import { ReactElement, useState, FC } from "react";
 // Components
 import FormFieldWrapper from "./FormFieldWrapper";
 import Field from "./Field";
 
-interface FormFieldProps {
+interface TextFormFieldProps {
   name: string;
   placeholder: string;
   type?: string;
@@ -39,7 +39,7 @@ interface FormFieldProps {
  * @returns Element
  */
 
-const TextFormField = ({
+const TextFormField: FC<TextFormFieldProps> = ({
   name,
   placeholder,
   type,
@@ -53,7 +53,7 @@ const TextFormField = ({
   onFocus,
   min,
   max,
-}: FormFieldProps) => {
+}) => {
   /**
    * Mutable Type
    * @description Mutate the password type to text, so the user can see the password he entered.

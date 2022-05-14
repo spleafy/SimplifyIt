@@ -1,10 +1,11 @@
+import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
 // Components
-import PopUp from "../components/PopUp";
+import Card from "../components/basic/Card";
 import Form from "../components/form/Form";
 import TextFormField from "../components/form/TextFormField";
-import PrimaryButton from "../components/PrimaryButton";
+import Button from "../components/basic/Button";
 // Utils
 import { submitForm } from "../utils/form";
 import {
@@ -13,7 +14,7 @@ import {
   validateMatchBoth,
 } from "../utils/validators";
 
-const ResetPage = () => {
+const ResetPage: FC = () => {
   /**
    * Document title
    * @description Updating the document title
@@ -75,7 +76,7 @@ const ResetPage = () => {
 
   return (
     <div className="flex justify-center items-center h-full w-full">
-      <PopUp width="480px" heading="Reset Password">
+      <Card variant="popup" width="480px" heading="Reset Password">
         {token ? (
           <Form submit={handleSubmit(submit)}>
             <TextFormField
@@ -106,7 +107,9 @@ const ResetPage = () => {
               }}
             />
 
-            <PrimaryButton submit={true}>Reset Password</PrimaryButton>
+            <Button variant="primary" submit={true}>
+              Reset Password
+            </Button>
             <span className="block w-full text-center text-slate-400 pt-6 text-sm">
               Remembered your password?&nbsp;
               <Link
@@ -131,7 +134,7 @@ const ResetPage = () => {
             </span>
           </div>
         )}
-      </PopUp>
+      </Card>
     </div>
   );
 };

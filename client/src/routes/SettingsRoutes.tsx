@@ -1,14 +1,15 @@
+import { FC } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 // Pages
 import AccountSettingsPage from "../pages/settings/AccountSettingsPage";
 import SecuritySettingsPage from "../pages/settings/SecuritySettingsPage";
 import NotFoundPage from "../pages/NotFoundPage";
 // Components
-import Column from "../components/Column";
-import NavigationLink from "../components/NavigationLink";
-import TopNavigation from "../components/TopNavigation";
+import Column from "../components/basic/Column";
+import NavigationLink from "../components/navigation/NavigationLink";
+import TopNavigation from "../components/navigation/TopNavigation";
 
-const SettingsRoutes = () => {
+const SettingsRoutes: FC = () => {
   /**
    * Document title
    * @description Updating the document title

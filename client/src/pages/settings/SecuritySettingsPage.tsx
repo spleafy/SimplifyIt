@@ -1,19 +1,19 @@
-import { useState } from "react";
+import { useState, FC } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { Check } from "phosphor-react";
 // Components
-import Card from "../../components/Card";
-import Separator from "../../components/Separator";
+import Card from "../../components/basic/Card";
+import Separator from "../../components/basic/Separator";
 import ToggleSwitch from "../../components/form/ToggleSwitch";
-import PrimaryButton from "../../components/PrimaryButton";
+import Button from "../../components/basic/Button";
 // Redux
 import { updateUser } from "../../redux/userSlice";
 // Utils
 import { submitForm } from "../../utils/form";
 import { addSuccess } from "../../utils/utils";
 
-const SecuritySettingsPage = () => {
+const SecuritySettingsPage: FC = () => {
   /**
    * Dispatch function
    * @description Creating a dispatch method from the useDispatch hook, so we can update the redux store
@@ -102,9 +102,13 @@ const SecuritySettingsPage = () => {
                   <Check />
                 </div>
               ) : (
-                <PrimaryButton submit={true} loading={submittingForm}>
+                <Button
+                  variant="primary"
+                  submit={true}
+                  loading={submittingForm}
+                >
                   Save
-                </PrimaryButton>
+                </Button>
               )}
             </div>
           </div>
