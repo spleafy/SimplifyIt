@@ -14,7 +14,7 @@ const authRegister = async (req: Request, res: Response) => {
   if (
     validateObjectKeys(req.body, ["fullname", "email", "password", "username"])
   ) {
-    const registeredUser = User.findOne({ email: req.body.email });
+    const registeredUser = await User.findOne({ email: req.body.email });
 
     if (!registeredUser) {
       const user: UserType = new ResponseUser(req.body).getUser();
