@@ -5,12 +5,13 @@ import ResponseMessage from "../../../models/responseMessage";
 import { validateObjectKeys } from "../../../utils";
 
 const rejectFriendRequest = async (req: Request | any, res: Response) => {
-  if (validateObjectKeys(req.body, ["id"])) {
-    await FriendRequest.deleteOne({ from: req.body.id, to: req.id });
-    res.json(new ResponseMessage(200));
-  } else {
+  if (!validateObjectKeys(req.body, ["id"])) {
     res.json(new ResponseMessage(403));
+    return;
   }
+
+  await FriendRequest.deleteOne({ from: req.body.id, to: req.id });
+  res.json(new ResponseMessage(200));
 };
 
 export default rejectFriendRequest;
