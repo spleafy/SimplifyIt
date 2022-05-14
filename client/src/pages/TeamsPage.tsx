@@ -1,9 +1,10 @@
+import { FC } from "react";
 import { Plus } from "phosphor-react";
 // Components
-import Card from "../components/Card";
-import Column from "../components/Column";
+import Card from "../components/basic/Card";
+import Column from "../components/basic/Column";
 
-const TeamsPage = () => {
+const TeamsPage: FC = () => {
   return (
     <Column>
       <Card width="200px" height="250px">

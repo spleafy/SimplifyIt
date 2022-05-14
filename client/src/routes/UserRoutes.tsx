@@ -1,10 +1,11 @@
+import { FC } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 // Pages
 import ProfilePage from "../pages/ProfilePage";
 import NotFoundPage from "../pages/NotFoundPage";
 
-const UserRoutes = () => {
+const UserRoutes: FC = () => {
   /**
    * Logged user
    * @description Getting the logged user from the redux store

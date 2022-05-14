@@ -1,9 +1,9 @@
-import { ReactElement, useState } from "react";
+import { ReactElement, useState, FC } from "react";
 import { CaretDown } from "phosphor-react";
 // Components
 import Field from "./Field";
 import FormFieldWrapper from "./FormFieldWrapper";
-import Panel from "../Panel";
+import Card from "../basic/Card";
 
 interface SelectFormFieldProps {
   name: string;
@@ -34,7 +34,7 @@ interface SelectFormFieldProps {
  * @returns Element
  */
 
-const SelectFormField = ({
+const SelectFormField: FC<SelectFormFieldProps> = ({
   name,
   placeholder,
   label,
@@ -45,7 +45,7 @@ const SelectFormField = ({
   className,
   options,
   setValue,
-}: SelectFormFieldProps) => {
+}) => {
   /**
    * Expanded State
    * @description Creating a useState variable, so we can expand and hide the dropdown menu.
@@ -73,7 +73,8 @@ const SelectFormField = ({
         readOnly={true}
       />
       <CaretDown className="text-gray-400" />
-      <Panel
+      <Card
+        variant="panel"
         className={`absolute top-[80px] left-0 ${expanded ? "flex" : "hidden"}`}
       >
         {options?.map((option: string, index: number) => (
@@ -91,7 +92,7 @@ const SelectFormField = ({
             {option}
           </div>
         ))}
-      </Panel>
+      </Card>
     </FormFieldWrapper>
   );
 };

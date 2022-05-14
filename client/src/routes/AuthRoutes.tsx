@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 // Pages
 import NotFoundPage from "../pages/NotFoundPage";
@@ -8,7 +9,7 @@ import ResetPage from "../pages/ResetPage";
 import TwoFactorPage from "../pages/auth/TwoFactorPage";
 // Components
 
-const AuthRoutes = () => {
+const AuthRoutes: FC = () => {
   return (
     <>
       <main>

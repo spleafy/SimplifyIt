@@ -1,3 +1,4 @@
+import { FC } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -12,7 +13,7 @@ import AppActionsPanel from "./components/AppActionsPanel";
 import InitialSetupPage from "./pages/InitialPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
-const App = () => {
+const App: FC = () => {
   return (
     <>
       <Router>

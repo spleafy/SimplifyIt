@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, FC } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 // Components
-import PopUp from "../components/PopUp";
 import Form from "../components/form/Form";
 import TextFormField from "../components/form/TextFormField";
-import PrimaryButton from "../components/PrimaryButton";
+import Button from "../components/basic/Button";
+import Card from "../components/basic/Card";
 // Utils
 import { submitForm } from "../utils/form";
 import {
@@ -14,7 +14,7 @@ import {
   validateEmailBackend,
 } from "../utils/validators";
 
-const ForgotPage = () => {
+const ForgotPage: FC = () => {
   /**
    * Document title
    * @description Setting the document title
@@ -56,7 +56,7 @@ const ForgotPage = () => {
   return (
     <div className="flex justify-center items-center h-full w-full">
       {!sentEmail ? (
-        <PopUp width="480px" heading="Hope we can help!">
+        <Card width="480px" heading="Hope we can help!" variant="popup">
           <Form submit={handleSubmit(submit)}>
             <TextFormField
               name="email"
@@ -72,7 +72,9 @@ const ForgotPage = () => {
               }}
             />
 
-            <PrimaryButton submit={true}>Send Link</PrimaryButton>
+            <Button variant="primary" submit={true}>
+              Send Link
+            </Button>
             <span className="block w-full text-center text-slate-400 pt-6 text-sm">
               Remembered your password?&nbsp;
               <Link
@@ -83,9 +85,9 @@ const ForgotPage = () => {
               </Link>
             </span>
           </Form>
-        </PopUp>
+        </Card>
       ) : (
-        <PopUp width="480px" heading="We sent you an email!">
+        <Card width="480px" heading="We sent you an email!" variant="popup">
           <h2 className="text-md mb-8 mt-3 text-slate-700 text-center">
             If you don't find the email, check the junk folder!
           </h2>
@@ -98,7 +100,7 @@ const ForgotPage = () => {
               Login Now
             </Link>
           </span>
-        </PopUp>
+        </Card>
       )}
     </div>
   );

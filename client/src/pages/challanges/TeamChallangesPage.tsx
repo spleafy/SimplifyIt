@@ -1,4 +1,6 @@
-const TeamChallangesPage = () => {
+import { FC } from "react";
+
+const TeamChallangesPage: FC = () => {
   return <div>TeamChallangesPage</div>;
 };
 

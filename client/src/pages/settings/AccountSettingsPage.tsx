@@ -1,15 +1,13 @@
-import { useState } from "react";
+import { useState, FC } from "react";
 import { Check, X } from "phosphor-react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 // Components
 import TextFormField from "../../components/form/TextFormField";
-import PrimaryButton from "../../components/PrimaryButton";
-import SecondaryButton from "../../components/SecondaryButton";
+import Button from "../../components/basic/Button";
 import ToggleSwitch from "../../components/form/ToggleSwitch";
-import Separator from "../../components/Separator";
-import Card from "../../components/Card";
-import PopUp from "../../components/PopUp";
+import Separator from "../../components/basic/Separator";
+import Card from "../../components/basic/Card";
 // Redux
 import { updateUser } from "../../redux/userSlice";
 // Utils
@@ -25,7 +23,7 @@ import {
 } from "../../utils/validators";
 import { getColors, addSuccess } from "../../utils/utils";
 
-const AccountSettingsPage = () => {
+const AccountSettingsPage: FC = () => {
   /**
    * Logged user state
    * @description Getting the logged user from the redux store
@@ -171,9 +169,13 @@ const AccountSettingsPage = () => {
                   <Check />
                 </div>
               ) : (
-                <PrimaryButton submit={true} loading={submittingForm}>
+                <Button
+                  variant="primary"
+                  submit={true}
+                  loading={submittingForm}
+                >
                   Save
-                </PrimaryButton>
+                </Button>
               )}
             </div>
           </div>
@@ -205,7 +207,7 @@ const AccountSettingsPage = () => {
             {expandedProfileColor ? (
               <>
                 <div className="absolute w-full h-full bg-slate-900/30 top-0 left-0 flex justify-center items-center z-10">
-                  <PopUp width="480px">
+                  <Card variant="popup" width="480px">
                     <div className="flex flex-col p-5">
                       <X
                         size={20}
@@ -244,14 +246,14 @@ const AccountSettingsPage = () => {
                         <h2>OR</h2>
                         <Separator />
                       </div>
-                      <PrimaryButton>Choose File</PrimaryButton>
+                      <Button variant="primary">Choose File</Button>
                       <input
                         type="text"
                         className="hidden"
                         {...registerSettings("profileColor")}
                       />
                     </div>
-                  </PopUp>
+                  </Card>
                 </div>
               </>
             ) : (
@@ -440,7 +442,9 @@ const AccountSettingsPage = () => {
               required: (v: any) => validateRequired(v),
             }}
           />
-          <PrimaryButton submit={true}>Reset Password</PrimaryButton>
+          <Button variant="primary" submit={true}>
+            Reset Password
+          </Button>
         </form>
         <h1 className="mt-[60px]">Delete account</h1>
         <Separator />
@@ -449,7 +453,9 @@ const AccountSettingsPage = () => {
             Deleting your account will result in your data being removed.
           </span>
           <div className="w-fit">
-            <SecondaryButton variant="error">Delete Account</SecondaryButton>
+            <Button variant="secondary" color="error">
+              Delete Account
+            </Button>
           </div>
         </div>
       </Card>

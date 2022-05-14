@@ -1,16 +1,17 @@
+import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { useSearchParams, Link, useNavigate } from "react-router-dom";
 // Components
-import PopUp from "../../components/PopUp";
+import Card from "../../components/basic/Card";
 import Form from "../../components/form/Form";
 import TextFormField from "../../components/form/TextFormField";
-import PrimaryButton from "../../components/PrimaryButton";
+import Button from "../../components/basic/Button";
 // Utils
 import { validateRequired } from "../../utils/validators";
 import { submitForm } from "../../utils/form";
 import { addSuccess } from "../../utils/utils";
 
-const TwoFactorPage = () => {
+const TwoFactorPage: FC = () => {
   const navigate = useNavigate();
 
   const [params] = useSearchParams();
@@ -19,8 +20,6 @@ const TwoFactorPage = () => {
 
   const submit = async (values: any) => {
     const response = await submitForm(values, "user/auth/twofactor", token);
-
-    console.log(response.status);
 
     if (response.status !== 200) {
       // If the response status is not 200, we create an error
@@ -51,7 +50,7 @@ const TwoFactorPage = () => {
   return (
     <div className="flex justify-center items-center h-full w-full">
       {token ? (
-        <PopUp width="480px" heading="Two factor authentication">
+        <Card variant="popup" width="480px" heading="Two factor authentication">
           <Form submit={handleSubmit(submit)}>
             <TextFormField
               name="twofactorcode"
@@ -62,11 +61,13 @@ const TwoFactorPage = () => {
               error={errors.twofactorcode}
               validators={{ required: (v: string) => validateRequired(v) }}
             />
-            <PrimaryButton submit={true}>Submit</PrimaryButton>
+            <Button variant="primary" submit={true}>
+              Submit
+            </Button>
           </Form>
-        </PopUp>
+        </Card>
       ) : (
-        <PopUp width="480px" heading="No token detected">
+        <Card variant="popup" width="480px" heading="No token detected">
           <span className="block w-full text-slate-400 pt-6 text-sm text-center">
             Go back to login?&nbsp;
             <Link
@@ -76,7 +77,7 @@ const TwoFactorPage = () => {
               Login Now
             </Link>
           </span>
-        </PopUp>
+        </Card>
       )}
     </div>
   );

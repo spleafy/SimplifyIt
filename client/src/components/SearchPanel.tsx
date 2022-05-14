@@ -1,17 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, FC } from "react";
 import { X } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 // Components
-import ProfilePicture from "./ProfilePicture";
-import Panel from "./Panel";
+import ProfilePicture from "./basic/ProfilePicture";
+import Card from "./basic/Card";
 // Utils
 import { searchData } from "../utils/api";
 // Lodash
 import _ from "lodash";
 
 interface SearchPanelProps {
-  shown: boolean;
   setShown: any;
 }
 
@@ -23,7 +22,7 @@ interface SearchPanelProps {
  * @returns Element
  */
 
-const SearchPanel = ({ shown, setShown }: SearchPanelProps) => {
+const SearchPanel: FC<SearchPanelProps> = ({ setShown }: SearchPanelProps) => {
   /**
    * Navigate Method
    * @constant
@@ -80,7 +79,8 @@ const SearchPanel = ({ shown, setShown }: SearchPanelProps) => {
       <div
         className={`fixed w-full h-full flex justify-center items-center bg-gray-900/50 z-20 top-0 left-0`}
       >
-        <Panel
+        <Card
+          variant="panel"
           className={`w-[650px] bg-white px-7 py-6 rounded-md flex items-start flex-col`}
         >
           <div className="flex justify-between w-full items-center gap-5">
@@ -138,7 +138,11 @@ const SearchPanel = ({ shown, setShown }: SearchPanelProps) => {
                   }}
                 >
                   <div className="w-8">
-                    <ProfilePicture user={user} size="xs" />
+                    <ProfilePicture
+                      color={user.settings.profileColor}
+                      name={user.fullname}
+                      size="xs"
+                    />
                   </div>
                   <span>{user.username}</span>
                 </div>
@@ -147,7 +151,7 @@ const SearchPanel = ({ shown, setShown }: SearchPanelProps) => {
           ) : (
             <></>
           )}
-        </Panel>
+        </Card>
       </div>
     </>
   );

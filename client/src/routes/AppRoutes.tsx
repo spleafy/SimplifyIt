@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, FC } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { MagnifyingGlass, Bell, Trash } from "phosphor-react";
 import { useSelector, useDispatch } from "react-redux";
@@ -22,14 +22,14 @@ import SettingsRoutes from "./SettingsRoutes";
 import ChallangesRoutes from "./ChallangesRoutes";
 import FriendsRoutes from "./FriendsRoutes";
 // Components
-import Navigation from "../components/Navigation";
-import ActionButton from "../components/ActionButton";
-import TopNavigation from "../components/TopNavigation";
-import NavigationLink from "../components/NavigationLink";
-import Loading from "../components/Loading";
+import Navigation from "../components/navigation/Navigation";
+import TopNavigation from "../components/navigation/TopNavigation";
+import NavigationLink from "../components/navigation/NavigationLink";
+import Loading from "../components/basic/Loading";
 import SearchPanel from "../components/SearchPanel";
-import Panel from "../components/Panel";
-import ProfilePicture from "../components/ProfilePicture";
+import Card from "../components/basic/Card";
+import Button from "../components/basic/Button";
+import ProfilePicture from "../components/basic/ProfilePicture";
 // Utils
 import { authToken } from "../utils/api";
 import {
@@ -44,7 +44,7 @@ import { getColors, defineDate } from "../utils/utils";
 // Lodash
 import _ from "lodash";
 
-const AppRoutes = () => {
+const AppRoutes: FC = () => {
   /**
    * Navigate method
    * @description Creating a navigate method from the useNavigate hook, so we can navigate through the application
@@ -255,7 +255,8 @@ const AppRoutes = () => {
                   </div>
                   <div className="flex items-center w-full justify-end gap-5">
                     <div className="relative">
-                      <ActionButton
+                      <Button
+                        variant="action"
                         onClick={() => {
                           setNotificationsShown(!notificationsShown);
                         }}
@@ -275,13 +276,13 @@ const AppRoutes = () => {
                         ) : (
                           <></>
                         )}
-                      </ActionButton>
+                      </Button>
                       <div
                         className={`absolute top-[50px] right-0 ${
                           notificationsShown ? "flex" : "hidden"
                         }`}
                       >
-                        <Panel width="400px">
+                        <Card variant="panel" width="400px">
                           {notifications.length > 0 ? (
                             <>
                               {notifications.map(
@@ -318,7 +319,11 @@ const AppRoutes = () => {
                                         <div className="flex gap-5 items-center">
                                           <div className="w-[35px]">
                                             <ProfilePicture
-                                              user={notification.data}
+                                              color={
+                                                notification.data.settings
+                                                  .profileColor
+                                              }
+                                              name={notification.data.fullname}
                                               size="xs"
                                             />
                                           </div>
@@ -350,7 +355,7 @@ const AppRoutes = () => {
                               </span>
                             </div>
                           )}
-                        </Panel>
+                        </Card>
                       </div>
                     </div>
                     <div
@@ -359,13 +364,17 @@ const AppRoutes = () => {
                         setAccountMenuShown(!accountMenuShown);
                       }}
                     >
-                      <ProfilePicture user={loggedUser} size="xs" />
+                      <ProfilePicture
+                        color={loggedUser.settings.profileColor}
+                        name={loggedUser.fullname}
+                        size="xs"
+                      />
                       <div
                         className={`${
                           accountMenuShown ? "flex" : "hidden"
                         } absolute right-0 top-[50px]`}
                       >
-                        <Panel width="200px">
+                        <Card variant="panel" width="200px">
                           <NavigationLink
                             to={`/app/u/${loggedUser.username}`}
                             variant={"basic"}
@@ -395,7 +404,7 @@ const AppRoutes = () => {
                           >
                             Log out
                           </span>
-                        </Panel>
+                        </Card>
                       </div>
                     </div>
                   </div>
@@ -415,7 +424,7 @@ const AppRoutes = () => {
                   </Routes>
                 </main>
                 {searchShown ? (
-                  <SearchPanel shown={searchShown} setShown={setSearchShown} />
+                  <SearchPanel setShown={setSearchShown} />
                 ) : (
                   <></>
                 )}

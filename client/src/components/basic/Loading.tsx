@@ -1,3 +1,5 @@
+import { FC } from "react";
+
 interface LoadingProps {
   color?: string;
 }
@@ -9,7 +11,7 @@ interface LoadingProps {
  * @returns Element
  */
 
-const Loading = ({ color }: LoadingProps) => {
+const Loading: FC<LoadingProps> = ({ color }) => {
   return (
     <svg
       className="animate-spin w-full h-full"

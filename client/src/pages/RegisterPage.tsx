@@ -1,10 +1,11 @@
+import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 // Components
 import Form from "../components/form/Form";
 import TextFormField from "../components/form/TextFormField";
-import PopUp from "../components/PopUp";
-import PrimaryButton from "../components/PrimaryButton";
+import Card from "../components/basic/Card";
+import Button from "../components/basic/Button";
 // Utils
 import { submitForm } from "../utils/form";
 import {
@@ -16,7 +17,7 @@ import {
   validateUsernameBackend,
 } from "../utils/validators";
 
-const RegisterPage = () => {
+const RegisterPage: FC = () => {
   /**
    * Document title
    * @description Updating the document title
@@ -65,7 +66,7 @@ const RegisterPage = () => {
 
   return (
     <div className="flex justify-center items-center h-full w-full">
-      <PopUp width="480px" heading="Happy to see you!">
+      <Card variant="popup" width="480px" heading="Happy to see you!">
         <Form submit={handleSubmit(submit)}>
           <TextFormField
             name="fullname"
@@ -128,7 +129,9 @@ const RegisterPage = () => {
               Privacy Policy
             </Link>
           </span>
-          <PrimaryButton submit={true}>Continue</PrimaryButton>
+          <Button variant="primary" submit={true}>
+            Continue
+          </Button>
           <span className="block w-full text-center text-slate-400 pt-6 text-sm">
             Already have an account?&nbsp;
             <Link
@@ -139,7 +142,7 @@ const RegisterPage = () => {
             </Link>
           </span>
         </Form>
-      </PopUp>
+      </Card>
     </div>
   );
 };

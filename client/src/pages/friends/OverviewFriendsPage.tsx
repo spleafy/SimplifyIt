@@ -1,18 +1,17 @@
-import { useState } from "react";
+import { useState, FC } from "react";
 import { useSelector } from "react-redux";
 import { Plus, X } from "phosphor-react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 // Components
-import Card from "../../components/Card";
+import Card from "../../components/basic/Card";
 import TextFormField from "../../components/form/TextFormField";
 import Form from "../../components/form/Form";
-import PopUp from "../../components/PopUp";
-import Separator from "../../components/Separator";
+import Separator from "../../components/basic/Separator";
 // Utils
 import { getColors } from "../../utils/utils";
 
-const OveviewFriendsPage = () => {
+const OveviewFriendsPage: FC = () => {
   const navigate = useNavigate();
 
   /**
@@ -93,7 +92,7 @@ const OveviewFriendsPage = () => {
       {expandedAddPanel ? (
         <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-slate-900/30">
           <div className="w-[600px]">
-            <PopUp width="600px">
+            <Card variant="popup" width="600px">
               <div className="flex w-full justify-between items-center text-xl">
                 <h1>Add friends</h1>
                 <X
@@ -118,7 +117,7 @@ const OveviewFriendsPage = () => {
                   error={errors.name}
                 />
               </Form>
-            </PopUp>
+            </Card>
           </div>
         </div>
       ) : (

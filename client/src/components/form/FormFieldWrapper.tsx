@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, FC } from "react";
 import { useSelector } from "react-redux";
 
 interface FormFieldWrapperProps {
@@ -22,14 +22,14 @@ interface FormFieldWrapperProps {
  * @returns Element
  */
 
-const FormFieldWrapper = ({
+const FormFieldWrapper: FC<FormFieldWrapperProps> = ({
   name,
   label,
   action,
   children,
   error,
   className,
-}: FormFieldWrapperProps) => {
+}) => {
   /**
    * Logged User
    * @constant

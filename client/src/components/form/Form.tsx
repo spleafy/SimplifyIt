@@ -1,3 +1,5 @@
+import { FC } from "react";
+
 // Components
 interface FormProps {
   children: any;
@@ -12,7 +14,7 @@ interface FormProps {
  * @returns Element
  */
 
-const Form = ({ children, submit }: FormProps) => {
+const Form: FC<FormProps> = ({ children, submit }) => {
   return (
     <form className="select-none" onSubmit={submit} data-testid="form">
       {children}

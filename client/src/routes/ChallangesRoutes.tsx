@@ -1,14 +1,15 @@
+import { FC } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 // Components
-import Column from "../components/Column";
-import NavigationLink from "../components/NavigationLink";
-import TopNavigation from "../components/TopNavigation";
+import Column from "../components/basic/Column";
+import NavigationLink from "../components/navigation/NavigationLink";
+import TopNavigation from "../components/navigation/TopNavigation";
 // Pages
 import PersonalChallangesPage from "../pages/challanges/PersonalChallangesPage";
 import TeamChallangesPage from "../pages/challanges/TeamChallangesPage";
 import NotFoundPage from "../pages/NotFoundPage";
 
-const ChallangesRoutes = () => {
+const ChallangesRoutes: FC = () => {
   return (
     <div className="flex flex-col w-full h-full">
       <TopNavigation>

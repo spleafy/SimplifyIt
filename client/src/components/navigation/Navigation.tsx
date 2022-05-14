@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   HouseLine,
@@ -11,7 +12,7 @@ import {
 import NavigationLink from "./NavigationLink";
 import NavigationLabel from "./NavigationLabel";
 
-const Navigation = () => {
+const Navigation: FC = () => {
   /**
    * Navigation
    * @constant

@@ -1,10 +1,11 @@
+import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 // Components
-import PopUp from "../components/PopUp";
+import Card from "../components/basic/Card";
 import Form from "../components/form/Form";
 import TextFormField from "../components/form/TextFormField";
-import PrimaryButton from "../components/PrimaryButton";
+import Button from "../components/basic/Button";
 // Utils
 import { addSuccess } from "../utils/utils";
 import { submitForm } from "../utils/form";
@@ -15,7 +16,7 @@ import {
   validateUsernameBackend,
 } from "../utils/validators";
 
-const LoginPage = () => {
+const LoginPage: FC = () => {
   /**
    * Document title
    * @description Updating the document title
@@ -67,7 +68,7 @@ const LoginPage = () => {
 
   return (
     <div className="flex justify-center items-center h-full w-full">
-      <PopUp width="480px" heading="Welcome back!">
+      <Card variant="popup" width="480px" heading="Welcome back!">
         <Form submit={handleSubmit(submit)}>
           <TextFormField
             name="username"
@@ -103,7 +104,9 @@ const LoginPage = () => {
               </Link>
             }
           />
-          <PrimaryButton submit={true}>Login</PrimaryButton>
+          <Button variant="primary" submit={true}>
+            Login
+          </Button>
           <span className="block w-full text-center text-slate-400 pt-6 text-sm">
             Don't have an account?&nbsp;
             <Link
@@ -114,7 +117,7 @@ const LoginPage = () => {
             </Link>
           </span>
         </Form>
-      </PopUp>
+      </Card>
     </div>
   );
 };

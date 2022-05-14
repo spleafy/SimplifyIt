@@ -1,7 +1,8 @@
+import { FC } from "react";
 // Components
-import Column from "../components/Column";
+import Column from "../components/basic/Column";
 
-const WorkspacePage = () => {
+const WorkspacePage: FC = () => {
   /**
    * Document title
    * @description Updating the document title
