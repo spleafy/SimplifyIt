@@ -9,25 +9,25 @@ import { UserType } from "../../../types";
 import { validateObjectKeys } from "../../../utils";
 
 const authReset = async (req: Request | any, res: Response) => {
-  const id = req.id;
-
-  if (validateObjectKeys(req.body, ["password"])) {
-    const user = await User.findByIdAndUpdate(
-      id,
-      {
-        password: await bcrypt.hash(req.body.password, 10),
-      },
-      { new: true }
-    );
-
-    if (user) {
-      res.json(new ResponseMessage(200));
-    } else {
-      res.json(new ResponseMessage(403));
-    }
-  } else {
+  if (!validateObjectKeys(req.body, ["password"])) {
     res.json(new ResponseMessage(403));
+    return;
   }
+
+  const user = await User.findByIdAndUpdate(
+    req.id,
+    {
+      password: await bcrypt.hash(req.body.password, 10),
+    },
+    { new: true }
+  );
+
+  if (!user) {
+    res.json(new ResponseMessage(403));
+    return;
+  }
+
+  res.json(new ResponseMessage(200));
 };
 
 export default authReset;
