@@ -52,8 +52,7 @@ export const updateUserNotifications = async () => {
  * @description Method to check if a workspace exists in the redux store, if not, it will be fetched from the backend and the redux store updated
  */
 export const updateWorkspace = async () => {
-  const stateWorkspace: any = store.getState().workspace.workspace;
-
+  // const stateWorkspace: any = store.getState().workspace.workspace;
   // if (!stateWorkspace.name) {
   // const response = await fetchUserWorkspace();
   // store.dispatch(

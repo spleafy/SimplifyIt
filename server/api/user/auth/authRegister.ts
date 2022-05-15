@@ -55,6 +55,11 @@ const authRegister = async (req: Request, res: Response) => {
     darkTheme: false,
     initialSetup: false,
     twoFactor: false,
+    sound: {
+      success: true,
+      warning: true,
+      error: true,
+    },
   };
   user.settings.profileColor =
     colors[Math.floor(Math.random() * colors.length) - 1];

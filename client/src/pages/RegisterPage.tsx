@@ -129,7 +129,7 @@ const RegisterPage: FC = () => {
               Privacy Policy
             </Link>
           </span>
-          <Button variant="primary" submit={true}>
+          <Button variant="primary" submit>
             Continue
           </Button>
           <span className="block w-full text-center text-slate-400 pt-6 text-sm">

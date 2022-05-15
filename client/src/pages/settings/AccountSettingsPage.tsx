@@ -169,11 +169,7 @@ const AccountSettingsPage: FC = () => {
                   <Check />
                 </div>
               ) : (
-                <Button
-                  variant="primary"
-                  submit={true}
-                  loading={submittingForm}
-                >
+                <Button variant="primary" submit loading={submittingForm}>
                   Save
                 </Button>
               )}
@@ -442,7 +438,7 @@ const AccountSettingsPage: FC = () => {
               required: (v: any) => validateRequired(v),
             }}
           />
-          <Button variant="primary" submit={true}>
+          <Button variant="primary" submit>
             Reset Password
           </Button>
         </form>

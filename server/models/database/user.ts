@@ -26,6 +26,11 @@ const userSchema = new mongoose.Schema({
     darkTheme: Boolean,
     initialSetup: Boolean,
     twoFactor: Boolean,
+    sound: {
+      success: Boolean,
+      warning: Boolean,
+      error: Boolean,
+    },
   },
   posts: Array,
 });

@@ -11,6 +11,10 @@ import {
 // Lodash
 import _ from "lodash";
 
+import soundSuccess from "../assets/audio/sounds_message4.mp3";
+import soundWarning from "../assets/audio/sounds_message4.mp3";
+import soundError from "../assets/audio/sounds_message4.mp3";
+
 const colors = require("tailwindcss/colors");
 
 delete colors["warmGray"];
@@ -153,7 +157,7 @@ export const defineSuccess = (success: string): string => {
  */
 export const defineWarning = (warning: string): string => {
   if (warning === "notsaved") {
-    return "You have unsaved work!";
+    return "You have unsaSecurityved work!";
   }
 
   return warning;
@@ -176,6 +180,15 @@ export const addError = _.debounce((data) => {
 
   // Push the error to the redux store
   store.dispatch(pushError(error));
+
+  const loggedUser: any = store.getState().user.user;
+
+  if (loggedUser.settings.sound.success) {
+    const audio = new Audio(soundError);
+
+    audio.play();
+  }
+
   // Create a timeout, with which the pushed error will be deleted
   setTimeout(() => {
     store.dispatch(deleteError(error.id));
@@ -199,6 +212,15 @@ export const addSuccess = _.debounce((data) => {
 
   // Push the success to the redux store
   store.dispatch(pushSuccess(success));
+
+  const loggedUser: any = store.getState().user.user;
+
+  if (loggedUser.settings.sound.success) {
+    const audio = new Audio(soundSuccess);
+
+    audio.play();
+  }
+
   // Create a timeout, with which the pushed success will be deleted
   setTimeout(() => {
     store.dispatch(deleteSuccess(success.id));
@@ -222,6 +244,15 @@ export const addWarning = _.debounce((data) => {
 
   // Push the warning to the redux store
   store.dispatch(pushWarning(warning));
+
+  const loggedUser: any = store.getState().user.user;
+
+  if (loggedUser.settings.sound.warning) {
+    const audio = new Audio(soundWarning);
+
+    audio.play();
+  }
+
   // Create a timeout, with which the pushed warning will be deleted
   setTimeout(() => {
     store.dispatch(deleteWarning(warning.id));
