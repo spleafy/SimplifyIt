@@ -1,6 +1,6 @@
 import { useEffect, useState, FC } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import { MagnifyingGlass, Bell, Trash } from "phosphor-react";
+import { MagnifyingGlass, Bell } from "phosphor-react";
 import { useSelector, useDispatch } from "react-redux";
 // Redux
 import { updateUser } from "../redux/userSlice";
@@ -30,17 +30,17 @@ import SearchPanel from "../components/SearchPanel";
 import Card from "../components/basic/Card";
 import Button from "../components/basic/Button";
 import ProfilePicture from "../components/basic/ProfilePicture";
+import NotificationsPanel from "../components/NotificationsPanel";
 // Utils
 import { authToken } from "../utils/api";
 import {
   updateUserData,
   updateUserNotifications,
-  updateNotificationStateAndUpdate,
   updateWorkspace,
   updateUserFriendRequests,
   updateUserFriends,
 } from "../utils/user";
-import { getColors, defineDate } from "../utils/utils";
+import { getColors } from "../utils/utils";
 // Lodash
 import _ from "lodash";
 
@@ -282,80 +282,9 @@ const AppRoutes: FC = () => {
                           notificationsShown ? "flex" : "hidden"
                         }`}
                       >
-                        <Card variant="panel" width="400px">
-                          {notifications.length > 0 ? (
-                            <>
-                              {notifications.map(
-                                (notification: any, index: number) => (
-                                  <div
-                                    className={`w-full flex items-center text-sm cursor-pointer px-3 py-1 rounded-md mt-2 first:mt-0 relative`}
-                                    key={index}
-                                    onClick={async () => {
-                                      if (!notification.opened) {
-                                        await updateNotificationStateAndUpdate(
-                                          notification._id
-                                        );
-                                      }
-
-                                      setNotificationsShown(false);
-                                    }}
-                                  >
-                                    <div
-                                      className={`absolute left-0 top-50 w-[5px] h-[5px] rounded-full aspect-square bg-theme-400 ${
-                                        !notification.opened ? "flex" : "hidden"
-                                      }`}
-                                    >
-                                      <div className="w-full h-full rounded-full bg-theme-400 animate-ping"></div>
-                                    </div>
-                                    {notification.type === "Follow" ? (
-                                      <div
-                                        className="flex justify-between items-center w-full"
-                                        onClick={() => {
-                                          navigate(
-                                            `/app/u/${notification.data.username}`
-                                          );
-                                        }}
-                                      >
-                                        <div className="flex gap-5 items-center">
-                                          <div className="w-[35px]">
-                                            <ProfilePicture
-                                              color={
-                                                notification.data.settings
-                                                  .profileColor
-                                              }
-                                              name={notification.data.fullname}
-                                              size="xs"
-                                            />
-                                          </div>
-                                          <div>
-                                            <strong>
-                                              {notification.data.username}
-                                            </strong>{" "}
-                                            started following you!
-                                          </div>
-                                        </div>
-                                        <span className="text-slate-500">
-                                          {defineDate(notification.date)}
-                                        </span>
-                                      </div>
-                                    ) : (
-                                      <></>
-                                    )}
-                                    <div className="ml-2 text-base hover:text-red-500 hover:bg-slate-100/50 dark:hover:bg-slate-700 p-1 rounded-md transition-colors">
-                                      <Trash />
-                                    </div>
-                                  </div>
-                                )
-                              )}
-                            </>
-                          ) : (
-                            <div className="w-full h-[200px] flex items-center justify-center">
-                              <span className="text-slate-700">
-                                No notifications!
-                              </span>
-                            </div>
-                          )}
-                        </Card>
+                        <NotificationsPanel
+                          setNotificationsShown={setNotificationsShown}
+                        />
                       </div>
                     </div>
                     <div

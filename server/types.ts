@@ -21,6 +21,10 @@ export interface UserType {
       warning: boolean;
       error: boolean;
     };
+    notification: {
+      post: boolean;
+      friendRequest: boolean;
+    };
   };
   posts: [];
 }

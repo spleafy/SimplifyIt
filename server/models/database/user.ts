@@ -31,6 +31,10 @@ const userSchema = new mongoose.Schema({
       warning: Boolean,
       error: Boolean,
     },
+    notification: {
+      post: Boolean,
+      friendRequest: Boolean,
+    },
   },
   posts: Array,
 });

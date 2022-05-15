@@ -60,6 +60,10 @@ const authRegister = async (req: Request, res: Response) => {
       warning: true,
       error: true,
     },
+    notification: {
+      post: true,
+      friendRequest: true,
+    },
   };
   user.settings.profileColor =
     colors[Math.floor(Math.random() * colors.length) - 1];

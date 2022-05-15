@@ -26,6 +26,9 @@ const updateUserAccount = async (req: Request | any, res: Response) => {
         "settings.sound.success": req.body.soundSuccess,
         "settings.sound.warning": req.body.soundWarning,
         "settings.sound.error": req.body.soundError,
+        "settings.notification.post": req.body.notificationPost,
+        "settings.notification.friendRequest":
+          req.body.notificationFriendRequest,
       },
     },
     { new: true }
