@@ -180,7 +180,7 @@ const MessagesPage: FC = () => {
             {...register("message")}
           />
           <div className="w-fit">
-            <Button variant="primary" submit={true}>
+            <Button variant="primary" submit>
               Send Message
             </Button>
           </div>

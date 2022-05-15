@@ -23,6 +23,9 @@ const updateUserAccount = async (req: Request | any, res: Response) => {
         "settings.themeColor": req.body.themeColor,
         "settings.darkTheme": req.body.darkTheme,
         "settings.twoFactor": req.body.twoFactor,
+        "settings.sound.success": req.body.soundSuccess,
+        "settings.sound.warning": req.body.soundWarning,
+        "settings.sound.error": req.body.soundError,
       },
     },
     { new: true }

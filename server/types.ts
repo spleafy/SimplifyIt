@@ -16,6 +16,11 @@ export interface UserType {
     darkTheme: boolean;
     initialSetup: boolean;
     twoFactor: boolean;
+    sound: {
+      success: boolean;
+      warning: boolean;
+      error: boolean;
+    };
   };
   posts: [];
 }

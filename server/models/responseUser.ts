@@ -12,9 +12,7 @@ export default class ResponseUser {
     friends: string[];
     followers: string[];
     following: string[];
-    settings: {
-      profileColor: string;
-    };
+    settings: any;
     posts: [];
   } | null;
 
@@ -29,9 +27,7 @@ export default class ResponseUser {
     friends: string[];
     followers: string[];
     following: string[];
-    settings: {
-      profileColor: string;
-    };
+    settings: any;
     posts: [];
   }) {
     if (user) {

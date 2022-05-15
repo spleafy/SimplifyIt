@@ -168,7 +168,7 @@ const InitialSetupPage: FC = () => {
             )}
           </div>
           <input type="text" {...register("color")} className="hidden" />
-          <Button variant="primary" submit={true}>
+          <Button variant="primary" submit>
             Create
           </Button>
         </Form>

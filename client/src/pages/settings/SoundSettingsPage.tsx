@@ -13,7 +13,7 @@ import { updateUser } from "../../redux/userSlice";
 import { submitForm } from "../../utils/form";
 import { addSuccess } from "../../utils/utils";
 
-const SecuritySettingsPage: FC = () => {
+const SoundSettingsPage: FC = () => {
   /**
    * Dispatch function
    * @description Creating a dispatch method from the useDispatch hook, so we can update the redux store
@@ -31,7 +31,15 @@ const SecuritySettingsPage: FC = () => {
    * @description Creating a default values object, so if anything is changed from the original settings on page load, we will display a save changes button and so we can fill the fields with the information they have
    */
   const defaultValues = {
-    twoFactor: loggedUser.settings.twoFactor,
+    soundSuccess: loggedUser.settings.sound
+      ? loggedUser.settings.sound.success
+      : false,
+    soundWarning: loggedUser.settings.sound
+      ? loggedUser.settings.sound.warning
+      : false,
+    soundError: loggedUser.settings.sound
+      ? loggedUser.settings.sound.error
+      : false,
   };
 
   /**
@@ -73,8 +81,8 @@ const SecuritySettingsPage: FC = () => {
     );
     // Checking if the status is 200, then we update the user settings, if not - display an error message
     if (response.status === 200) {
-      addSuccess("settings");
       dispatch(updateUser(response.data.user));
+      addSuccess("settings");
       setSavedUpdate(true);
     }
     setSubmittingForm(false);
@@ -92,7 +100,7 @@ const SecuritySettingsPage: FC = () => {
           }}
         >
           <div className="flex justify-between items-center">
-            <h1 className="self-end">Security</h1>
+            <h1 className="self-end">Sounds</h1>
             <div className="w-fit">
               {savedUpdate ? (
                 <div
@@ -112,13 +120,40 @@ const SecuritySettingsPage: FC = () => {
           <div className="mt-10 flex flex-col gap-5">
             <div className="flex w-full justify-between items-center">
               <div className="flex flex-col gap-2">
-                <h4>Two-factor authentication</h4>
+                <h4>Success sound</h4>
                 <span className="subtitle">
-                  Receive an email with a code each time you log in.
+                  Play a success sound every time, you create a successfull
+                  action.
                 </span>
               </div>
               <ToggleSwitch
-                name="twoFactor"
+                name="soundSuccess"
+                register={register}
+                getValues={getValues}
+              />
+            </div>
+            <div className="flex w-full justify-between items-center">
+              <div className="flex flex-col gap-2">
+                <h4>Warning sound</h4>
+                <span className="subtitle">
+                  Play a warning sound every time, you get a warning.
+                </span>
+              </div>
+              <ToggleSwitch
+                name="soundWarning"
+                register={register}
+                getValues={getValues}
+              />
+            </div>
+            <div className="flex w-full justify-between items-center">
+              <div className="flex flex-col gap-2">
+                <h4>Error sound</h4>
+                <span className="subtitle">
+                  Play an error sound every time, an error occurs.
+                </span>
+              </div>
+              <ToggleSwitch
+                name="soundError"
                 register={register}
                 getValues={getValues}
               />
@@ -130,4 +165,4 @@ const SecuritySettingsPage: FC = () => {
   );
 };
 
-export default SecuritySettingsPage;
+export default SoundSettingsPage;

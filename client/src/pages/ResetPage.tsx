@@ -107,7 +107,7 @@ const ResetPage: FC = () => {
               }}
             />
 
-            <Button variant="primary" submit={true}>
+            <Button variant="primary" submit>
               Reset Password
             </Button>
             <span className="block w-full text-center text-slate-400 pt-6 text-sm">
