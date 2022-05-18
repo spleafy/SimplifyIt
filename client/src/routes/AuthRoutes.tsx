@@ -2,10 +2,10 @@ import { FC } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 // Pages
 import NotFoundPage from "../pages/NotFoundPage";
-import LoginPage from "../pages/LoginPage";
-import RegisterPage from "../pages/RegisterPage";
-import ForgotPage from "../pages/ForgotPage";
-import ResetPage from "../pages/ResetPage";
+import LoginPage from "../pages/auth/LoginPage";
+import RegisterPage from "../pages/auth/RegisterPage";
+import ForgotPage from "../pages/auth/ForgotPage";
+import ResetPage from "../pages/auth/ResetPage";
 import TwoFactorPage from "../pages/auth/TwoFactorPage";
 // Components
 

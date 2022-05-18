@@ -2,12 +2,12 @@ import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 // Components
-import Form from "../components/form/Form";
-import TextFormField from "../components/form/TextFormField";
-import Card from "../components/basic/Card";
-import Button from "../components/basic/Button";
+import Form from "../../components/form/Form";
+import TextFormField from "../../components/form/TextFormField";
+import Card from "../../components/basic/Card";
+import Button from "../../components/basic/Button";
 // Utils
-import { submitForm } from "../utils/form";
+import { submitForm } from "../../utils/form";
 import {
   validateRequired,
   validateMin,
@@ -15,7 +15,7 @@ import {
   validateEmailBackend,
   validateUsernameRegex,
   validateUsernameBackend,
-} from "../utils/validators";
+} from "../../utils/validators";
 
 const RegisterPage: FC = () => {
   /**

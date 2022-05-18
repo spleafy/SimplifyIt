@@ -2,17 +2,17 @@ import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
 // Components
-import Card from "../components/basic/Card";
-import Form from "../components/form/Form";
-import TextFormField from "../components/form/TextFormField";
-import Button from "../components/basic/Button";
+import Card from "../../components/basic/Card";
+import Form from "../../components/form/Form";
+import TextFormField from "../../components/form/TextFormField";
+import Button from "../../components/basic/Button";
 // Utils
-import { submitForm } from "../utils/form";
+import { submitForm } from "../../utils/form";
 import {
   validateRequired,
   validateMin,
   validateMatchBoth,
-} from "../utils/validators";
+} from "../../utils/validators";
 
 const ResetPage: FC = () => {
   /**

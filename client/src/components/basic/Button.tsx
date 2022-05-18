@@ -107,7 +107,7 @@ const Button: FC<ButtonProps> = ({
     >
       {loading ? (
         <div className="flex justify-center h-5">
-          <Loading color="#a9c3fc" />
+          <Loading color="fill-white" />
         </div>
       ) : (
         children

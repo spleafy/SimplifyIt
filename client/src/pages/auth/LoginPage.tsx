@@ -2,19 +2,19 @@ import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 // Components
-import Card from "../components/basic/Card";
-import Form from "../components/form/Form";
-import TextFormField from "../components/form/TextFormField";
-import Button from "../components/basic/Button";
+import Card from "../../components/basic/Card";
+import Form from "../../components/form/Form";
+import TextFormField from "../../components/form/TextFormField";
+import Button from "../../components/basic/Button";
 // Utils
-import { addSuccess } from "../utils/utils";
-import { submitForm } from "../utils/form";
+import { addSuccess } from "../../utils/utils";
+import { submitForm } from "../../utils/form";
 import {
   validateRequired,
   validateMin,
   validateUsernameRegex,
   validateUsernameBackend,
-} from "../utils/validators";
+} from "../../utils/validators";
 
 const LoginPage: FC = () => {
   /**
