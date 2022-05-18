@@ -5,6 +5,7 @@ import workspaceSlice from "./workspaceSlice";
 import appActionSlice from "./appActionSlice";
 import friendRequestSlice from "./friendRequestSlice";
 import friendSlice from "./friendSlice";
+import teamSlice from "./teamSlice";
 
 /**
  * Redux Store
@@ -18,5 +19,6 @@ export default configureStore({
     actions: appActionSlice,
     friendRequests: friendRequestSlice,
     friends: friendSlice,
+    teams: teamSlice,
   },
 });

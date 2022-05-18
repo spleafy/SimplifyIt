@@ -17,15 +17,16 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  friends: [String],
-  followers: [String],
-  following: [String],
   settings: {
-    profileColor: String,
-    themeColor: String,
-    darkTheme: Boolean,
     initialSetup: Boolean,
-    twoFactor: Boolean,
+    profile: {
+      profileColor: String,
+      themeColor: String,
+      darkTheme: Boolean,
+    },
+    security: {
+      twoFactor: Boolean,
+    },
     sound: {
       success: Boolean,
       warning: Boolean,
@@ -36,7 +37,9 @@ const userSchema = new mongoose.Schema({
       friendRequest: Boolean,
     },
   },
-  posts: Array,
+  posts: [String],
+  friends: [String],
+  teams: [String],
 });
 
 const User = mongoose.model("User", userSchema);

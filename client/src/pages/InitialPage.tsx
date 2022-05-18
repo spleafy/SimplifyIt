@@ -1,4 +1,4 @@
-import { useEffect, useState, FC } from "react";
+import { useEffect, FC } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -7,10 +7,10 @@ import Card from "../components/basic/Card";
 import Form from "../components/form/Form";
 import TextFormField from "../components/form/TextFormField";
 import Button from "../components/basic/Button";
+import ColorPicker from "../components/form/ColorPicker";
 // Utils
 import { validateRequired } from "../utils/validators";
 import { submitForm } from "../utils/form";
-import { getColors } from "../utils/utils";
 import { updateUserData } from "../utils/user";
 import { authToken } from "../utils/api";
 // Redux
@@ -37,6 +37,7 @@ const InitialSetupPage: FC = () => {
   const {
     register,
     handleSubmit,
+    getValues,
     setValue,
     reset,
     formState: { errors },
@@ -70,26 +71,13 @@ const InitialSetupPage: FC = () => {
   const loggedUser = useSelector((state: any) => state.user.user);
 
   /**
-   * Workspace color state
-   * @description Creating a useState variable, so we can set the workspace color
-   */
-  const [workspaceColor, setWorkspaceColor] = useState("slate");
-
-  /**
-   * Tailwind colors
-   * @constant
-   * @description Get all colors from the custom getColors method in utils/utils.ts
-   */
-  const colors = getColors("all");
-
-  /**
    * useEffect hook
    * @description Creating a useEffect hook
    */
   useEffect(() => {
     // Reseting the form values, when we get the user back from the redux store
     reset({
-      name: loggedUser.username ? `${loggedUser.username}'s Workspace` : "",
+      name: loggedUser.username ? `${loggedUser.username}'s workspace` : "",
       color: "slate",
     });
   }, [reset, loggedUser]);
@@ -143,31 +131,18 @@ const InitialSetupPage: FC = () => {
             Workspace color:
           </span>
           <div className="flex w-full flex-wrap gap-5 mb-8">
-            {Object.keys(colors).map((key: string, index: number) =>
-              colors[key][500] ? (
-                <div
-                  className={`flex justify-center items-center w-[25px] h-[25px] aspect-square rounded-full cursor-pointer transition-all ${
-                    workspaceColor === key ? "scale-150" : "hover:scale-125"
-                  }`}
-                  style={{ backgroundColor: colors[key][500] }}
-                  key={index}
-                  onClick={() => {
-                    setValue("color", key);
-                    setWorkspaceColor(key);
-                  }}
-                >
-                  {workspaceColor === key ? (
-                    <div className="flex w-1 h-1 aspect-square rounded-full bg-white"></div>
-                  ) : (
-                    <></>
-                  )}
-                </div>
-              ) : (
-                <div className="hidden" key={index}></div>
-              )
-            )}
+            <ColorPicker
+              name="color"
+              register={register}
+              getValues={getValues}
+              setValue={setValue}
+              reset={reset}
+              variant="ronded"
+              animate="scale"
+              active="dot"
+              size="xs"
+            />
           </div>
-          <input type="text" {...register("color")} className="hidden" />
           <Button variant="primary" submit>
             Create
           </Button>

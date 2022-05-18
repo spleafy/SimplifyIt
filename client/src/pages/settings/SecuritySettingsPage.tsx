@@ -31,7 +31,7 @@ const SecuritySettingsPage: FC = () => {
    * @description Creating a default values object, so if anything is changed from the original settings on page load, we will display a save changes button and so we can fill the fields with the information they have
    */
   const defaultValues = {
-    twoFactor: loggedUser.settings.twoFactor,
+    twoFactor: loggedUser.settings.security.twoFactor,
   };
 
   /**

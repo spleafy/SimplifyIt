@@ -53,13 +53,13 @@ const NotificationsPanel: FC<NotificationsPanelProps> = ({
                 <div
                   className="flex justify-between items-center w-full"
                   onClick={() => {
-                    navigate(`/app/friends/requests`);
+                    navigate(`/app/friends/requests/`);
                   }}
                 >
                   <div className="flex gap-5 items-center">
                     <div className="w-[35px]">
                       <ProfilePicture
-                        color={notification.data.settings.profileColor}
+                        color={notification.data.settings.profile.profileColor}
                         name={notification.data.fullname}
                         size="xs"
                       />
@@ -69,7 +69,7 @@ const NotificationsPanel: FC<NotificationsPanelProps> = ({
                       your friend!
                     </div>
                   </div>
-                  <span className="text-slate-500">
+                  <span className="text-slate-500 whitespace-nowrap">
                     {defineDate(notification.date)}
                   </span>
                 </div>

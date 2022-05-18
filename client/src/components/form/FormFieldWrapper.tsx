@@ -39,7 +39,7 @@ const FormFieldWrapper: FC<FormFieldWrapperProps> = ({
   const loggedUser = useSelector((state: any) => state.user.user);
 
   return (
-    <div className={`flex flex-col mb-5 ${className ? className : "mb-5"}`}>
+    <div className={`flex flex-col mb-5 ${className}`}>
       <label
         htmlFor={name}
         className="mb-2 text-slate-700 text-sm flex items-center justify-between dark:text-slate-100"

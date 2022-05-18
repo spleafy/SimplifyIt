@@ -106,7 +106,7 @@ const ProfilePage: FC = () => {
                 <div className="flex flex-col w-full">
                   <div className={`w-[100px]`}>
                     <ProfilePicture
-                      color={user.settings.profileColor}
+                      color={user.settings.profile.profileColor}
                       name={user.fullname}
                       size="xl"
                     />

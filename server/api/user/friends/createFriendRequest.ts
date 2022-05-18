@@ -49,9 +49,9 @@ const createFriendRequest = async (req: Request | any, res: Response) => {
     userId: userTo._id,
     type: "friendRequest",
     data: {
-      username: userTo.username,
-      fullname: userTo.fullname,
-      settings: userTo.settings,
+      username: userFrom.username,
+      fullname: userFrom.fullname,
+      settings: userFrom.settings,
     },
     opened: false,
     date: new Date(),

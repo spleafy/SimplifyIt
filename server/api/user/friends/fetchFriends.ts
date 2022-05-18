@@ -7,6 +7,11 @@ import { filterUsers } from "../../../utils";
 const fetchFriends = async (req: Request | any, res: Response) => {
   const user = await User.findOne({ _id: req.id });
 
+  if (!user) {
+    res.json(new ResponseMessage(403));
+    return;
+  }
+
   const friends = filterUsers(
     await User.find({
       _id: {

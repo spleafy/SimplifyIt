@@ -40,7 +40,7 @@ const FriendRequestsPage: FC<FriendRequestsPageProps> = ({ type }) => {
                 className="absolute w-full h-full flex justify-center items-center opacity-80 bg-gradient-to-t from-black/50 to-transparent cursor-pointer"
                 style={{
                   backgroundColor: getColors(
-                    friendRequest[userType].settings.profileColor
+                    friendRequest[userType].settings.profile.profileColor
                   )[500],
                 }}
               >

@@ -14,13 +14,13 @@ import { updateFriends } from "../redux/friendSlice";
 import HomePage from "../pages/HomePage";
 import WorkspacePage from "../pages/WorkspacePage";
 import MessagesPage from "../pages/MessagesPage";
-import TeamsPage from "../pages/TeamsPage";
 import NotFoundPage from "../pages/NotFoundPage";
 // Routes
 import UserRoutes from "./UserRoutes";
 import SettingsRoutes from "./SettingsRoutes";
 import ChallangesRoutes from "./ChallangesRoutes";
 import FriendsRoutes from "./FriendsRoutes";
+import TeamRoutes from "./TeamRoutes";
 // Components
 import Navigation from "../components/navigation/Navigation";
 import TopNavigation from "../components/navigation/TopNavigation";
@@ -37,7 +37,6 @@ import {
   updateUserData,
   updateUserNotifications,
   updateWorkspace,
-  updateUserFriendRequests,
   updateUserFriends,
 } from "../utils/user";
 import { getColors } from "../utils/utils";
@@ -166,8 +165,6 @@ const AppRoutes: FC = () => {
         await updateUserNotifications();
         // Setting the workspace
         await updateWorkspace();
-        // Setting the user friend requests
-        await updateUserFriendRequests();
         // Setting the user friends
         await updateUserFriends();
       }
@@ -205,17 +202,17 @@ const AppRoutes: FC = () => {
     // If the logged user has settings
     if (loggedUser && loggedUser.settings) {
       // We loop over the color shades and set the css variables for the theme colors
-      Object.keys(colors[loggedUser.settings.themeColor]).forEach(
+      Object.keys(colors[loggedUser.settings.profile.themeColor]).forEach(
         (shade: string) => {
           document.documentElement.style.setProperty(
             `--theme-color-${shade}`,
-            colors[loggedUser.settings.themeColor][shade]
+            colors[loggedUser.settings.profile.themeColor][shade]
           );
         }
       );
 
       // Setting the app to dark or white theme based on the user's settings
-      loggedUser.settings.darkTheme
+      loggedUser.settings.profile.darkTheme
         ? document.querySelector("html")?.classList.add("dark")
         : document.querySelector("html")?.classList.remove("dark");
     }
@@ -232,133 +229,145 @@ const AppRoutes: FC = () => {
       ) : (
         <>
           {loggedUser.settings.initialSetup ? (
-            <>
-              <Navigation />
-              <div className="flex flex-col w-full">
-                <TopNavigation>
-                  <span className="w-full first-letter:uppercase"></span>
-                  <div className="flex justify-center items-center w-full">
-                    <div
-                      className="w-[300px] text-slate-600 bg-slate-100 dark:bg-slate-800 dark:text-white rounded-full py-2 pr-2 pl-3 flex items-center justify-between gap-3 text-sm cursor-pointer transition-colors hover:text-theme-500"
-                      onClick={() => {
-                        setSearchShown(true);
-                      }}
-                    >
-                      <div className="flex gap-3 items-center">
-                        <MagnifyingGlass />
-                        Search
-                      </div>
-                      <div className="px-3 py-1 text-xs bg-gray-200/60 text-slate-800 dark:bg-gray-700 dark:text-slate-200 rounded-full">
-                        Shift + S
-                      </div>
+            <div className="flex flex-col w-full">
+              <TopNavigation>
+                <h1
+                  className="w-full first-letter:uppercase cursor-pointer"
+                  onClick={() => {
+                    navigate("/app/home");
+                  }}
+                >
+                  SimplifyIt
+                </h1>
+                <div className="flex justify-center items-center w-full">
+                  <div
+                    className="w-[300px] text-slate-600 bg-slate-100 dark:bg-slate-800 dark:text-white rounded-full py-2 pr-2 pl-3 flex items-center justify-between gap-3 text-sm cursor-pointer transition-colors hover:text-theme-500"
+                    onClick={() => {
+                      setSearchShown(true);
+                    }}
+                  >
+                    <div className="flex gap-3 items-center">
+                      <MagnifyingGlass />
+                      Search
+                    </div>
+                    <div className="px-3 py-1 text-xs bg-gray-200/60 text-slate-800 dark:bg-gray-700 dark:text-slate-200 rounded-full">
+                      Shift + S
                     </div>
                   </div>
-                  <div className="flex items-center w-full justify-end gap-5">
-                    <div className="relative">
-                      <Button
-                        variant="action"
-                        onClick={() => {
-                          setNotificationsShown(!notificationsShown);
-                        }}
-                      >
-                        <Bell />
-                        {notifications.length > 0 ? (
-                          notifications.some(
-                            (notification: any) => !notification.opened
-                          ) ? (
-                            <>
-                              <div className="aspect-square w-[10px] bg-red-500 rounded-full absolute flex justify-center items-center text-white right-[6px] bottom-[6px] border-2 border-white dark:border-slate-900"></div>
-                              <div className="aspect-square w-[10px] bg-red-500 rounded-full animate-ping absolute flex justify-center items-center text-white right-[6px] bottom-[6px] border-2 border-white dark:border-slate-900"></div>
-                            </>
-                          ) : (
-                            <></>
-                          )
+                </div>
+                <div className="flex items-center w-full justify-end gap-5">
+                  <div className="relative">
+                    <Button
+                      variant="action"
+                      onClick={() => {
+                        setNotificationsShown(!notificationsShown);
+                      }}
+                    >
+                      <Bell />
+                      {notifications.length > 0 ? (
+                        notifications.some(
+                          (notification: any) => !notification.opened
+                        ) ? (
+                          <>
+                            <div className="aspect-square w-[10px] bg-red-500 rounded-full absolute flex justify-center items-center text-white right-[6px] bottom-[6px] border-2 border-white dark:border-slate-900"></div>
+                            <div className="aspect-square w-[10px] bg-red-500 rounded-full animate-ping absolute flex justify-center items-center text-white right-[6px] bottom-[6px] border-2 border-white dark:border-slate-900"></div>
+                          </>
                         ) : (
                           <></>
-                        )}
-                      </Button>
-                      <div
-                        className={`absolute top-[50px] right-0 ${
-                          notificationsShown ? "flex" : "hidden"
-                        }`}
-                      >
-                        <NotificationsPanel
-                          setNotificationsShown={setNotificationsShown}
-                        />
-                      </div>
-                    </div>
+                        )
+                      ) : (
+                        <></>
+                      )}
+                    </Button>
                     <div
-                      className="w-[35px] cursor-pointer relative"
-                      onClick={() => {
-                        setAccountMenuShown(!accountMenuShown);
-                      }}
+                      className={`absolute top-[50px] right-0 ${
+                        notificationsShown ? "flex" : "hidden"
+                      }`}
                     >
-                      <ProfilePicture
-                        color={loggedUser.settings.profileColor}
-                        name={loggedUser.fullname}
-                        size="xs"
+                      <NotificationsPanel
+                        setNotificationsShown={setNotificationsShown}
                       />
-                      <div
-                        className={`${
-                          accountMenuShown ? "flex" : "hidden"
-                        } absolute right-0 top-[50px]`}
-                      >
-                        <Card variant="panel" width="200px">
-                          <NavigationLink
-                            to={`/app/u/${loggedUser.username}`}
-                            variant={"basic"}
-                          >
-                            My Account
-                          </NavigationLink>
-                          <NavigationLink
-                            to="/app/settings/account"
-                            variant={"basic"}
-                          >
-                            My Settings
-                          </NavigationLink>
-                          <span
-                            className="py-2 flex items-center justify-between transition-colors px-3 text-red-700 dark:text-red-700"
-                            onClick={() => {
-                              localStorage.removeItem("X-Auth-Token");
-                              dispatch(updateUser({}));
-                              dispatch(updateNotifications([]));
-                              dispatch(updateReceivedFriendRequests([]));
-                              dispatch(updateSentFriendRequests([]));
-                              dispatch(updateFriends([]));
-                              document
-                                .querySelector("html")
-                                ?.classList.remove("dark");
-                              navigate("/auth/login");
-                            }}
-                          >
-                            Log out
-                          </span>
-                        </Card>
-                      </div>
                     </div>
                   </div>
-                </TopNavigation>
-                <main>
-                  <Routes>
-                    <Route path="/" element={<Navigate to={"home"} />} />
-                    <Route path="home" element={<HomePage />} />
-                    <Route path="workspace" element={<WorkspacePage />} />
-                    <Route path="messages" element={<MessagesPage />} />
-                    <Route path="friends/*" element={<FriendsRoutes />} />
-                    <Route path="teams" element={<TeamsPage />} />
-                    <Route path="settings/*" element={<SettingsRoutes />} />
-                    <Route path="challanges/*" element={<ChallangesRoutes />} />
-                    <Route path="u/*" element={<UserRoutes />} />
-                    <Route path="*" element={<NotFoundPage />} />
-                  </Routes>
-                </main>
-                {searchShown ? (
-                  <SearchPanel setShown={setSearchShown} />
-                ) : (
-                  <></>
-                )}
+                  <div
+                    className="w-[35px] cursor-pointer relative"
+                    onClick={() => {
+                      setAccountMenuShown(!accountMenuShown);
+                    }}
+                  >
+                    <ProfilePicture
+                      color={loggedUser.settings.profile.profileColor}
+                      name={loggedUser.fullname}
+                      size="xs"
+                    />
+                    <div
+                      className={`${
+                        accountMenuShown ? "flex" : "hidden"
+                      } absolute right-0 top-[50px]`}
+                    >
+                      <Card variant="panel" width="200px">
+                        <NavigationLink
+                          to={`/app/u/${loggedUser.username}`}
+                          variant={"basic"}
+                        >
+                          My Account
+                        </NavigationLink>
+                        <NavigationLink
+                          to="/app/settings/account"
+                          variant={"basic"}
+                        >
+                          My Settings
+                        </NavigationLink>
+                        <span
+                          className="py-2 flex items-center justify-between transition-colors px-3 text-red-700 dark:text-red-700"
+                          onClick={() => {
+                            localStorage.removeItem("X-Auth-Token");
+                            dispatch(updateUser({}));
+                            dispatch(updateNotifications([]));
+                            dispatch(updateReceivedFriendRequests([]));
+                            dispatch(updateSentFriendRequests([]));
+                            dispatch(updateFriends([]));
+                            document
+                              .querySelector("html")
+                              ?.classList.remove("dark");
+                            navigate("/auth/login");
+                          }}
+                        >
+                          Log out
+                        </span>
+                      </Card>
+                    </div>
+                  </div>
+                </div>
+              </TopNavigation>
+              <div className="flex h-full w-full">
+                <Navigation />
+                <div className="flex flex-col w-full">
+                  <main>
+                    <Routes>
+                      <Route path="/" element={<Navigate to={"home"} />} />
+                      <Route path="home" element={<HomePage />} />
+                      <Route path="workspace" element={<WorkspacePage />} />
+                      <Route path="messages" element={<MessagesPage />} />
+                      <Route path="friends/*" element={<FriendsRoutes />} />
+                      <Route path="teams/*" element={<TeamRoutes />} />
+                      <Route path="settings/*" element={<SettingsRoutes />} />
+                      <Route
+                        path="challanges/*"
+                        element={<ChallangesRoutes />}
+                      />
+                      <Route path="u/*" element={<UserRoutes />} />
+                      <Route path="*" element={<NotFoundPage />} />
+                    </Routes>
+                  </main>
+                  {searchShown ? (
+                    <SearchPanel setShown={setSearchShown} />
+                  ) : (
+                    <></>
+                  )}
+                </div>
               </div>
-            </>
+            </div>
           ) : (
             <></>
           )}

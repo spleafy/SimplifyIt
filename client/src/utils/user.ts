@@ -4,6 +4,7 @@ import { notificationSlice } from "../redux/notificationSlice";
 import { workspaceSlice } from "../redux/workspaceSlice";
 import { friendRequestSlice } from "../redux/friendRequestSlice";
 import { friendSlice } from "../redux/friendSlice";
+import { teamSlice } from "../redux/teamSlice";
 // Utils
 import {
   fetchUserNotifications,
@@ -16,8 +17,11 @@ import {
   rejectFriendRequest,
   sendFriendRequest,
   removeFriend,
-  fetchFriends,
+  fetchUserFriends,
+  fetchUserTeams,
 } from "./api";
+
+// Main Methods
 
 /**
  * updateUserData
@@ -31,6 +35,8 @@ export const updateUserData = async () => {
     store.dispatch(userSlice.actions.updateUser(response.data.user));
   }
 };
+
+// Notification Methods
 
 /**
  * updateUserNotifications
@@ -61,24 +67,33 @@ export const updateWorkspace = async () => {
   // }
 };
 
+// Friend Methods
+
 /**
  * updateUserFriendRequests
  * @returns {Object}
  * @description Method to check if friend requests exists in the redux store, if not, they will be fetched from the backend and the redux store updated
  */
 export const updateUserFriendRequests = async () => {
-  const response = await fetchFriendRequests();
-  store.dispatch(
-    friendRequestSlice.actions.updateReceivedFriendRequests(
-      response.data.receivedFriendRequests
-    )
-  );
-  store.dispatch(
-    friendRequestSlice.actions.updateSentFriendRequests(
-      response.data.sentFriendRequests
-    )
-  );
-  return response;
+  const stateFriendRequests = store.getState().friendRequests.friendRequests;
+
+  if (
+    stateFriendRequests.sent.length === 0 ||
+    stateFriendRequests.received.length === 0
+  ) {
+    const response = await fetchFriendRequests();
+    store.dispatch(
+      friendRequestSlice.actions.updateReceivedFriendRequests(
+        response.data.receivedFriendRequests
+      )
+    );
+    store.dispatch(
+      friendRequestSlice.actions.updateSentFriendRequests(
+        response.data.sentFriendRequests
+      )
+    );
+    return response;
+  }
 };
 
 /**
@@ -87,9 +102,13 @@ export const updateUserFriendRequests = async () => {
  * @description Method to check if friends exists in the redux store, if not, they will be fetched from the backend and the redux store updated
  */
 export const updateUserFriends = async () => {
-  const response = await fetchFriends();
-  store.dispatch(friendSlice.actions.updateFriends(response.data.friends));
-  return response;
+  const stateFriends = store.getState().friends.friends;
+
+  if (stateFriends.length === 0) {
+    const response = await fetchUserFriends();
+    store.dispatch(friendSlice.actions.updateFriends(response.data.friends));
+    return response;
+  }
 };
 
 /**
@@ -101,6 +120,7 @@ export const updateUserFriends = async () => {
 export const removeFriendAndUpdate = async (id: string | undefined) => {
   const response = await removeFriend(id);
   store.dispatch(userSlice.actions.updateUser(response.data.user));
+  store.dispatch(friendSlice.actions.removeFriend(id));
   return response;
 };
 
@@ -171,4 +191,16 @@ export const updateNotificationStateAndUpdate = async (id: string) => {
     notificationSlice.actions.updateNotifications(response.data.notifications)
   );
   return response;
+};
+
+// Team Methods
+
+export const updateUserTeams = async () => {
+  const stateTeams = store.getState().teams.teams;
+
+  if (stateTeams.length === 0) {
+    const response = await fetchUserTeams();
+    store.dispatch(teamSlice.actions.updateTeams(response.data.teams));
+    return response;
+  }
 };
