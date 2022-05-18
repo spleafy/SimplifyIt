@@ -47,7 +47,7 @@ const ProfilePage: FC = () => {
    * Loading state
    * @description Creating a useState variable, so we can toggle the loading state of the page
    */
-  const [loading, setLoading]: any = useState(false);
+  const [loading, setLoading]: any = useState(true);
 
   /**
    * Processing state
@@ -248,7 +248,7 @@ const ProfilePage: FC = () => {
         </>
       ) : (
         <div className="h-full w-full flex justify-center items-center">
-          <div className="w-6 h-6">
+          <div className="w-10 h-10">
             <Loading />
           </div>
         </div>

@@ -2,17 +2,17 @@ import { useState, FC } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 // Components
-import Form from "../components/form/Form";
-import TextFormField from "../components/form/TextFormField";
-import Button from "../components/basic/Button";
-import Card from "../components/basic/Card";
+import Form from "../../components/form/Form";
+import TextFormField from "../../components/form/TextFormField";
+import Button from "../../components/basic/Button";
+import Card from "../../components/basic/Card";
 // Utils
-import { submitForm } from "../utils/form";
+import { submitForm } from "../../utils/form";
 import {
   validateRequired,
   validateEmailRegex,
   validateEmailBackend,
-} from "../utils/validators";
+} from "../../utils/validators";
 
 const ForgotPage: FC = () => {
   /**
