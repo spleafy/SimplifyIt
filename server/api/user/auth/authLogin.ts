@@ -30,7 +30,7 @@ const authLogin = async (req: Request, res: Response) => {
     return;
   }
 
-  if (!user.settings.twoFactor) {
+  if (!user.settings.security.twoFactor) {
     const token = jwt.sign(
       { id: user._id },
       process.env.TOKEN_SECRET as string

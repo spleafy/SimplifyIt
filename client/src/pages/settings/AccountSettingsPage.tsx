@@ -8,6 +8,7 @@ import Button from "../../components/basic/Button";
 import ToggleSwitch from "../../components/form/ToggleSwitch";
 import Separator from "../../components/basic/Separator";
 import Card from "../../components/basic/Card";
+import ColorPicker from "../../components/form/ColorPicker";
 // Redux
 import { updateUser } from "../../redux/userSlice";
 // Utils
@@ -56,9 +57,9 @@ const AccountSettingsPage: FC = () => {
     fullname: loggedUser.fullname,
     username: loggedUser.username,
     email: loggedUser.email.toLowerCase(),
-    themeColor: loggedUser.settings.themeColor,
-    darkTheme: loggedUser.settings.darkTheme,
-    profileColor: loggedUser.settings.profileColor,
+    themeColor: loggedUser.settings.profile.themeColor,
+    darkTheme: loggedUser.settings.profile.darkTheme,
+    profileColor: loggedUser.settings.profile.profileColor,
     jobtitle: loggedUser.jobtitle,
     website: loggedUser.website,
     location: loggedUser.location,
@@ -139,13 +140,6 @@ const AccountSettingsPage: FC = () => {
     }
   };
 
-  /**
-   * Tailwind colors
-   * @constant
-   * @description Get all colors from the custom getColors method in utils/utils.ts
-   */
-  const colors = getColors("all");
-
   return (
     <div className="w-full flex justify-center">
       <Card className="mb-20 p-8" width="100%">
@@ -214,28 +208,20 @@ const AccountSettingsPage: FC = () => {
                       />
                       <h1>Profile Color</h1>
                       <div className="flex flex-wrap gap-5 mt-5">
-                        {Object.keys(colors).map((key: string, index: number) =>
-                          colors[key][500] ? (
-                            <div
-                              className={`w-10 aspect-square rounded-full transition-all cursor-pointer flex justify-center items-center text-white hover:rounded-md`}
-                              style={{ backgroundColor: colors[key][500] }}
-                              onClick={() => {
-                                setValueSettings("profileColor", key);
-                                resetSettings(getValuesSettings());
-                                setSavedUpdate(false);
-                              }}
-                              key={index}
-                            >
-                              {key === getValuesSettings().profileColor ? (
-                                <div className="w-1 aspect-square rounded-full bg-white"></div>
-                              ) : (
-                                <></>
-                              )}
-                            </div>
-                          ) : (
-                            <div className="hidden" key={index}></div>
-                          )
-                        )}
+                        <ColorPicker
+                          register={registerSettings}
+                          name="profileColor"
+                          getValues={getValuesSettings}
+                          setValue={setValueSettings}
+                          reset={resetSettings}
+                          variant="squared"
+                          animate="border"
+                          active="dot"
+                          onClick={() => {
+                            resetSettings(getValuesSettings());
+                            setSavedUpdate(false);
+                          }}
+                        />
                       </div>
                       <div className="flex justify-center gap-5 items-center my-5">
                         <Separator />
@@ -243,11 +229,6 @@ const AccountSettingsPage: FC = () => {
                         <Separator />
                       </div>
                       <Button variant="primary">Choose File</Button>
-                      <input
-                        type="text"
-                        className="hidden"
-                        {...registerSettings("profileColor")}
-                      />
                     </div>
                   </Card>
                 </div>
@@ -340,43 +321,19 @@ const AccountSettingsPage: FC = () => {
           <h1 className="mt-[60px]">Theme Color</h1>
           <Separator />
           <div className="mt-10 flex flex-wrap gap-5">
-            {Object.keys(colors).map((key: string, index: number) =>
-              colors[key][500] ? (
-                <div
-                  className="w-[60px] aspect-square flex justify-center items-center"
-                  key={index}
-                >
-                  <div
-                    className={`w-10 aspect-square rounded-full cursor-pointer  transition-transform flex justify-center items-center text-white ${
-                      colors[getValuesSettings().themeColor][500] ===
-                      colors[key][500]
-                        ? "scale-150 hover:scale-150"
-                        : "hover:scale-125"
-                    }`}
-                    style={{ backgroundColor: colors[key][500] }}
-                    onClick={async () => {
-                      setValueSettings("themeColor", key);
-                      resetSettings(getValuesSettings());
-                      setSavedUpdate(false);
-                    }}
-                  >
-                    {colors[getValuesSettings().themeColor][500] ===
-                    colors[key][500] ? (
-                      <Check />
-                    ) : (
-                      <></>
-                    )}
-                  </div>
-                </div>
-              ) : (
-                <div className="hidden" key={index}></div>
-              )
-            )}
-            <input
-              type="text"
-              className="hidden"
-              id="themeColor"
-              {...registerSettings("themeColor")}
+            <ColorPicker
+              onClick={() => {
+                setSavedUpdate(false);
+              }}
+              register={registerSettings}
+              getValues={getValuesSettings}
+              setValue={setValueSettings}
+              reset={resetSettings}
+              name="themeColor"
+              variant="rounded"
+              animate="scale"
+              active="check"
+              size="md"
             />
           </div>
           <h1 className="mt-[60px] relative w-fit">Preferences</h1>

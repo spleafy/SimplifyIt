@@ -49,12 +49,15 @@ const authRegister = async (req: Request, res: Response) => {
   ];
 
   user.password = await bcrypt.hash(req.body.password, 10);
+
   user.settings = {
-    profileColor: "",
-    themeColor: "blue",
-    darkTheme: false,
     initialSetup: false,
-    twoFactor: false,
+    profile: {
+      profileColor: colors[Math.floor(Math.random() * colors.length) - 1],
+      themeColor: "blue",
+      darkTheme: false,
+    },
+    security: { twoFactor: false },
     sound: {
       success: true,
       warning: true,
@@ -65,8 +68,6 @@ const authRegister = async (req: Request, res: Response) => {
       friendRequest: true,
     },
   };
-  user.settings.profileColor =
-    colors[Math.floor(Math.random() * colors.length) - 1];
 
   const createdUser = await new User(user).save();
 

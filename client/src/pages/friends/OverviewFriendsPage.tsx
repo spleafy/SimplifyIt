@@ -54,7 +54,7 @@ const OveviewFriendsPage: FC = () => {
                   className="absolute w-full h-full flex justify-center items-center opacity-80 bg-gradient-to-t from-black/50 to-transparent cursor-pointer"
                   style={{
                     backgroundColor: getColors(
-                      friend.settings.profileColor
+                      friend.settings.profile.profileColor
                     )[500],
                   }}
                 >

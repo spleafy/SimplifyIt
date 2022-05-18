@@ -41,7 +41,7 @@ const HomePage: FC = () => {
   const {
     register,
     handleSubmit,
-    // setError,
+    getValues,
     setValue,
     formState: { errors },
   } = useForm({
@@ -63,7 +63,11 @@ const HomePage: FC = () => {
         </div>
         <div className="mt-5">
           <Card variant="popup" width="480px" heading="Test Form">
-            <Form submit={handleSubmit(() => {})}>
+            <Form
+              submit={handleSubmit((values) => {
+                console.log(values);
+              })}
+            >
               <TextFormField
                 name="field"
                 label="Test Field"
@@ -71,6 +75,17 @@ const HomePage: FC = () => {
                 register={register}
                 error={errors.field}
                 validators={{ required: (v: any) => validateRequired(v) }}
+              />
+              <SelectFormField
+                name="testselectmultipleform"
+                label="Test Field"
+                placeholder="Test"
+                register={register}
+                error={{}}
+                setValue={setValue}
+                getValues={getValues}
+                options={["Ivan", "Gosho", "Martin"]}
+                multiple
               />
               <Button variant="primary" submit>
                 Submit
@@ -80,18 +95,32 @@ const HomePage: FC = () => {
         </div>
         <div className="mt-5 w-[300px]">
           <SelectFormField
-            name="test"
+            name="testselect"
             label="Test Field"
             placeholder="Test"
             register={register}
             error={{}}
             setValue={setValue}
+            getValues={getValues}
             options={["Ivan", "Gosho", "Martin"]}
+          />
+        </div>
+        <div className="mt-5 w-[300px]">
+          <SelectFormField
+            name="testselectmultiple"
+            label="Test Field"
+            placeholder="Test"
+            register={register}
+            error={{}}
+            setValue={setValue}
+            getValues={getValues}
+            options={["Ivan", "Gosho", "Martin"]}
+            multiple
           />
         </div>
         <div className="w-[300px] mt-5">
           <TextFormField
-            name="test"
+            name="testtext"
             label="Test Field"
             placeholder="Test"
             register={register}

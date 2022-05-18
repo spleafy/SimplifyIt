@@ -211,7 +211,7 @@ export const removeFriend = async (id: string | undefined) => {
   return response;
 };
 
-export const fetchFriends = async () => {
+export const fetchUserFriends = async () => {
   const token = localStorage.getItem("X-Auth-Token");
 
   const response = await fetchBackendAsync(
@@ -289,6 +289,18 @@ export const fetchUserWorkspace = async () => {
 
   const response = await fetchBackendAsync(
     `api/v1/workspace`,
+    "GET",
+    token ? { "X-Auth-Token": token } : {}
+  );
+
+  return response;
+};
+
+export const fetchUserTeams = async () => {
+  const token = localStorage.getItem("X-Auth-Token");
+
+  const response = await fetchBackendAsync(
+    `api/v1/teams`,
     "GET",
     token ? { "X-Auth-Token": token } : {}
   );

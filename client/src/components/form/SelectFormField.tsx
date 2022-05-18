@@ -1,9 +1,10 @@
 import { ReactElement, useState, FC } from "react";
-import { CaretDown } from "phosphor-react";
+import { CaretDown, X } from "phosphor-react";
 // Components
 import Field from "./Field";
 import FormFieldWrapper from "./FormFieldWrapper";
 import Card from "../basic/Card";
+import { UseFormGetValues, UseFormSetValue } from "react-hook-form";
 
 interface SelectFormFieldProps {
   name: string;
@@ -15,7 +16,9 @@ interface SelectFormFieldProps {
   validators?: any;
   className?: string;
   options: string[];
-  setValue: any;
+  setValue: UseFormSetValue<any>;
+  getValues: UseFormGetValues<any>;
+  multiple?: boolean;
 }
 
 /**
@@ -30,7 +33,9 @@ interface SelectFormFieldProps {
  * @param {any} props.validators The validator functions of the field
  * @param {string=} props.className The additional classes for the select field component
  * @param {string[]} props.options The options for the select input
- * @param {any} props.setValue The useForm hook setValue function to set the value of the input on option change
+ * @param {UseFormGetValues<any>} props.getValues The options for the select input
+ * @param {UseFormSetValue<any>} props.setValue The useForm hook setValue function to set the value of the input on option change
+ * @param {boolean=} props.multiple The boolean, which will toggle the input from a default select input to a multiple select input
  * @returns Element
  */
 
@@ -44,7 +49,9 @@ const SelectFormField: FC<SelectFormFieldProps> = ({
   validators,
   className,
   options,
+  getValues,
   setValue,
+  multiple,
 }) => {
   /**
    * Expanded State
@@ -52,6 +59,10 @@ const SelectFormField: FC<SelectFormFieldProps> = ({
    */
 
   const [expanded, setExpanded] = useState(false);
+
+  const [fieldOptions, setFieldOptions] = useState(options);
+
+  const [chosenOptions, setChosenOptions]: any = useState([]);
 
   return (
     <FormFieldWrapper
@@ -71,20 +82,80 @@ const SelectFormField: FC<SelectFormFieldProps> = ({
           setExpanded(true);
         }}
         readOnly={true}
+        className={`${multiple ? "hidden" : ""}`}
       />
+      {multiple ? (
+        <div
+          className="text-sm w-full py-2 dark:text-white flex gap-3"
+          onClick={() => {
+            setExpanded(true);
+          }}
+        >
+          {chosenOptions.length > 0 ? (
+            <>
+              {chosenOptions.map((chosenOption: string, index: number) => (
+                <div
+                  className="bg-slate-200 px-2 py-1 text-black rounded-full flex items-center gap-2 text-xs cursor-pointer"
+                  key={index}
+                  onClick={() => {
+                    setFieldOptions([...fieldOptions, chosenOption]);
+                    setChosenOptions(
+                      chosenOptions.filter(
+                        (choice: string) => choice !== chosenOption
+                      )
+                    );
+
+                    setValue(name, chosenOptions.join(" "), {
+                      shouldValidate: true,
+                      shouldDirty: true,
+                    });
+                  }}
+                >
+                  {chosenOption}
+                  <X />
+                </div>
+              ))}
+            </>
+          ) : (
+            <span className="text-slate-700 dark:text-slate-100">
+              {placeholder}
+            </span>
+          )}
+        </div>
+      ) : (
+        <></>
+      )}
       <CaretDown className="text-gray-400" />
       <Card
         variant="panel"
         className={`absolute top-[80px] left-0 ${expanded ? "flex" : "hidden"}`}
       >
-        {options?.map((option: string, index: number) => (
+        {fieldOptions?.map((option: string, index: number) => (
           <div
-            className="text-sm transition-colors text-gray-600 dark:text-gray-400 cursor-pointer hover:text-white dark:hover:text-white px-1 py-2"
+            className="text-sm transition-colors text-gray-600 dark:text-gray-400 cursor-pointer hover:text-black dark:hover:text-white px-1 py-2"
             onClick={() => {
-              setValue(name, option, {
+              if (!multiple) {
+                setValue(name, option, {
+                  shouldValidate: true,
+                  shouldDirty: true,
+                });
+
+                setExpanded(false);
+
+                return;
+              }
+
+              setValue(name, getValues(name) + " " + option, {
                 shouldValidate: true,
                 shouldDirty: true,
               });
+
+              setFieldOptions(
+                fieldOptions.filter((choice: string) => choice !== option)
+              );
+
+              setChosenOptions([...chosenOptions, option]);
+
               setExpanded(false);
             }}
             key={index}

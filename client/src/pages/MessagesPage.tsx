@@ -69,7 +69,7 @@ const MessagesPage: FC = () => {
           <div className="flex gap-5">
             <div className="w-[50px] aspect-square">
               <ProfilePicture
-                color={loggedUser.settings.profileColor}
+                color={loggedUser.settings.profile.profileColor}
                 name={loggedUser.fullname}
                 size="sm"
               />
@@ -90,7 +90,7 @@ const MessagesPage: FC = () => {
           <div className="flex gap-5">
             <div className="w-[50px] aspect-square">
               <ProfilePicture
-                color={loggedUser.settings.profileColor}
+                color={loggedUser.settings.profile.profileColor}
                 name={loggedUser.fullname}
                 size="sm"
               />
@@ -109,7 +109,7 @@ const MessagesPage: FC = () => {
           <div className="flex gap-5">
             <div className="w-[50px] aspect-square">
               <ProfilePicture
-                color={loggedUser.settings.profileColor}
+                color={loggedUser.settings.profile.profileColor}
                 name={loggedUser.fullname}
                 size="sm"
               />
@@ -130,7 +130,7 @@ const MessagesPage: FC = () => {
           <div className="flex gap-5 items-center">
             <div className="w-9 h-9 flex gap-5">
               <ProfilePicture
-                color={loggedUser.settings.profileColor}
+                color={loggedUser.settings.profile.profileColor}
                 name={loggedUser.fullname}
                 size="sm"
               />

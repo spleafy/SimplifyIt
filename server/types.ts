@@ -9,13 +9,16 @@ export interface UserType {
   jobtitle?: string;
   website?: string;
   location?: string;
-  friends: string[];
   settings: {
-    profileColor: string;
-    themeColor: string;
-    darkTheme: boolean;
     initialSetup: boolean;
-    twoFactor: boolean;
+    profile: {
+      profileColor: string;
+      themeColor: string;
+      darkTheme: boolean;
+    };
+    security: {
+      twoFactor: boolean;
+    };
     sound: {
       success: boolean;
       warning: boolean;
@@ -26,7 +29,9 @@ export interface UserType {
       friendRequest: boolean;
     };
   };
-  posts: [];
+  posts: string[];
+  friends: string[];
+  teams: string[];
 }
 
 export interface NotificationType {
@@ -48,5 +53,14 @@ export interface WorkspaceType {
   settings: {
     allowUsersToCreate: boolean;
     workspaceColor: string;
+  };
+}
+
+export interface TeamType {
+  name: string;
+  users: string[];
+  administrators: string[];
+  settings: {
+    teamColor: string;
   };
 }

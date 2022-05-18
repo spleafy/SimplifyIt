@@ -9,11 +9,10 @@ export default class ResponseUser {
     jobtitle?: string;
     website?: string;
     location?: string;
-    friends: string[];
-    followers: string[];
-    following: string[];
     settings: any;
-    posts: [];
+    posts: string[];
+    friends: string[];
+    teams: string[];
   } | null;
 
   constructor(user: {
@@ -24,11 +23,10 @@ export default class ResponseUser {
     jobtitle?: string;
     website?: string;
     location?: string;
-    friends: string[];
-    followers: string[];
-    following: string[];
     settings: any;
-    posts: [];
+    posts: string[];
+    friends: string[];
+    teams: string[];
   }) {
     if (user) {
       this.user = {
@@ -39,11 +37,10 @@ export default class ResponseUser {
         jobtitle: user.jobtitle,
         website: user.website,
         location: user.location,
-        friends: user.friends,
-        followers: user.followers,
-        following: user.following,
         settings: user.settings,
         posts: user.posts,
+        friends: user.friends,
+        teams: user.teams,
       };
     } else {
       this.user = null;
@@ -59,11 +56,10 @@ export default class ResponseUser {
       jobtitle: this.user?.jobtitle,
       website: this.user?.website,
       location: this.user?.location,
-      friends: this.user?.friends,
-      followers: this.user?.followers,
-      following: this.user?.following,
       settings: this.user?.settings,
       posts: this.user?.posts,
+      friends: this.user?.friends,
+      teams: this.user?.teams,
     };
   };
 }

@@ -81,7 +81,7 @@ const SearchPanel: FC<SearchPanelProps> = ({ setShown }: SearchPanelProps) => {
       >
         <Card
           variant="panel"
-          className={`w-[650px] bg-white px-7 py-6 rounded-md flex items-start flex-col`}
+          className={`w-[650px] bg-white !px-7 !py-6 rounded-md flex items-start flex-col`}
         >
           <div className="flex justify-between w-full items-center gap-5">
             <form
@@ -139,7 +139,7 @@ const SearchPanel: FC<SearchPanelProps> = ({ setShown }: SearchPanelProps) => {
                 >
                   <div className="w-8">
                     <ProfilePicture
-                      color={user.settings.profileColor}
+                      color={user.settings.profile.profileColor}
                       name={user.fullname}
                       size="xs"
                     />

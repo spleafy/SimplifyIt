@@ -13,6 +13,11 @@ export const friendSlice = createSlice({
     updateFriends: (state: any, action) => {
       state.friends = action.payload;
     },
+    removeFriend: (state: any, action) => {
+      state.friends = state.friends.filter(
+        (friend: any) => friend._id !== action.payload
+      );
+    },
   },
 });
 
@@ -20,7 +25,7 @@ export const friendSlice = createSlice({
  * friendSlice actions
  * @description Exporting the deconstructed actions from the friendSlice
  */
-export const { updateFriends } = friendSlice.actions;
+export const { updateFriends, removeFriend } = friendSlice.actions;
 
 /**
  * friendSlice reducer

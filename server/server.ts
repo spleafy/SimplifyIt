@@ -69,6 +69,10 @@ import removeFriend from "./api/user/friends/removeFriend";
 import createWorkspace from "./api/workspace/createWorkspace";
 import getWorkspace from "./api/workspace/getWorkspace";
 
+// Team Endpoints
+import createTeam from "./api/team/createTeam";
+import fetchTeams from "./api/team/fetchTeams";
+
 // Api Route
 app.get("/api", fetchApi);
 
@@ -159,9 +163,14 @@ app.post(
 );
 
 // Workspace Routes
-app.post("/api/v1/workspace", upload.none(), verifyToken, createWorkspace);
-
 app.get("/api/v1/workspace", verifyToken, getWorkspace);
+
+app.post("/api/v1/workspace", verifyToken, upload.none(), createWorkspace);
+
+// Team Routes
+app.get("/api/v1/teams", verifyToken, upload.none(), fetchTeams);
+
+app.post("/api/v1/teams", verifyToken, upload.none(), createTeam);
 
 app.listen(PORT, HOST, () => {
   console.log(`Server listening on port : http://${HOST}:${PORT}`);

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 // Components
 import Column from "../components/basic/Column";
@@ -8,8 +8,19 @@ import TopNavigation from "../components/navigation/TopNavigation";
 import OverviewFriendsPage from "../pages/friends/OverviewFriendsPage";
 import FriendRequestsPage from "../pages/friends/FriendRequestsPage";
 import NotFoundPage from "../pages/NotFoundPage";
+// Utils
+import { updateUserFriendRequests } from "../utils/user";
 
 const FriendsRoutes: FC = () => {
+  useEffect(() => {
+    const effect = async () => {
+      // Setting the user friend requests
+      await updateUserFriendRequests();
+    };
+
+    effect();
+  }, []);
+
   return (
     <div className="flex flex-col w-full h-full">
       <TopNavigation>

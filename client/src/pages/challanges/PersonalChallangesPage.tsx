@@ -235,7 +235,7 @@ const PersonalChallangesPage: FC = () => {
                 </div>
                 <div className="w-[50px] aspect-square">
                   <ProfilePicture
-                    color={loggedUser.settings.profileColor}
+                    color={loggedUser.settings.profile.profileColor}
                     name={loggedUser.fullname}
                     size={"xs"}
                   />
@@ -251,7 +251,7 @@ const PersonalChallangesPage: FC = () => {
                 </div>
                 <div className="w-[50px] aspect-square">
                   <ProfilePicture
-                    color={loggedUser.settings.profileColor}
+                    color={loggedUser.settings.profile.profileColor}
                     name={loggedUser.fullname}
                     size={"xs"}
                   />

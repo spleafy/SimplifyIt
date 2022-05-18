@@ -89,7 +89,7 @@ const Button: FC<ButtonProps> = ({
           : ""
       } ${
         variant === "action"
-          ? `flex items-center justify-center !text-xl text-slate-600 aspect-square !w-[35px] !p-0 transition-colors cursor-pointer hover:bg-slate-200/70 dark:text-slate-500 dark:hover:bg-slate-800  ${
+          ? `flex items-center justify-center !text-xl text-slate-600 aspect-square !w-[35px] !h-[35px] !p-0 transition-colors cursor-pointer hover:bg-slate-200/50 dark:text-slate-500 dark:hover:bg-slate-800  ${
               color === "warning"
                 ? "text-yellow-600 hover:bg-yellow-200/70 dark:text-yellow-500 dark:hover:bg-yellow-800"
                 : ""
@@ -99,7 +99,7 @@ const Button: FC<ButtonProps> = ({
                 : ""
             }`
           : ""
-      } transition-colors px-8 py-[10px] text-sm text-white rounded-md w-full whitespace-nowrap ${className}`}
+      } transition-colors px-8 py-[10px] text-sm text-white rounded-full w-full whitespace-nowrap ${className}`}
       type={submit ? "submit" : "button"}
       onClick={onClick}
       disabled={disabled}
