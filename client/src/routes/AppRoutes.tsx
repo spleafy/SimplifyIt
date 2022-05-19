@@ -1,15 +1,8 @@
 import { useEffect, useState, FC } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { MagnifyingGlass, Bell } from "phosphor-react";
-import { useSelector, useDispatch } from "react-redux";
-// Redux
-import { updateUser } from "../redux/userSlice";
-import { updateNotifications } from "../redux/notificationSlice";
-import {
-  updateSentFriendRequests,
-  updateReceivedFriendRequests,
-} from "../redux/friendRequestSlice";
-import { updateFriends } from "../redux/friendSlice";
+import { useSelector } from "react-redux";
+
 // Pages
 import HomePage from "../pages/HomePage";
 import WorkspacePage from "../pages/WorkspacePage";
@@ -24,13 +17,12 @@ import TeamRoutes from "./TeamRoutes";
 // Components
 import Navigation from "../components/navigation/Navigation";
 import TopNavigation from "../components/navigation/TopNavigation";
-import NavigationLink from "../components/navigation/NavigationLink";
 import Loading from "../components/basic/Loading";
 import SearchPanel from "../components/SearchPanel";
-import Card from "../components/basic/Card";
 import Button from "../components/basic/Button";
 import ProfilePicture from "../components/basic/ProfilePicture";
 import NotificationsPanel from "../components/NotificationsPanel";
+import AccountMenuPanel from "../components/AccountMenuPanel";
 // Utils
 import { authToken } from "../utils/api";
 import {
@@ -88,11 +80,6 @@ const AppRoutes: FC = () => {
     (state: any) => state.notifications.notifications
   );
 
-  /** Dispatch method
-   * @description Creating a dispatch method from the useDispatch hook, so we can update the redux store
-   */
-  const dispatch = useDispatch();
-
   /**
    * Event listener
    * @description Adding an event listener to the document, so we can listen for each key press and close the menus on key compinations
@@ -109,14 +96,11 @@ const AppRoutes: FC = () => {
         }
       }
 
-      // If the "shift" key is pressed and the "escape" key is pressed at the same time
+      // If the "escape" key is pressed
       if (e.keyCode === 27) {
-        // Setting the search panel state to not shown
-        setSearchShown(false);
-        // Setting the notifications panel state to not shown
-        setNotificationsShown(false);
-        // Setting the account panel state to not shown
-        setAccountMenuShown(false);
+        const event = new Event("escape");
+
+        document.dispatchEvent(event);
       }
     }, 150)
   );
@@ -279,15 +263,18 @@ const AppRoutes: FC = () => {
                         <></>
                       )}
                     </Button>
-                    <div
-                      className={`absolute top-[50px] right-0 ${
-                        notificationsShown ? "flex" : "hidden"
-                      }`}
-                    >
-                      <NotificationsPanel
-                        setNotificationsShown={setNotificationsShown}
-                      />
-                    </div>
+                    {notificationsShown ? (
+                      <div
+                        className={`absolute top-[50px] right-0`}
+                        onBlur={() => {
+                          console.log("blur");
+                        }}
+                      >
+                        <NotificationsPanel setShown={setNotificationsShown} />
+                      </div>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                   <div
                     className="w-[35px] cursor-pointer relative"
@@ -300,43 +287,13 @@ const AppRoutes: FC = () => {
                       name={loggedUser.fullname}
                       size="xs"
                     />
-                    <div
-                      className={`${
-                        accountMenuShown ? "flex" : "hidden"
-                      } absolute right-0 top-[50px]`}
-                    >
-                      <Card variant="panel" width="200px">
-                        <NavigationLink
-                          to={`/app/u/${loggedUser.username}`}
-                          variant={"basic"}
-                        >
-                          My Account
-                        </NavigationLink>
-                        <NavigationLink
-                          to="/app/settings/account"
-                          variant={"basic"}
-                        >
-                          My Settings
-                        </NavigationLink>
-                        <span
-                          className="py-2 flex items-center justify-between transition-colors px-3 text-red-700 dark:text-red-700"
-                          onClick={() => {
-                            localStorage.removeItem("X-Auth-Token");
-                            dispatch(updateUser({}));
-                            dispatch(updateNotifications([]));
-                            dispatch(updateReceivedFriendRequests([]));
-                            dispatch(updateSentFriendRequests([]));
-                            dispatch(updateFriends([]));
-                            document
-                              .querySelector("html")
-                              ?.classList.remove("dark");
-                            navigate("/auth/login");
-                          }}
-                        >
-                          Log out
-                        </span>
-                      </Card>
-                    </div>
+                    {accountMenuShown ? (
+                      <div className="flex absolute right-0 top-[50px]">
+                        <AccountMenuPanel setShown={setAccountMenuShown} />
+                      </div>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                 </div>
               </TopNavigation>

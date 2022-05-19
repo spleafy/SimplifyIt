@@ -10,6 +10,12 @@ import TwoFactorPage from "../pages/auth/TwoFactorPage";
 // Components
 
 const AuthRoutes: FC = () => {
+  /**
+   * Document title
+   * @description Updating the document title
+   */
+  document.title = `Auth / ${process.env.REACT_APP_TITLE}`;
+
   return (
     <>
       <main>

@@ -1,10 +1,11 @@
 import { ReactElement, useState, FC } from "react";
-import { CaretDown, X } from "phosphor-react";
+import { CaretDown } from "phosphor-react";
+import { UseFormSetValue } from "react-hook-form";
 // Components
 import Field from "./Field";
 import FormFieldWrapper from "./FormFieldWrapper";
 import Card from "../basic/Card";
-import { UseFormGetValues, UseFormSetValue } from "react-hook-form";
+import OutsideEventHandler from "../OutsideEventHandler";
 
 interface SelectFormFieldProps {
   name: string;
@@ -17,8 +18,6 @@ interface SelectFormFieldProps {
   className?: string;
   options: string[];
   setValue: UseFormSetValue<any>;
-  getValues: UseFormGetValues<any>;
-  multiple?: boolean;
 }
 
 /**
@@ -48,10 +47,8 @@ const SelectFormField: FC<SelectFormFieldProps> = ({
   error,
   validators,
   className,
-  options,
-  getValues,
   setValue,
-  multiple,
+  options,
 }) => {
   /**
    * Expanded State
@@ -60,13 +57,9 @@ const SelectFormField: FC<SelectFormFieldProps> = ({
 
   const [expanded, setExpanded] = useState(false);
 
-  const [fieldOptions, setFieldOptions] = useState(options);
-
-  const [chosenOptions, setChosenOptions]: any = useState([]);
-
   return (
     <FormFieldWrapper
-      className={`flex flex-col relative ${className ? className : "mb-5"}`}
+      className={`flex flex-col relative ${className}`}
       error={error}
       label={label}
       action={action}
@@ -82,88 +75,40 @@ const SelectFormField: FC<SelectFormFieldProps> = ({
           setExpanded(true);
         }}
         readOnly={true}
-        className={`${multiple ? "hidden" : ""}`}
       />
-      {multiple ? (
-        <div
-          className="text-sm w-full py-2 dark:text-white flex gap-3"
-          onClick={() => {
-            setExpanded(true);
+      <CaretDown className="text-gray-400" />
+
+      {expanded ? (
+        <OutsideEventHandler
+          onEvent={() => {
+            setExpanded(false);
           }}
         >
-          {chosenOptions.length > 0 ? (
-            <>
-              {chosenOptions.map((chosenOption: string, index: number) => (
-                <div
-                  className="bg-slate-200 px-2 py-1 text-black rounded-full flex items-center gap-2 text-xs cursor-pointer"
-                  key={index}
-                  onClick={() => {
-                    setFieldOptions([...fieldOptions, chosenOption]);
-                    setChosenOptions(
-                      chosenOptions.filter(
-                        (choice: string) => choice !== chosenOption
-                      )
-                    );
+          <Card
+            variant="panel"
+            className="absolute top-[80px] left-0 flex min-w-[150px]"
+          >
+            {options?.map((option: string, index: number) => (
+              <div
+                className="text-sm transition-colors text-gray-600 dark:text-gray-400 cursor-pointer hover:text-black dark:hover:text-white px-1 py-2"
+                onClick={() => {
+                  setValue(name, option, {
+                    shouldValidate: true,
+                    shouldDirty: true,
+                  });
 
-                    setValue(name, chosenOptions.join(" "), {
-                      shouldValidate: true,
-                      shouldDirty: true,
-                    });
-                  }}
-                >
-                  {chosenOption}
-                  <X />
-                </div>
-              ))}
-            </>
-          ) : (
-            <span className="text-slate-700 dark:text-slate-100">
-              {placeholder}
-            </span>
-          )}
-        </div>
+                  setExpanded(false);
+                }}
+                key={index}
+              >
+                {option}
+              </div>
+            ))}
+          </Card>
+        </OutsideEventHandler>
       ) : (
         <></>
       )}
-      <CaretDown className="text-gray-400" />
-      <Card
-        variant="panel"
-        className={`absolute top-[80px] left-0 ${expanded ? "flex" : "hidden"}`}
-      >
-        {fieldOptions?.map((option: string, index: number) => (
-          <div
-            className="text-sm transition-colors text-gray-600 dark:text-gray-400 cursor-pointer hover:text-black dark:hover:text-white px-1 py-2"
-            onClick={() => {
-              if (!multiple) {
-                setValue(name, option, {
-                  shouldValidate: true,
-                  shouldDirty: true,
-                });
-
-                setExpanded(false);
-
-                return;
-              }
-
-              setValue(name, getValues(name) + " " + option, {
-                shouldValidate: true,
-                shouldDirty: true,
-              });
-
-              setFieldOptions(
-                fieldOptions.filter((choice: string) => choice !== option)
-              );
-
-              setChosenOptions([...chosenOptions, option]);
-
-              setExpanded(false);
-            }}
-            key={index}
-          >
-            {option}
-          </div>
-        ))}
-      </Card>
     </FormFieldWrapper>
   );
 };
