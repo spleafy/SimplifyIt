@@ -1,17 +1,18 @@
-import { useEffect, useState, FC } from "react";
+import { useEffect, useState, useRef, FC, Dispatch } from "react";
 import { X } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 // Components
 import ProfilePicture from "./basic/ProfilePicture";
 import Card from "./basic/Card";
+import OutsideEventHandler from "./OutsideEventHandler";
 // Utils
 import { searchData } from "../utils/api";
 // Lodash
 import _ from "lodash";
 
 interface SearchPanelProps {
-  setShown: any;
+  setShown: Dispatch<boolean>;
 }
 
 /**
@@ -47,6 +48,8 @@ const SearchPanel: FC<SearchPanelProps> = ({ setShown }: SearchPanelProps) => {
 
   const [searchResponse, setSearchResponse]: any = useState([]);
 
+  const input: any = useRef(null);
+
   /**
    * Search options array
    * @constant
@@ -71,13 +74,17 @@ const SearchPanel: FC<SearchPanelProps> = ({ setShown }: SearchPanelProps) => {
    */
 
   useEffect(() => {
-    document.getElementsByName("search")[0].focus();
+    input?.current?.focus();
   }, []);
 
   return (
-    <>
-      <div
-        className={`fixed w-full h-full flex justify-center items-center bg-gray-900/50 z-20 top-0 left-0`}
+    <div
+      className={`fixed w-full h-full flex justify-center items-center bg-gray-900/50 z-20 top-0 left-0`}
+    >
+      <OutsideEventHandler
+        onEvent={() => {
+          setShown(false);
+        }}
       >
         <Card
           variant="panel"
@@ -96,6 +103,7 @@ const SearchPanel: FC<SearchPanelProps> = ({ setShown }: SearchPanelProps) => {
                 className="text-2xl w-full"
                 placeholder="Search..."
                 autoComplete={"off"}
+                ref={input}
               />
             </form>
 
@@ -152,8 +160,8 @@ const SearchPanel: FC<SearchPanelProps> = ({ setShown }: SearchPanelProps) => {
             <></>
           )}
         </Card>
-      </div>
-    </>
+      </OutsideEventHandler>
+    </div>
   );
 };
 

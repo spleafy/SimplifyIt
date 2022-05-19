@@ -41,7 +41,6 @@ const HomePage: FC = () => {
   const {
     register,
     handleSubmit,
-    getValues,
     setValue,
     formState: { errors },
   } = useForm({
@@ -76,34 +75,11 @@ const HomePage: FC = () => {
                 error={errors.field}
                 validators={{ required: (v: any) => validateRequired(v) }}
               />
-              <SelectFormField
-                name="testselectmultipleform"
-                label="Test Field"
-                placeholder="Test"
-                register={register}
-                error={{}}
-                setValue={setValue}
-                getValues={getValues}
-                options={["Ivan", "Gosho", "Martin"]}
-                multiple
-              />
               <Button variant="primary" submit>
                 Submit
               </Button>
             </Form>
           </Card>
-        </div>
-        <div className="mt-5 w-[300px]">
-          <SelectFormField
-            name="testselect"
-            label="Test Field"
-            placeholder="Test"
-            register={register}
-            error={{}}
-            setValue={setValue}
-            getValues={getValues}
-            options={["Ivan", "Gosho", "Martin"]}
-          />
         </div>
         <div className="mt-5 w-[300px]">
           <SelectFormField
@@ -113,9 +89,7 @@ const HomePage: FC = () => {
             register={register}
             error={{}}
             setValue={setValue}
-            getValues={getValues}
             options={["Ivan", "Gosho", "Martin"]}
-            multiple
           />
         </div>
         <div className="w-[300px] mt-5">

@@ -11,6 +11,12 @@ import Column from "../components/basic/Column";
 import { updateUserTeams } from "../utils/user";
 
 const TeamRoutes: FC = () => {
+  /**
+   * Document title
+   * @description Updating the document title
+   */
+  document.title = `Teams / ${process.env.REACT_APP_TITLE}`;
+
   useEffect(() => {
     const effect = async () => {
       await updateUserTeams();

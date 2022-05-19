@@ -12,6 +12,12 @@ import NotFoundPage from "../pages/NotFoundPage";
 import { updateUserFriendRequests } from "../utils/user";
 
 const FriendsRoutes: FC = () => {
+  /**
+   * Document title
+   * @description Updating the document title
+   */
+  document.title = `Friends / ${process.env.REACT_APP_TITLE}`;
+
   useEffect(() => {
     const effect = async () => {
       // Setting the user friend requests

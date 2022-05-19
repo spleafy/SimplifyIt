@@ -10,6 +10,12 @@ import TeamChallangesPage from "../pages/challanges/TeamChallangesPage";
 import NotFoundPage from "../pages/NotFoundPage";
 
 const ChallangesRoutes: FC = () => {
+  /**
+   * Document title
+   * @description Updating the document title
+   */
+  document.title = `Challanges / ${process.env.REACT_APP_TITLE}`;
+
   return (
     <div className="flex flex-col w-full h-full">
       <TopNavigation>
