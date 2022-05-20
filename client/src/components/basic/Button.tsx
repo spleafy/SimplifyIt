@@ -77,7 +77,7 @@ const Button: FC<ButtonProps> = ({
           : ""
       } ${
         variant === "text"
-          ? `text-theme-500 bg-transparent hover:bg-theme-100 opacity-50 dark:text-theme-900 dark:hover:bg-theme-800 ${
+          ? `text-theme-500 bg-transparent hover:bg-theme-100 opacity-50 dark:text-theme-600 dark:opacity-100 dark:hover:bg-theme-800 ${
               color === "warning"
                 ? "text-yellow-500 bg-transparent hover:bg-yellow-100 opacity-50 dark:text-yellow-900 dark:hover:bg-yellow-800"
                 : ""

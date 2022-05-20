@@ -8,6 +8,7 @@ import Column from "../components/basic/Column";
 import Button from "../components/basic/Button";
 import Loading from "../components/basic/Loading";
 import ProfilePicture from "../components/basic/ProfilePicture";
+import FriendsPanel from "../components/FriendsPanel";
 // Utils
 import { fecthUserData } from "../utils/api";
 import {
@@ -224,23 +225,7 @@ const ProfilePage: FC = () => {
                 </div>
               </Column>
               <Column width="[400px]" minWidth="[400px]">
-                {loggedUser.friends && loggedUser.friends.length > 0 ? (
-                  <h1>Has Friends</h1>
-                ) : (
-                  <div className="h-full flex flex-col justify-center items-center w-[90%] self-center">
-                    <span className="pb-2">Looks kind of lonely...</span>
-                    <div className="w-auto">
-                      <Button
-                        variant="secondary"
-                        onClick={() => {
-                          navigate("/app/friends");
-                        }}
-                      >
-                        Discover More
-                      </Button>
-                    </div>
-                  </div>
-                )}
+                {personalProfile ? <FriendsPanel /> : <></>}
               </Column>
             </>
           ) : (

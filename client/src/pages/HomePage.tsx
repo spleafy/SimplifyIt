@@ -1,8 +1,5 @@
 import { FC } from "react";
-import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-// Redux
-import { RootStateOrAny, useSelector } from "react-redux";
 // Components
 import Column from "../components/basic/Column";
 import Button from "../components/basic/Button";
@@ -12,6 +9,7 @@ import TextFormField from "../components/form/TextFormField";
 import SelectFormField from "../components/form/SelectFormField";
 import NavigationLink from "../components/navigation/NavigationLink";
 import Label from "../components/basic/Label";
+import FriendsPanel from "../components/FriendsPanel";
 // Utils
 import { validateRequired } from "../utils/validators";
 
@@ -21,18 +19,6 @@ const HomePage: FC = () => {
    * @description Changing the document title
    */
   document.title = `Home / ${process.env.REACT_APP_TITLE}`;
-
-  /**
-   * Navigate method
-   * @description Creating a navigate method from the useNavigate hook, so we can navigate through the app
-   */
-  const navigate = useNavigate();
-
-  /**
-   * Logged user state
-   * @description Getting the logged user state from the redux store
-   */
-  const loggedUser = useSelector((state: RootStateOrAny) => state.user.user);
 
   /**
    * useForm hoom deconstruction
@@ -135,23 +121,7 @@ const HomePage: FC = () => {
         </div>
       </Column>
       <Column width="[400px]" minWidth="[400px]">
-        {loggedUser.friends && loggedUser.friends.length > 0 ? (
-          <h1>Has Friends</h1>
-        ) : (
-          <div className="h-full flex flex-col justify-center items-center w-[90%] self-center">
-            <span className="pb-2">Looks kind of lonely...</span>
-            <div className="w-auto">
-              <Button
-                variant="secondary"
-                onClick={() => {
-                  navigate("/app/friends");
-                }}
-              >
-                Discover More
-              </Button>
-            </div>
-          </div>
-        )}
+        <FriendsPanel />
       </Column>
     </>
   );
