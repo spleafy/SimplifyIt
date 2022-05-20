@@ -1,9 +1,9 @@
-import { FC } from "react";
+import { FC, FormEventHandler, ReactNode } from "react";
 
 // Components
 interface FormProps {
-  children: any;
-  submit: any;
+  children: ReactNode;
+  submit: FormEventHandler<HTMLFormElement>;
 }
 
 /**

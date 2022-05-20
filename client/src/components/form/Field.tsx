@@ -1,13 +1,14 @@
-import { FC } from "react";
+import { FC, FocusEventHandler } from "react";
+import { FieldValues, UseFormRegister, Validate } from "react-hook-form";
 
 interface FieldProps {
   name: string;
   placeholder: string;
   type: string | undefined;
-  register: any;
-  validators?: any;
-  onFocus?: any;
-  onBlur?: any;
+  register: UseFormRegister<FieldValues>;
+  validators?: Validate<FieldValues>;
+  onFocus?: FocusEventHandler<HTMLInputElement>;
+  onBlur?: FocusEventHandler<HTMLInputElement>;
   className?: string;
   readOnly?: boolean;
   min?: number;
@@ -47,7 +48,6 @@ const Field: FC<FieldProps> = ({
 }) => {
   return (
     <input
-      name={name}
       id={name}
       placeholder={placeholder}
       type={type}

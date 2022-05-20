@@ -1,18 +1,18 @@
-import { ReactNode, useEffect, useRef, FC } from "react";
+import { ReactNode, useEffect, useRef, FC, RefObject } from "react";
 
 interface OutsideEventHandlerProps {
   children: ReactNode;
-  onEvent: any;
+  onEvent: Function;
 }
 
 const OutsideEventHandler: FC<OutsideEventHandlerProps> = ({
   children,
   onEvent,
 }) => {
-  const ref: any = useRef(null);
+  const ref: RefObject<HTMLDivElement> = useRef(null);
 
-  const handleEvent = (e: any) => {
-    if (ref.current && !ref.current.contains(e.target)) {
+  const handleEvent = (e: Event) => {
+    if (ref.current && !ref.current.contains(e.target as HTMLElement)) {
       onEvent();
     }
   };

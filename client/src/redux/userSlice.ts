@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootStateOrAny } from "react-redux";
 
 /**
  * User slice
@@ -10,7 +11,7 @@ export const userSlice = createSlice({
     user: {},
   },
   reducers: {
-    updateUser: (state, action) => {
+    updateUser: (state: RootStateOrAny, action) => {
       state.user = action.payload;
     },
   },

@@ -1,7 +1,7 @@
-import { ReactChild, FC } from "react";
+import { FC, ReactNode } from "react";
 
 interface TopNavigationProps {
-  children: ReactChild | ReactChild[];
+  children: ReactNode;
 }
 
 /**

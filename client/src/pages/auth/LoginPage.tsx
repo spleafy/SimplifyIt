@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 // Components
 import Card from "../../components/basic/Card";
@@ -33,7 +33,7 @@ const LoginPage: FC = () => {
    * Submit method
    * @description Creating a submit method for the onSubmit form event
    */
-  const submit = async (values: any) => {
+  const submit = async (values: FieldValues) => {
     // We submit the form and await for the response
     const response = await submitForm(values, "user/auth/login");
     // If the response isn't 200, we set an error to the password field, if it is, we set the token in the localStorage and navigate the user to the home page
@@ -78,10 +78,11 @@ const LoginPage: FC = () => {
             register={register}
             error={errors.username}
             validators={{
-              required: (v: any) => validateRequired(v),
-              min: (v: any) => validateMin(v, 4, "Username"),
-              regex: (v: any) => validateUsernameRegex(v),
-              backend: async (v: any) => await validateUsernameBackend(v, true),
+              required: (v: string) => validateRequired(v),
+              min: (v: string) => validateMin(v, 4, "Username"),
+              regex: (v: string) => validateUsernameRegex(v),
+              backend: async (v: string) =>
+                await validateUsernameBackend(v, true),
             }}
           />
           <TextFormField
@@ -92,8 +93,8 @@ const LoginPage: FC = () => {
             register={register}
             error={errors.password}
             validators={{
-              required: (v: any) => validateRequired(v),
-              min: (v: any) => validateMin(v, 8, "Password"),
+              required: (v: string) => validateRequired(v),
+              min: (v: string) => validateMin(v, 8, "Password"),
             }}
             action={
               <Link

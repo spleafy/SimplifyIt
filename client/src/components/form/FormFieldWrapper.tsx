@@ -1,13 +1,14 @@
-import { ReactElement, FC } from "react";
-import { useSelector } from "react-redux";
+import { ReactElement, FC, ReactNode } from "react";
+import { FieldError } from "react-hook-form";
+import { RootStateOrAny, useSelector } from "react-redux";
 
 interface FormFieldWrapperProps {
   name: string;
   label: string;
   action?: HTMLElement | ReactElement;
-  error: any;
+  error: FieldError | undefined;
   className?: string;
-  children?: any;
+  children?: ReactNode;
 }
 
 /**
@@ -36,7 +37,7 @@ const FormFieldWrapper: FC<FormFieldWrapperProps> = ({
    * @description Getting the logged user from the redux store.
    */
 
-  const loggedUser = useSelector((state: any) => state.user.user);
+  const loggedUser = useSelector((state: RootStateOrAny) => state.user.user);
 
   return (
     <div className={`flex flex-col mb-5 ${className}`}>

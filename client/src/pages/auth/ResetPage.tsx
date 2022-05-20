@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
 // Components
 import Card from "../../components/basic/Card";
@@ -43,7 +43,7 @@ const ResetPage: FC = () => {
    * Submit method
    * @description Creating a submit method for the onSubmit event of the form
    */
-  const submit = async (values: any) => {
+  const submit = async (values: FieldValues) => {
     // Submit the form and await the response
     const response = await submitForm(values, "user/auth/reset", token);
 
@@ -87,8 +87,8 @@ const ResetPage: FC = () => {
               register={register}
               error={errors.password}
               validators={{
-                required: (v: any) => validateRequired(v),
-                min: (v: any) => validateMin(v, 8, "Password"),
+                required: (v: string) => validateRequired(v),
+                min: (v: string) => validateMin(v, 8, "Password"),
               }}
             />
 
@@ -100,9 +100,9 @@ const ResetPage: FC = () => {
               register={register}
               error={errors.repassword}
               validators={{
-                required: (v: any) => validateRequired(v),
-                min: (v: any) => validateMin(v, 8, "Password"),
-                match: (v: any) =>
+                required: (v: string) => validateRequired(v),
+                min: (v: string) => validateMin(v, 8, "Password"),
+                match: (v: string) =>
                   validateMatchBoth(v, getValues("password"), "Passwords"),
               }}
             />

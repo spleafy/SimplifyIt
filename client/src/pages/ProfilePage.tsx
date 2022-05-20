@@ -1,6 +1,6 @@
 import { useEffect, useState, FC } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, RootStateOrAny } from "react-redux";
 // Pages
 import NotFoundPage from "./NotFoundPage";
 //Components
@@ -15,6 +15,7 @@ import {
   cancelFriendRequestAndUpdate,
   removeFriendAndUpdate,
 } from "../utils/user";
+import { FriendRequestType, UserType } from "../utils/types";
 
 const ProfilePage: FC = () => {
   /**
@@ -33,21 +34,21 @@ const ProfilePage: FC = () => {
    * Logged user
    * @description Getting the logged user from the redux store
    */
-  const loggedUser = useSelector((state: any) => state.user.user);
+  const loggedUser = useSelector((state: RootStateOrAny) => state.user.user);
 
   /**
    * Friend Requests State
    * @description Getting the friend requests state from the redux store
    */
   const friendRequests = useSelector(
-    (state: any) => state.friendRequests.friendRequests
+    (state: RootStateOrAny) => state.friendRequests.friendRequests
   );
 
   /**
    * Loading state
    * @description Creating a useState variable, so we can toggle the loading state of the page
    */
-  const [loading, setLoading]: any = useState(true);
+  const [loading, setLoading] = useState(true);
 
   /**
    * Processing state
@@ -59,7 +60,7 @@ const ProfilePage: FC = () => {
    * User state
    * @description Creating a useState variable, so we can toggle the user, if the wanted username is the same as the logged user's username, then we set the user to be the logged user
    */
-  const [user, setUser]: any = useState(null);
+  const [user, setUser] = useState<UserType | null>(null);
 
   /**
    * Personal profile state
@@ -160,7 +161,7 @@ const ProfilePage: FC = () => {
                               <>
                                 {friendRequests.sent &&
                                 friendRequests.sent.some(
-                                  ({ to }: any) => to === user._id
+                                  ({ to }: FriendRequestType) => to === user._id
                                 ) ? (
                                   <Button
                                     variant="primary"
@@ -208,7 +209,7 @@ const ProfilePage: FC = () => {
                   <div className="flex flex-wrap h-full overflow-y-auto">
                     {user.posts ? (
                       user.posts.length > 0 ? (
-                        user.posts.map((post: any) => <div>{post.heading}</div>)
+                        user.posts.map((post: string) => <div>{post}</div>)
                       ) : (
                         <div className="w-full h-full flex justify-center items-center">
                           <h2 className="text-slate-600">

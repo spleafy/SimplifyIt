@@ -1,12 +1,12 @@
 import { useState, FC } from "react";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { Phone, VideoCamera, Info } from "phosphor-react";
 // Components
 import Button from "../components/basic/Button";
 import ProfilePicture from "../components/basic/ProfilePicture";
 import TopNavigation from "../components/navigation/TopNavigation";
 // Redux
-import { useSelector } from "react-redux";
+import { RootStateOrAny, useSelector } from "react-redux";
 // Socket IO
 import io from "socket.io-client";
 
@@ -21,7 +21,7 @@ const MessagesPage: FC = () => {
    * Messages state
    * @description Creating a useState variable, so we can update the messages upon receiving them
    */
-  const [messages, setMessages]: any = useState([]);
+  const [messages, setMessages] = useState<string[]>([""]);
 
   /**
    * Socket
@@ -35,7 +35,7 @@ const MessagesPage: FC = () => {
    * Socket get message
    * @description When the socket receives a message, the message will be pushed in the array of the messages and the state would be updated
    */
-  socket.on("broadcast-message", (data) => {
+  socket.on("broadcast-message", (data: string) => {
     setMessages([...messages, data]);
   });
 
@@ -51,7 +51,7 @@ const MessagesPage: FC = () => {
    * Submit method
    * @description Creating a submit method for the onSubmit form event
    */
-  const submit = async (values: any) => {
+  const submit = async (values: FieldValues) => {
     // Emit the message to the socket, so it can be broadcasted to the other listeners
     socket.emit("send-message", values.message);
   };
@@ -60,7 +60,7 @@ const MessagesPage: FC = () => {
    * Logged user state
    * @description Getting the logged user state from the redux store
    */
-  const loggedUser = useSelector((state: any) => state.user.user);
+  const loggedUser = useSelector((state: RootStateOrAny) => state.user.user);
 
   return (
     <>

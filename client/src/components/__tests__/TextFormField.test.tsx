@@ -28,7 +28,7 @@ const TestComponent = () => {
         register={register}
         error={errors.test}
         validators={{
-          required: (v: any) => validateRequired(v),
+          required: (v: string) => validateRequired(v),
         }}
       />
       <button type="submit">Submit</button>

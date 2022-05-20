@@ -1,10 +1,11 @@
 import { useEffect, useState, FC } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, RootStateOrAny } from "react-redux";
 import { Plus, Cards, Table, X } from "phosphor-react";
 import { useForm } from "react-hook-form";
 import { DayPickerSingleDateController } from "react-dates";
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
+import moment, { Moment } from "moment";
 // Components
 import Card from "../../components/basic/Card";
 import Button from "../../components/basic/Button";
@@ -12,7 +13,6 @@ import Separator from "../../components/basic/Separator";
 import ProfilePicture from "../../components/basic/ProfilePicture";
 import Form from "../../components/form/Form";
 import TextFormField from "../../components/form/TextFormField";
-import moment from "moment";
 
 const PersonalChallangesPage: FC = () => {
   /**
@@ -53,7 +53,7 @@ const PersonalChallangesPage: FC = () => {
    * @default null
    * @description Creating a useState variable, so we can toggle the start date.
    */
-  const [startDate, setStartDate]: any = useState(null);
+  const [startDate, setStartDate] = useState<Moment | null>(null);
 
   /**
    * Expanded panel state
@@ -67,7 +67,7 @@ const PersonalChallangesPage: FC = () => {
    * @default null
    * @description Creating a useState variable, so we can toggle the end date.
    */
-  const [endDate, setEndDate]: any = useState(null);
+  const [endDate, setEndDate] = useState<Moment | null>(null);
 
   /**
    * UseForm hook deconstruction
@@ -89,7 +89,7 @@ const PersonalChallangesPage: FC = () => {
    * @constant
    * @description Getting the logged user from the redux store
    */
-  const loggedUser = useSelector((state: any) => state.user.user);
+  const loggedUser = useSelector((state: RootStateOrAny) => state.user.user);
 
   /**
    * UseEffect hook
@@ -366,12 +366,12 @@ const PersonalChallangesPage: FC = () => {
                         <DayPickerSingleDateController
                           initialVisibleMonth={null}
                           date={endDate}
-                          onDateChange={(date) => {
+                          onDateChange={(date: Moment | null) => {
                             setValue(
                               "enddate",
                               moment(date).format("MM/DD/YYYY")
                             );
-                            setEndDate(date);
+                            if (date) setEndDate(date);
                             setShownDatePickerEnd(false);
                           }}
                           focused={true}

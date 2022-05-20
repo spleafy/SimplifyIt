@@ -1,5 +1,5 @@
 import { useState, FC } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, RootStateOrAny } from "react-redux";
 import { Plus, X } from "phosphor-react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +10,7 @@ import Form from "../../components/form/Form";
 import Separator from "../../components/basic/Separator";
 // Utils
 import { getColors } from "../../utils/utils";
+import { UserType } from "../../utils/types";
 
 const OveviewFriendsPage: FC = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const OveviewFriendsPage: FC = () => {
    * Friends State
    * @description Getting the friends state from the redux store
    */
-  const friends = useSelector((state: any) => state.friends.friends);
+  const friends = useSelector((state: RootStateOrAny) => state.friends.friends);
 
   /**
    * useForm deconstruction
@@ -42,7 +43,7 @@ const OveviewFriendsPage: FC = () => {
     <>
       <div className="flex flex-wrap gap-5">
         {friends ? (
-          friends.map((friend: any, index: number) => (
+          friends.map((friend: UserType, index: number) => (
             <Card width="200px" height="250px" key={index}>
               <div
                 className="relative w-full h-full cursor-pointer"

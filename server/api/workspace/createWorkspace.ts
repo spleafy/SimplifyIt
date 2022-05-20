@@ -5,7 +5,7 @@ import ResponseUser from "../../models/responseUser";
 import Workspace from "../../models/database/workspace";
 import User from "../../models/database/user";
 // Types
-import { WorkspaceType } from "../../types";
+import { UserType, WorkspaceType } from "../../types";
 // Utils
 import { validateObjectKeys } from "../../utils";
 
@@ -30,7 +30,7 @@ const createWorkspace = async (req: Request | any, res: Response) => {
     return;
   }
 
-  const user: any = await User.findOneAndUpdate(
+  const user: UserType | null = await User.findOneAndUpdate(
     { _id: req.id },
     {
       $set: {

@@ -4,6 +4,7 @@ import ResponseUser from "../../../models/responseUser";
 import ResponseMessage from "../../../models/responseMessage";
 // Utils
 import { validateObjectKeys } from "../../../utils";
+import { UserType } from "../../../types";
 
 const removeFriend = async (req: Request | any, res: Response) => {
   if (!validateObjectKeys(req.body, ["id"])) {
@@ -11,7 +12,7 @@ const removeFriend = async (req: Request | any, res: Response) => {
     return;
   }
 
-  const user: any = await User.findOneAndUpdate(
+  const user: UserType | null = await User.findOneAndUpdate(
     { _id: req.id },
     { $pull: { friends: req.body.id } },
     { new: true }

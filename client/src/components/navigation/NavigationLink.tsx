@@ -1,9 +1,9 @@
-import { ReactChild, FC } from "react";
+import { FC, ReactNode } from "react";
 import { NavLink } from "react-router-dom";
 
 interface NavigationLinkProps {
   to: string;
-  children: ReactChild | ReactChild[];
+  children: ReactNode;
   className?: string;
   variant?: string;
 }

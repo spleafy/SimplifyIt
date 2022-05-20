@@ -1,5 +1,5 @@
 import { Dispatch, FC } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // Components
 import Card from "./basic/Card";
@@ -13,6 +13,8 @@ import {
   updateReceivedFriendRequests,
 } from "../redux/friendRequestSlice";
 import { updateFriends } from "../redux/friendSlice";
+// Utils
+import { UserType } from "../utils/types";
 
 interface AccountMenuPanelProps {
   setShown: Dispatch<boolean>;
@@ -26,7 +28,9 @@ const AccountMenuPanel: FC<AccountMenuPanelProps> = ({ setShown }) => {
    */
   const dispatch = useDispatch();
 
-  const loggedUser = useSelector((state: any) => state.user.user);
+  const loggedUser: UserType = useSelector(
+    (state: RootStateOrAny) => state.user.user
+  );
 
   return (
     <OutsideEventHandler

@@ -9,7 +9,7 @@ const verifyToken = (req: Request | any, res: Response, next: NextFunction) => {
     return;
   }
 
-  const token: any = req.headers["x-auth-token"];
+  const token: string = req.headers["x-auth-token"];
 
   if (!token) {
     res.json(new ResponseMessage(403));

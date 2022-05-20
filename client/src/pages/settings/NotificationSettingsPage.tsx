@@ -1,6 +1,6 @@
 import { useState, FC } from "react";
-import { useForm } from "react-hook-form";
-import { useSelector, useDispatch } from "react-redux";
+import { FieldValues, useForm } from "react-hook-form";
+import { useSelector, useDispatch, RootStateOrAny } from "react-redux";
 import { Check } from "phosphor-react";
 // Components
 import Card from "../../components/basic/Card";
@@ -24,7 +24,7 @@ const NotificationSettingsPage: FC = () => {
    * Logged user state
    * @description Getting the logged user from the redux store
    */
-  const loggedUser = useSelector((state: any) => state.user.user);
+  const loggedUser = useSelector((state: RootStateOrAny) => state.user.user);
 
   /**
    * Default Values Settings
@@ -66,7 +66,7 @@ const NotificationSettingsPage: FC = () => {
    * Submit function for the settings
    * @description Creating a submit function for the form element
    */
-  const submit = async (values: any) => {
+  const submit = async (values: FieldValues) => {
     // Set the submit form state to true, so we can display a loading animation
     setSubmittingForm(true);
     // Await the response

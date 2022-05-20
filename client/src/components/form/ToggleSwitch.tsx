@@ -1,9 +1,10 @@
 import { useState, FC } from "react";
+import { UseFormGetValues, UseFormRegister } from "react-hook-form";
 
 interface ToggleSwitchProps {
-  getValues: any;
+  getValues: UseFormGetValues<any>;
   name: string;
-  register: any;
+  register: UseFormRegister<any>;
 }
 
 /**

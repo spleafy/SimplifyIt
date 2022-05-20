@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, FC, Dispatch } from "react";
+import { useEffect, useState, useRef, FC, Dispatch, RefObject } from "react";
 import { X } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -8,6 +8,7 @@ import Card from "./basic/Card";
 import OutsideEventHandler from "./OutsideEventHandler";
 // Utils
 import { searchData } from "../utils/api";
+import { UserType } from "../utils/types";
 // Lodash
 import _ from "lodash";
 
@@ -46,9 +47,9 @@ const SearchPanel: FC<SearchPanelProps> = ({ setShown }: SearchPanelProps) => {
    * @description Creating a useState variable, so we can set the response.
    */
 
-  const [searchResponse, setSearchResponse]: any = useState([]);
+  const [searchResponse, setSearchResponse] = useState([]);
 
-  const input: any = useRef(null);
+  const input: RefObject<HTMLInputElement> = useRef(null);
 
   /**
    * Search options array
@@ -136,7 +137,7 @@ const SearchPanel: FC<SearchPanelProps> = ({ setShown }: SearchPanelProps) => {
           </div>
           {searchResponse.length > 0 ? (
             <div className="flex w-full mt-5 flex-col">
-              {searchResponse.map((user: any, index: number) => (
+              {searchResponse.map((user: UserType, index: number) => (
                 <div
                   className="flex w-full hover:bg-theme-100 dark:hover:bg-slate-700 p-2 rounded-md transition-colors cursor-pointer gap-5 items-center mt-2"
                   key={index}

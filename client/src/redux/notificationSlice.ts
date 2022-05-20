@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootStateOrAny } from "react-redux";
 
 /**
  * Notification slice
@@ -10,7 +11,7 @@ export const notificationSlice = createSlice({
     notifications: [],
   },
   reducers: {
-    updateNotifications: (state: any, action) => {
+    updateNotifications: (state: RootStateOrAny, action) => {
       action.payload.reverse();
       state.notifications = action.payload;
     },

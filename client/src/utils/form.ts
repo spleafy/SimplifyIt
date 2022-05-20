@@ -1,3 +1,4 @@
+import { FieldValues } from "react-hook-form";
 import { fetchBackendAsync } from "./api";
 import { addError } from "./utils";
 
@@ -6,7 +7,7 @@ import { addError } from "./utils";
  * @param {any} obj The value/s with which the form data is created
  * @returns {Object}
  */
-export const createFormData = (obj: any) => {
+export const createFormData = (obj: FieldValues) => {
   const formData = new FormData();
   Object.keys(obj).forEach((key) => {
     formData.append(key, obj[key]);
@@ -22,7 +23,7 @@ export const createFormData = (obj: any) => {
  * @returns
  */
 export const submitForm = async (
-  values: any,
+  values: FieldValues,
   path: string,
   token?: string | null,
   method?: string

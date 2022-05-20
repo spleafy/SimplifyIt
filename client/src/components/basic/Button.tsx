@@ -6,7 +6,7 @@ import Loading from "./Loading";
 interface ButtonProps {
   children: ReactChild | ReactChild[];
   submit?: boolean;
-  onClick?: MouseEventHandler | any;
+  onClick?: MouseEventHandler;
   loading?: boolean;
   disabled?: boolean;
   variant: string;

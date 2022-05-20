@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootStateOrAny } from "react-redux";
+import { TeamType } from "../utils/types";
 
 /**
  * Team slice
@@ -13,12 +15,12 @@ export const teamSlice = createSlice({
     updateTeams: (state, action) => {
       state.teams = action.payload;
     },
-    pushTeam: (state: any, action) => {
+    pushTeam: (state: RootStateOrAny, action) => {
       state.teams = [...state.teams, action.payload];
     },
     removeTeam: (state, action) => {
       state.teams = state.teams.filter(
-        (success: any) => success.id !== action.payload
+        (team: TeamType) => team._id !== action.payload
       );
     },
   },

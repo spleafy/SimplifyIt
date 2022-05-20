@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootStateOrAny } from "react-redux";
+import { ActionType } from "../utils/types";
 
 /**
  * Error slice
@@ -12,28 +14,28 @@ export const appActionSlice = createSlice({
     warnings: [],
   },
   reducers: {
-    pushError: (state: any, action) => {
+    pushError: (state: RootStateOrAny, action) => {
       state.errors = [...state.errors, action.payload];
     },
-    deleteError: (state: any, action) => {
+    deleteError: (state: RootStateOrAny, action) => {
       state.errors = state.errors.filter(
-        (error: any) => error.id !== action.payload
+        (error: ActionType) => error._id !== action.payload
       );
     },
-    pushSuccess: (state: any, action) => {
+    pushSuccess: (state: RootStateOrAny, action) => {
       state.successes = [...state.successes, action.payload];
     },
-    deleteSuccess: (state: any, action) => {
+    deleteSuccess: (state: RootStateOrAny, action) => {
       state.successes = state.successes.filter(
-        (success: any) => success.id !== action.payload
+        (success: ActionType) => success._id !== action.payload
       );
     },
-    pushWarning: (state: any, action) => {
+    pushWarning: (state: RootStateOrAny, action) => {
       state.warnings = [...state.warnings, action.payload];
     },
-    deleteWarning: (state: any, action) => {
+    deleteWarning: (state: RootStateOrAny, action) => {
       state.warnings = state.warnings.filter(
-        (warning: any) => warning.id !== action.payload
+        (warning: ActionType) => warning._id !== action.payload
       );
     },
   },

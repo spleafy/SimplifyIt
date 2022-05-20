@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { useSearchParams, Link, useNavigate } from "react-router-dom";
 // Components
 import Card from "../../components/basic/Card";
@@ -18,7 +18,7 @@ const TwoFactorPage: FC = () => {
 
   const token = params.get("token");
 
-  const submit = async (values: any) => {
+  const submit = async (values: FieldValues) => {
     const response = await submitForm(values, "user/auth/twofactor", token);
 
     if (response.status !== 200) {
