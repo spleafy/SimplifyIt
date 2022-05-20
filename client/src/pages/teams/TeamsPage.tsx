@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { useSelector, useDispatch } from "react-redux";
+import { FieldValues, useForm } from "react-hook-form";
+import { useSelector, useDispatch, RootStateOrAny } from "react-redux";
 import { Plus, X } from "phosphor-react";
 // Components
 import Card from "../../components/basic/Card";
@@ -15,13 +15,14 @@ import { getColors } from "../../utils/utils";
 import { submitForm } from "../../utils/form";
 // Redux
 import { pushTeam } from "../../redux/teamSlice";
+import { TeamType } from "../../utils/types";
 
 const TeamsPage: FC = () => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
-  const teams = useSelector((state: any) => state.teams.teams);
+  const teams = useSelector((state: RootStateOrAny) => state.teams.teams);
 
   /**
    * Expanded add panel state
@@ -29,7 +30,7 @@ const TeamsPage: FC = () => {
    */
   const [expandedAddPanel, setExpandedAddPanel] = useState(false);
 
-  const loggedUser = useSelector((state: any) => state.user.user);
+  const loggedUser = useSelector((state: RootStateOrAny) => state.user.user);
 
   /**
    * useForm deconstruction
@@ -51,7 +52,7 @@ const TeamsPage: FC = () => {
     },
   });
 
-  const submit = async (values: any) => {
+  const submit = async (values: FieldValues) => {
     const token = localStorage.getItem("X-Auth-Token");
 
     const response = await submitForm(values, "teams", token);
@@ -66,7 +67,7 @@ const TeamsPage: FC = () => {
 
   return (
     <div className="flex flex-wrap gap-5 h-full">
-      {teams.map((team: any, index: number) => (
+      {teams.map((team: TeamType, index: number) => (
         <Card width="200px" height="250px" key={index}>
           <div
             className="relative w-full h-full group"

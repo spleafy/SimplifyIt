@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootStateOrAny } from "react-redux";
+import { UserType } from "../utils/types";
 
 /**
  * Friend slice
@@ -10,12 +12,12 @@ export const friendSlice = createSlice({
     friends: [],
   },
   reducers: {
-    updateFriends: (state: any, action) => {
+    updateFriends: (state: RootStateOrAny, action) => {
       state.friends = action.payload;
     },
-    removeFriend: (state: any, action) => {
+    removeFriend: (state: RootStateOrAny, action) => {
       state.friends = state.friends.filter(
-        (friend: any) => friend._id !== action.payload
+        (friend: UserType) => friend._id !== action.payload
       );
     },
   },

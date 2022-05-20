@@ -9,25 +9,27 @@ export default class ResponseUser {
     jobtitle?: string;
     website?: string;
     location?: string;
-    settings: any;
+    settings: UserType["settings"];
     posts: string[];
     friends: string[];
     teams: string[];
   } | null;
 
-  constructor(user: {
-    _id: string;
-    fullname: string;
-    email: string;
-    username: string;
-    jobtitle?: string;
-    website?: string;
-    location?: string;
-    settings: any;
-    posts: string[];
-    friends: string[];
-    teams: string[];
-  }) {
+  constructor(
+    user: {
+      _id: string;
+      fullname: string;
+      email: string;
+      username: string;
+      jobtitle?: string;
+      website?: string;
+      location?: string;
+      settings: UserType["settings"];
+      posts: string[];
+      friends: string[];
+      teams: string[];
+    } | null
+  ) {
     if (user) {
       this.user = {
         _id: user._id,

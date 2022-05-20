@@ -1,7 +1,7 @@
 import { useState, FC } from "react";
 import { Check, X } from "phosphor-react";
-import { useSelector, useDispatch } from "react-redux";
-import { useForm } from "react-hook-form";
+import { useSelector, useDispatch, RootStateOrAny } from "react-redux";
+import { FieldValues, useForm } from "react-hook-form";
 // Components
 import TextFormField from "../../components/form/TextFormField";
 import Button from "../../components/basic/Button";
@@ -29,7 +29,7 @@ const AccountSettingsPage: FC = () => {
    * Logged user state
    * @description Getting the logged user from the redux store
    */
-  const loggedUser = useSelector((state: any) => state.user.user);
+  const loggedUser = useSelector((state: RootStateOrAny) => state.user.user);
 
   /**
    * Dispatch function
@@ -51,7 +51,7 @@ const AccountSettingsPage: FC = () => {
 
   /**
    * Default Values Settings
-   * @description Creating a default values object, so if anything is changed from the original settings on page load, we will display a save changes button and so we can fill the fields with the information they have
+   * @description Creating a default values object, so if stringthing is changed from the original settings on page load, we will display a save changes button and so we can fill the fields with the information they have
    */
   const defaultValuesSettings = {
     fullname: loggedUser.fullname,
@@ -116,7 +116,7 @@ const AccountSettingsPage: FC = () => {
    * Submit function for the settings
    * @description Creating a submit function for the form element
    */
-  const submitSettings = async (values: any) => {
+  const submitSettings = async (values: FieldValues) => {
     // Checking if the values are different from the default values, so we don't submit the same data
     if (JSON.stringify(values) !== JSON.stringify(defaultValuesSettings)) {
       // Set the submit form state to true, so we can display a loading animation
@@ -246,7 +246,7 @@ const AccountSettingsPage: FC = () => {
                   error={errorsSettings.fullname}
                   className="mb-2"
                   validators={{
-                    required: (v: any) => validateRequired(v),
+                    required: (v: string) => validateRequired(v),
                   }}
                 />
                 <TextFormField
@@ -257,10 +257,10 @@ const AccountSettingsPage: FC = () => {
                   error={errorsSettings.username}
                   className="mb-2"
                   validators={{
-                    required: (v: any) => validateRequired(v),
-                    min: (v: any) => validateMin(v, 4, "Username"),
-                    regex: (v: any) => validateUsernameRegex(v),
-                    backend: async (v: any) => {
+                    required: (v: string) => validateRequired(v),
+                    min: (v: string) => validateMin(v, 4, "Username"),
+                    regex: (v: string) => validateUsernameRegex(v),
+                    backend: async (v: string) => {
                       if (v === loggedUser.username) {
                         return;
                       }
@@ -277,9 +277,9 @@ const AccountSettingsPage: FC = () => {
                   error={errorsSettings.email}
                   className="mb-2"
                   validators={{
-                    required: (v: any) => validateRequired(v),
-                    regex: (v: any) => validateEmailRegex(v),
-                    backend: async (v: any) => {
+                    required: (v: string) => validateRequired(v),
+                    regex: (v: string) => validateEmailRegex(v),
+                    backend: async (v: string) => {
                       if (v === loggedUser.email) {
                         return;
                       }
@@ -370,7 +370,7 @@ const AccountSettingsPage: FC = () => {
             error={errorsReset.password}
             className="mb-2"
             validators={{
-              required: (v: any) => validateRequired(v),
+              required: (v: string) => validateRequired(v),
             }}
           />
           <TextFormField
@@ -381,7 +381,7 @@ const AccountSettingsPage: FC = () => {
             error={errorsReset.newpassword}
             className="mb-2"
             validators={{
-              required: (v: any) => validateRequired(v),
+              required: (v: string) => validateRequired(v),
             }}
           />
           <TextFormField
@@ -392,7 +392,7 @@ const AccountSettingsPage: FC = () => {
             error={errorsReset.confirmnewpassword}
             className="mb-2"
             validators={{
-              required: (v: any) => validateRequired(v),
+              required: (v: string) => validateRequired(v),
             }}
           />
           <Button variant="primary" submit>

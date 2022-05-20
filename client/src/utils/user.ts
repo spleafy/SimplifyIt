@@ -20,6 +20,8 @@ import {
   fetchUserFriends,
   fetchUserTeams,
 } from "./api";
+import { RootStateOrAny } from "react-redux";
+import { FriendRequestType } from "./types";
 
 // Main Methods
 
@@ -28,7 +30,7 @@ import {
  * @description Method to check if a user exists in the redux store, if not, it will be fetched from the backend and the redux store updated
  */
 export const updateUserData = async () => {
-  const stateUser: any = store.getState().user.user;
+  const stateUser: RootStateOrAny = store.getState().user.user;
 
   if (stateUser.username === undefined) {
     const response = await fecthUserData();
@@ -43,7 +45,8 @@ export const updateUserData = async () => {
  * @description Method to check if notifications exist in the redux store, if not, they will be fetched from the backend and the redux store updated
  */
 export const updateUserNotifications = async () => {
-  const stateNotifications: any = store.getState().notifications.notifications;
+  const stateNotifications: RootStateOrAny =
+    store.getState().notifications.notifications;
 
   if (stateNotifications.length === 0) {
     const response = await fetchUserNotifications();
@@ -58,7 +61,7 @@ export const updateUserNotifications = async () => {
  * @description Method to check if a workspace exists in the redux store, if not, it will be fetched from the backend and the redux store updated
  */
 export const updateWorkspace = async () => {
-  // const stateWorkspace: any = store.getState().workspace.workspace;
+  // const stateWorkspace: WorkspaceType = store.getState().workspace.workspace;
   // if (!stateWorkspace.name) {
   // const response = await fetchUserWorkspace();
   // store.dispatch(
@@ -130,7 +133,9 @@ export const removeFriendAndUpdate = async (id: string | undefined) => {
  * @returns {Object}
  * @description Method which accepts a friend request, then removes it from the redux store
  */
-export const acceptFriendRequestAndUpdate = async (friendRequest: any) => {
+export const acceptFriendRequestAndUpdate = async (
+  friendRequest: FriendRequestType
+) => {
   const response = await acceptFriendRequest(friendRequest._id);
   store.dispatch(userSlice.actions.updateUser(response.data.user));
   store.dispatch(

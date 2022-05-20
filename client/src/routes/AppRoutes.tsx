@@ -1,7 +1,7 @@
 import { useEffect, useState, FC } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { MagnifyingGlass, Bell } from "phosphor-react";
-import { useSelector } from "react-redux";
+import { useSelector, RootStateOrAny } from "react-redux";
 
 // Pages
 import HomePage from "../pages/HomePage";
@@ -34,6 +34,7 @@ import {
 import { getColors } from "../utils/utils";
 // Lodash
 import _ from "lodash";
+import { NotificationType } from "../utils/types";
 
 const AppRoutes: FC = () => {
   /**
@@ -46,7 +47,7 @@ const AppRoutes: FC = () => {
    * Logged user
    * @description Getting the logged user from the redux store
    */
-  const loggedUser = useSelector((state: any) => state.user.user);
+  const loggedUser = useSelector((state: RootStateOrAny) => state.user.user);
 
   /**
    * Loading state
@@ -77,7 +78,7 @@ const AppRoutes: FC = () => {
    * @description Getting the notifications from the redux store
    */
   const notifications = useSelector(
-    (state: any) => state.notifications.notifications
+    (state: RootStateOrAny) => state.notifications.notifications
   );
 
   /**
@@ -87,7 +88,7 @@ const AppRoutes: FC = () => {
    */
   document.addEventListener(
     "keydown",
-    _.debounce((e: any) => {
+    _.debounce((e: KeyboardEvent) => {
       if (e.shiftKey) {
         // If the "shift" key is pressed and the "s" key is pressed at the same time
         if (e.keyCode === 83) {
@@ -250,7 +251,8 @@ const AppRoutes: FC = () => {
                       <Bell />
                       {notifications.length > 0 ? (
                         notifications.some(
-                          (notification: any) => !notification.opened
+                          (notification: NotificationType) =>
+                            !notification.opened
                         ) ? (
                           <>
                             <div className="aspect-square w-[10px] bg-red-500 rounded-full absolute flex justify-center items-center text-white right-[6px] bottom-[6px] border-2 border-white dark:border-slate-900"></div>

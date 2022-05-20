@@ -14,6 +14,7 @@ import _ from "lodash";
 import soundSuccess from "../assets/audio/sounds_message4.mp3";
 import soundWarning from "../assets/audio/sounds_message4.mp3";
 import soundError from "../assets/audio/sounds_message4.mp3";
+import { RootStateOrAny } from "react-redux";
 
 const colors = require("tailwindcss/colors");
 
@@ -33,7 +34,7 @@ delete colors["stone"];
  * @returns {Object}
  * @description Method that returns all colors object or a specific color object
  */
-export const getColors = (color: string): any => {
+export const getColors = (color: string) => {
   // If the passed color is all, then return the whole colors object, if not, then return the specific object
   if (color === "all") {
     return colors;
@@ -174,14 +175,14 @@ export const addError = _.debounce((data) => {
 
   // Create the new error object
   const error = {
-    id: errors.length,
+    _id: errors.length,
     message: data.toString(),
   };
 
   // Push the error to the redux store
   store.dispatch(pushError(error));
 
-  const loggedUser: any = store.getState().user.user;
+  const loggedUser: RootStateOrAny = store.getState().user.user;
 
   if (loggedUser.settings.sound.success) {
     const audio = new Audio(soundError);
@@ -191,7 +192,7 @@ export const addError = _.debounce((data) => {
 
   // Create a timeout, with which the pushed error will be deleted
   setTimeout(() => {
-    store.dispatch(deleteError(error.id));
+    store.dispatch(deleteError(error._id));
   }, 5000);
 }, 500);
 
@@ -206,14 +207,14 @@ export const addSuccess = _.debounce((data) => {
 
   // Create the new success object
   const success = {
-    id: successes.length,
+    _id: successes.length,
     message: data.toString(),
   };
 
   // Push the success to the redux store
   store.dispatch(pushSuccess(success));
 
-  const loggedUser: any = store.getState().user.user;
+  const loggedUser: RootStateOrAny = store.getState().user.user;
 
   if (loggedUser.settings.sound.success) {
     const audio = new Audio(soundSuccess);
@@ -223,7 +224,7 @@ export const addSuccess = _.debounce((data) => {
 
   // Create a timeout, with which the pushed success will be deleted
   setTimeout(() => {
-    store.dispatch(deleteSuccess(success.id));
+    store.dispatch(deleteSuccess(success._id));
   }, 5000);
 }, 500);
 
@@ -238,14 +239,14 @@ export const addWarning = _.debounce((data) => {
 
   // Create the new warning object
   const warning = {
-    id: warnings.length,
+    _id: warnings.length,
     message: data.toString(),
   };
 
   // Push the warning to the redux store
   store.dispatch(pushWarning(warning));
 
-  const loggedUser: any = store.getState().user.user;
+  const loggedUser: RootStateOrAny = store.getState().user.user;
 
   if (loggedUser.settings.sound.warning) {
     const audio = new Audio(soundWarning);
@@ -255,6 +256,6 @@ export const addWarning = _.debounce((data) => {
 
   // Create a timeout, with which the pushed warning will be deleted
   setTimeout(() => {
-    store.dispatch(deleteWarning(warning.id));
+    store.dispatch(deleteWarning(warning._id));
   }, 5000);
 }, 500);

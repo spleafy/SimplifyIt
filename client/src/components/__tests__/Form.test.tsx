@@ -6,10 +6,10 @@ import {
   waitFor,
 } from "@testing-library/react";
 import Form from "../form/Form";
-import { useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 interface TestComponentProps {
-  submit?: any;
+  submit: SubmitHandler<FieldValues>;
 }
 
 const TestComponent = ({ submit }: TestComponentProps) => {
@@ -27,7 +27,7 @@ afterEach(cleanup);
 
 describe("Form Tests", () => {
   test("Form has rendered", async () => {
-    render(<TestComponent />);
+    render(<TestComponent submit={() => {}} />);
 
     const form = screen.getByTestId("form");
 
@@ -35,7 +35,7 @@ describe("Form Tests", () => {
   });
 
   test("Form has children rendered", () => {
-    render(<TestComponent />);
+    render(<TestComponent submit={() => {}} />);
 
     const input = screen.getByPlaceholderText(/input/i);
 

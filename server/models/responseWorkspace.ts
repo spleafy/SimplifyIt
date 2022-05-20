@@ -7,6 +7,7 @@ export default class ResponseWorkspace {
   constructor(workspace: WorkspaceType | null) {
     if (workspace) {
       this.workspace = {
+        _id: workspace._id,
         administrators: workspace.administrators,
         users: workspace.users,
         name: workspace.name,
@@ -22,6 +23,7 @@ export default class ResponseWorkspace {
 
   getWorkspace: any = () => {
     return {
+      _id: this.workspace?._id,
       administrators: this.workspace?.administrators,
       users: this.workspace?.users,
       name: this.workspace?.name,

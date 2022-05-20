@@ -1,6 +1,12 @@
 import { ReactElement, useState, FC } from "react";
 import { CaretDown } from "phosphor-react";
-import { UseFormSetValue } from "react-hook-form";
+import {
+  FieldError,
+  FieldValues,
+  UseFormRegister,
+  UseFormSetValue,
+  Validate,
+} from "react-hook-form";
 // Components
 import Field from "./Field";
 import FormFieldWrapper from "./FormFieldWrapper";
@@ -12,9 +18,9 @@ interface SelectFormFieldProps {
   placeholder: string;
   label: string;
   action?: HTMLElement | ReactElement;
-  register: any;
-  error: any;
-  validators?: any;
+  register: UseFormRegister<FieldValues>;
+  error: FieldError;
+  validators?: Validate<FieldValues>;
   className?: string;
   options: string[];
   setValue: UseFormSetValue<any>;

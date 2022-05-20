@@ -1,6 +1,6 @@
 import { useEffect, FC } from "react";
-import { useForm } from "react-hook-form";
-import { useSelector, useDispatch } from "react-redux";
+import { FieldValues, useForm } from "react-hook-form";
+import { useSelector, useDispatch, RootStateOrAny } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // Components
 import Card from "../components/basic/Card";
@@ -49,7 +49,7 @@ const InitialSetupPage: FC = () => {
    * Submit method
    * @descritpion Creating a submit method for the form onSubmit method
    */
-  const submit = async (values: any) => {
+  const submit = async (values: FieldValues) => {
     // Getting the token from the local storage
     const token = localStorage.getItem("X-Auth-Token");
 
@@ -68,7 +68,7 @@ const InitialSetupPage: FC = () => {
    * Logged user
    * @description Getting the logged user from the redux store
    */
-  const loggedUser = useSelector((state: any) => state.user.user);
+  const loggedUser = useSelector((state: RootStateOrAny) => state.user.user);
 
   /**
    * useEffect hook

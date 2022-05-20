@@ -1,4 +1,4 @@
-import { spawn } from "child_process";
+import { ChildProcessWithoutNullStreams, spawn } from "child_process";
 import fetch from "node-fetch";
 import ResponseMessage from "../../models/responseMessage";
 

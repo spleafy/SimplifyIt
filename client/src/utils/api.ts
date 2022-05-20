@@ -13,8 +13,8 @@ import { addError, addSuccess } from "./utils";
 export const fetchBackendAsync = async (
   path: string,
   method?: string,
-  headers?: any,
-  body?: any
+  headers?: HeadersInit | undefined,
+  body?: Object
 ): Promise<any> => {
   try {
     const response = await fetch(

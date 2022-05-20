@@ -1,6 +1,6 @@
 import { useState, FC } from "react";
 import { Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 // Components
 import Form from "../../components/form/Form";
 import TextFormField from "../../components/form/TextFormField";
@@ -31,7 +31,7 @@ const ForgotPage: FC = () => {
    * Submit method
    * @description Creating a submit method for the onSubmit event of the form
    */
-  const submit = async (values: any) => {
+  const submit = async (values: FieldValues) => {
     // Submit the form and await the response
     const response = await submitForm(values, "user/auth/forgot");
 
@@ -66,9 +66,10 @@ const ForgotPage: FC = () => {
               register={register}
               error={errors.email}
               validators={{
-                required: (v: any) => validateRequired(v),
-                regex: (v: any) => validateEmailRegex(v),
-                backend: async (v: any) => await validateEmailBackend(v, true),
+                required: (v: string) => validateRequired(v),
+                regex: (v: string) => validateEmailRegex(v),
+                backend: async (v: string) =>
+                  await validateEmailBackend(v, true),
               }}
             />
 

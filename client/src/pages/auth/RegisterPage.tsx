@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 // Components
 import Form from "../../components/form/Form";
@@ -34,7 +34,7 @@ const RegisterPage: FC = () => {
    * Submit method
    * @description Creating a submit method for the onSubmit event of the form
    */
-  const submit = async (values: any) => {
+  const submit = async (values: FieldValues) => {
     // Submit the form and await the response
     const response = await submitForm(values, "user/auth/register");
     // If the response is not 200, create an error
@@ -76,7 +76,7 @@ const RegisterPage: FC = () => {
             register={register}
             error={errors.fullname}
             validators={{
-              required: (v: any) => validateRequired(v),
+              required: (v: string) => validateRequired(v),
             }}
           />
           <TextFormField
@@ -87,9 +87,10 @@ const RegisterPage: FC = () => {
             register={register}
             error={errors.email}
             validators={{
-              required: (v: any) => validateRequired(v),
-              regex: (v: any) => validateEmailRegex(v),
-              backend: async (v: any) => await validateEmailBackend(v, false),
+              required: (v: string) => validateRequired(v),
+              regex: (v: string) => validateEmailRegex(v),
+              backend: async (v: string) =>
+                await validateEmailBackend(v, false),
             }}
           />
           <TextFormField
@@ -100,10 +101,10 @@ const RegisterPage: FC = () => {
             register={register}
             error={errors.username}
             validators={{
-              required: (v: any) => validateRequired(v),
-              min: (v: any) => validateMin(v, 4, "Username"),
-              regex: (v: any) => validateUsernameRegex(v),
-              backend: async (v: any) =>
+              required: (v: string) => validateRequired(v),
+              min: (v: string) => validateMin(v, 4, "Username"),
+              regex: (v: string) => validateUsernameRegex(v),
+              backend: async (v: string) =>
                 await validateUsernameBackend(v, false),
             }}
           />
@@ -115,8 +116,8 @@ const RegisterPage: FC = () => {
             register={register}
             error={errors.password}
             validators={{
-              required: (v: any) => validateRequired(v),
-              email: (v: any) => validateMin(v, 8, "Password"),
+              required: (v: string) => validateRequired(v),
+              email: (v: string) => validateMin(v, 8, "Password"),
             }}
           />
           <span className="block w-full text-slate-400 pb-6 text-sm">

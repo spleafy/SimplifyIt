@@ -2,7 +2,7 @@ import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 // Redux
-import { useSelector } from "react-redux";
+import { RootStateOrAny, useSelector } from "react-redux";
 // Components
 import Column from "../components/basic/Column";
 import Button from "../components/basic/Button";
@@ -32,7 +32,7 @@ const HomePage: FC = () => {
    * Logged user state
    * @description Getting the logged user state from the redux store
    */
-  const loggedUser = useSelector((state: any) => state.user.user);
+  const loggedUser = useSelector((state: RootStateOrAny) => state.user.user);
 
   /**
    * useForm hoom deconstruction
@@ -73,7 +73,7 @@ const HomePage: FC = () => {
                 placeholder="Test"
                 register={register}
                 error={errors.field}
-                validators={{ required: (v: any) => validateRequired(v) }}
+                validators={{ required: (v: string) => validateRequired(v) }}
               />
               <Button variant="primary" submit>
                 Submit
@@ -86,8 +86,8 @@ const HomePage: FC = () => {
             name="testselectmultiple"
             label="Test Field"
             placeholder="Test"
+            error={{ type: "test" }}
             register={register}
-            error={{}}
             setValue={setValue}
             options={["Ivan", "Gosho", "Martin"]}
           />
@@ -98,7 +98,7 @@ const HomePage: FC = () => {
             label="Test Field"
             placeholder="Test"
             register={register}
-            error={{}}
+            error={{ type: "test" }}
           />
         </div>
         {/* <div className="mt-5">

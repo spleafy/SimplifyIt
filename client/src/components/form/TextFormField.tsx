@@ -1,4 +1,5 @@
-import { ReactElement, useState, FC } from "react";
+import { ReactElement, useState, FC, FocusEventHandler } from "react";
+import { FieldError, UseFormRegister } from "react-hook-form";
 // Components
 import FormFieldWrapper from "./FormFieldWrapper";
 import Field from "./Field";
@@ -10,12 +11,12 @@ interface TextFormFieldProps {
   label: string;
   action?: HTMLElement | ReactElement;
   validating?: boolean;
-  register: any;
-  error: any;
+  register: UseFormRegister<any>;
+  error?: FieldError;
   validators?: any;
   className?: string;
-  onFocus?: any;
-  onChange?: any;
+  onFocus?: FocusEventHandler<HTMLInputElement>;
+  onChange?: FocusEventHandler<HTMLInputElement>;
   min?: number;
   max?: number;
 }

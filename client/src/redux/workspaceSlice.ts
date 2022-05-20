@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootStateOrAny } from "react-redux";
 
 /**
  * Workspace slice
@@ -10,7 +11,7 @@ export const workspaceSlice = createSlice({
     workspace: {},
   },
   reducers: {
-    updateWorkspace: (state: any, action) => {
+    updateWorkspace: (state: RootStateOrAny, action) => {
       state.workspace = action.payload;
     },
   },

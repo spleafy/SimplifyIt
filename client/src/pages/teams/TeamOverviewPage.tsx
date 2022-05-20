@@ -1,16 +1,17 @@
 import { FC } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, RootStateOrAny } from "react-redux";
 // Components
 import ProfilePicture from "../../components/basic/ProfilePicture";
+import { TeamType } from "../../utils/types";
 
 const TeamOverviewPage: FC = () => {
   const { id } = useParams();
 
-  const teams = useSelector((state: any) => state.teams.teams);
+  const teams = useSelector((state: RootStateOrAny) => state.teams.teams);
 
-  const team = teams.find((e: any) => {
-    return e._id === id;
+  const team = teams.find((team: TeamType) => {
+    return team._id === id;
   });
 
   return (

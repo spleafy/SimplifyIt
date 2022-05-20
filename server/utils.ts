@@ -1,4 +1,5 @@
 import ResponseUser from "./models/responseUser";
+import { UserType } from "./types";
 
 export const validateObjectKeys = (obj: any, keys: string[]) => {
   let res = true;
@@ -12,10 +13,10 @@ export const validateObjectKeys = (obj: any, keys: string[]) => {
   return res;
 };
 
-export const filterUsers = (unfiltered: any[]) => {
-  const users: any[] = [];
+export const filterUsers = (unfiltered: UserType[]) => {
+  const users: UserType[] = [];
 
-  unfiltered.forEach((user: any) => {
+  unfiltered.forEach((user: UserType) => {
     users.push(new ResponseUser(user).getUser());
   });
 

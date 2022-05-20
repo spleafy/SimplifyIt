@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootStateOrAny } from "react-redux";
+import { FriendRequestType } from "../utils/types";
 
 /**
  * Friend request slice
@@ -13,32 +15,34 @@ export const friendRequestSlice = createSlice({
     },
   },
   reducers: {
-    updateReceivedFriendRequests: (state: any, action) => {
+    updateReceivedFriendRequests: (state: RootStateOrAny, action) => {
       state.friendRequests.received = action.payload;
     },
-    pushReceivedFriendRequest: (state: any, action) => {
+    pushReceivedFriendRequest: (state: RootStateOrAny, action) => {
       state.friendRequests.received = [
         ...state.friendRequests.received,
         action.payload,
       ];
     },
-    deleteReceivedFriendRequest: (state: any, action) => {
+    deleteReceivedFriendRequest: (state: RootStateOrAny, action) => {
       state.friendRequests.received = state.friendRequests.received.filter(
-        (friendRequest: any) => friendRequest.from !== action.payload
+        (friendRequest: FriendRequestType) =>
+          friendRequest.from !== action.payload
       );
     },
-    updateSentFriendRequests: (state: any, action) => {
+    updateSentFriendRequests: (state: RootStateOrAny, action) => {
       state.friendRequests.sent = action.payload;
     },
-    pushSentFriendRequest: (state: any, action) => {
+    pushSentFriendRequest: (state: RootStateOrAny, action) => {
       state.friendRequests.sent = [
         ...state.friendRequests.sent,
         action.payload,
       ];
     },
-    deleteSentFriendRequest: (state: any, action) => {
+    deleteSentFriendRequest: (state: RootStateOrAny, action) => {
       state.friendRequests.sent = state.friendRequests.sent.filter(
-        (friendRequest: any) => friendRequest.to !== action.payload
+        (friendRequest: FriendRequestType) =>
+          friendRequest.to !== action.payload
       );
     },
   },
