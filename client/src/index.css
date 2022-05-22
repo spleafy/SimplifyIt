@@ -75,7 +75,7 @@ input:-webkit-autofill {
 
 @layer components {
   #root {
-    @apply h-full flex dark:bg-gray-900 transition-colors;
+    @apply h-full flex dark:bg-slate-900 transition-colors;
   }
 
   main {
@@ -95,6 +95,26 @@ input:-webkit-autofill {
     @apply text-2xl;
   }
 
+  h2 {
+    @apply text-xl;
+  }
+
+  h3 {
+    @apply text-lg;
+  }
+
+  h4 {
+    @apply text-base;
+  }
+
+  h5 {
+    @apply text-sm;
+  }
+
+  h6 {
+    @apply text-xs;
+  }
+
   span {
     @apply dark:text-white;
   }
@@ -107,11 +127,45 @@ input:-webkit-autofill {
     @apply relative;
   }
 
-  .tooltip::after {
-    @apply content-[attr(data-tooltip)] shadow-[0_0_20px_10px_rgba(0,0,0,0.1)] hidden absolute py-1 px-3 rounded-md whitespace-nowrap -bottom-9 text-sm text-slate-800 bg-slate-100 dark:text-slate-300 dark:bg-slate-800;
+  .tooltip::after,
+  .tooltip-rel::after {
+    @apply h-fit content-[attr(data-tooltip)] drop-shadow-md z-[1000] hidden absolute py-1 px-3 rounded-lg whitespace-nowrap text-sm text-slate-800 bg-slate-100 dark:text-slate-300 dark:bg-slate-800;
   }
 
-  .tooltip:hover::after {
+  .tooltip::after {
+    @apply -bottom-9;
+  }
+
+  .tooltip:hover::after,
+  .tooltip-rel:hover::after {
     @apply flex animate-slideTop;
+  }
+
+  .tooltip-t::after {
+    @apply -top-9;
+  }
+
+  .tooltip-tr::after {
+    @apply -top-7 left-[100%] translate-y-1/2;
+  }
+
+  .tooltip-tl::after {
+    @apply -top-7 right-[100%] translate-y-1/2;
+  }
+
+  .tooltip-br::after {
+    @apply -bottom-7 left-[100%] translate-y-1/2;
+  }
+
+  .tooltip-bl::after {
+    @apply -bottom-7 right-[100%] translate-y-1/2;
+  }
+
+  .tooltip-r::after {
+    @apply bottom-0 left-[120%] translate-y-1/2;
+  }
+
+  .tooltip-l::after {
+    @apply bottom-0 right-[120%] translate-y-1/2;
   }
 }

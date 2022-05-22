@@ -4,8 +4,10 @@ import { NavLink } from "react-router-dom";
 interface NavigationLinkProps {
   to: string;
   children: ReactNode;
+  icon?: ReactNode;
   className?: string;
   variant?: string;
+  expanded?: boolean;
 }
 
 /**
@@ -21,29 +23,41 @@ interface NavigationLinkProps {
 const NavigationLink: FC<NavigationLinkProps> = ({
   to,
   children,
+  icon,
   className,
   variant,
+  expanded,
 }) => {
   return (
     <NavLink
       to={to}
       className={({ isActive }) => {
-        return `py-2 flex items-center justify-between transition-colors px-8 relative ${className} ${
+        return `flex items-center gap-3 transition-all rounded-lg group text-slate-600 dark:text-white hover:text-theme-500 dark:hover:text-theme-500 px-4 py-2 ${
+          variant === "navigation"
+            ? `mt-2 mx-4 hover:bg-theme-100/20 dark:hover:bg-theme-900/10 ${
+                !expanded
+                  ? "w-[35px] aspect-square !justify-center tooltip-rel after:left-[105%] after:translate-y-1/2"
+                  : ""
+              }`
+            : ""
+        } ${variant === "bordered" ? "mx-4 rounded-none" : ""} ${className} ${
           isActive
-            ? `text-theme-500 font-bold dark:text-theme-500 before:absolute before:content-[''] before:h-1/2 before:w-1 before:left-0 before:bg-theme-400 before:rounded-r-md ${
-                variant === "bordered"
-                  ? "border-b-2 border-theme-500 before:hidden bg-transparent rounded-none"
+            ? `!text-theme-500 ${
+                variant === "navigation"
+                  ? "before:absolute before:content-[''] before:h-[25px] before:w-1 before:left-0 before:rounded-r-md before:bg-theme-400 text-theme-500 bg-theme-100/50 hover:!bg-theme-100/50 dark:before:bg-theme-500 dark:bg-theme-900/20 dark:hover:!bg-theme-900/20"
                   : ""
               } ${
-                variant === "basic" ? "before:hidden !px-3 bg-transparent" : ""
+                variant === "bordered"
+                  ? "border-b-2 border-theme-500 before:hidden bg-transparent"
+                  : ""
               }`
-            : `text-slate-600 dark:text-white hover:text-theme-500 dark:hover:text-theme-500 ${
-                variant === "basic" ? "before:hidden !px-3 bg-transparent" : ""
-              }`
+            : ``
         }`;
       }}
+      data-tooltip={children}
     >
-      {children}
+      {icon ? <div className="text-lg">{icon}</div> : <></>}
+      {expanded === false ? <></> : <>{children}</>}
     </NavLink>
   );
 };

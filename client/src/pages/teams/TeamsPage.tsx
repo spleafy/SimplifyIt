@@ -154,7 +154,7 @@ const TeamsPage: FC = () => {
                     size="sm"
                   />
                 </div>
-                <Button variant="primary" submit>
+                <Button variant="primary" submit full>
                   Create team
                 </Button>
               </Form>

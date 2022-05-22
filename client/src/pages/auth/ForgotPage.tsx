@@ -73,7 +73,7 @@ const ForgotPage: FC = () => {
               }}
             />
 
-            <Button variant="primary" submit>
+            <Button variant="primary" submit full>
               Send Link
             </Button>
             <span className="block w-full text-center text-slate-400 pt-6 text-sm">

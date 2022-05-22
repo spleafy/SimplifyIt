@@ -1,5 +1,14 @@
 const colors = require("tailwindcss/colors");
 
+const withOpacityValue = (variable) => {
+  return ({ opacityValue }) => {
+    if (opacityValue === undefined) {
+      return `rgb(var(${variable}))`;
+    }
+    return `rgb(var(${variable}) / ${opacityValue})`;
+  };
+};
+
 module.exports = {
   // prefix: "cb-",
   darkMode: "class",
@@ -32,16 +41,16 @@ module.exports = {
       colors: {
         primary: colors.blue,
         theme: {
-          50: "var(--theme-color-50)",
-          100: "var(--theme-color-100)",
-          200: "var(--theme-color-200)",
-          300: "var(--theme-color-300)",
-          400: "var(--theme-color-400)",
-          500: "var(--theme-color-500)",
-          600: "var(--theme-color-600)",
-          700: "var(--theme-color-700)",
-          800: "var(--theme-color-800)",
-          900: "var(--theme-color-900)",
+          50: withOpacityValue("--theme-color-50"),
+          100: withOpacityValue("--theme-color-100"),
+          200: withOpacityValue("--theme-color-200"),
+          300: withOpacityValue("--theme-color-300"),
+          400: withOpacityValue("--theme-color-400"),
+          500: withOpacityValue("--theme-color-500"),
+          600: withOpacityValue("--theme-color-600"),
+          700: withOpacityValue("--theme-color-700"),
+          800: withOpacityValue("--theme-color-800"),
+          900: withOpacityValue("--theme-color-900"),
         },
       },
     },

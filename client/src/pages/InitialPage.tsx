@@ -143,7 +143,7 @@ const InitialSetupPage: FC = () => {
               size="xs"
             />
           </div>
-          <Button variant="primary" submit>
+          <Button variant="primary" submit full>
             Create
           </Button>
         </Form>

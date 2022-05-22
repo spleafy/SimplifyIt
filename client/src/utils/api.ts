@@ -57,7 +57,7 @@ export const authToken = async () => {
  * @returns {Object}
  * @description Method that fetches user's data from the backend
  */
-export const fecthUserData = async (username?: string | undefined) => {
+export const fetchUserData = async (username?: string | undefined) => {
   const token = localStorage.getItem("X-Auth-Token");
 
   const response = await fetchBackendAsync(
@@ -246,7 +246,7 @@ export const searchData = async (search: string, param: string) => {
 /**
  * fetchUserNotifications
  * @returns {Object}
- * @description Method that fethces the logged user's notifications
+ * @description Method that fetches the logged user's notifications
  */
 export const fetchUserNotifications = async () => {
   const token = localStorage.getItem("X-Auth-Token");
@@ -262,7 +262,7 @@ export const fetchUserNotifications = async () => {
 
 /**
  * updateNotificationState
- * @param {sring} id The notification id
+ * @param {string} id The notification id
  * @returns {Object}
  * @description Method to mark a notification as read
  */

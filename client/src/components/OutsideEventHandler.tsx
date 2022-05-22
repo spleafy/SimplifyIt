@@ -28,7 +28,11 @@ const OutsideEventHandler: FC<OutsideEventHandlerProps> = ({
     };
   });
 
-  return <div ref={ref}>{children}</div>;
+  return (
+    <div ref={ref} className="z-10">
+      {children}
+    </div>
+  );
 };
 
 export default OutsideEventHandler;

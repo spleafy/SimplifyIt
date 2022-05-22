@@ -65,7 +65,7 @@ const MessagesPage: FC = () => {
   return (
     <>
       <div className="flex flex-col w-[400px] min-w-[400px] h-full gap-5 px-4 pt-8 bg-white border-r-[1px] border-slate-200 dark:border-slate-600 dark:bg-slate-900">
-        <div className="flex items-center justify-between w-full gap-5 cursor-pointer px-3 py-1 rounded-md">
+        <div className="flex items-center justify-between w-full gap-5 cursor-pointer px-3 py-1 rounded-lg">
           <div className="flex gap-5">
             <div className="w-[50px] aspect-square">
               <ProfilePicture
@@ -86,7 +86,7 @@ const MessagesPage: FC = () => {
           </div>
           <div className="w-[10px] h-[10px] aspect-square rounded-full bg-blue-400"></div>
         </div>
-        <div className="flex items-center justify-between w-full gap-5 cursor-pointer px-3 py-2 rounded-md">
+        <div className="flex items-center justify-between w-full gap-5 cursor-pointer px-3 py-2 rounded-lg">
           <div className="flex gap-5">
             <div className="w-[50px] aspect-square">
               <ProfilePicture
@@ -105,7 +105,7 @@ const MessagesPage: FC = () => {
           </div>
           {/* <div className="w-[10px] h-[10px] aspect-square rounded-full bg-blue-400"></div> */}
         </div>
-        <div className="flex items-center justify-between w-full gap-5 cursor-pointer px-3 py-1 bg-slate-200 rounded-md">
+        <div className="flex items-center justify-between w-full gap-5 cursor-pointer px-3 py-1 bg-slate-200 rounded-lg">
           <div className="flex gap-5">
             <div className="w-[50px] aspect-square">
               <ProfilePicture
@@ -140,21 +140,24 @@ const MessagesPage: FC = () => {
           <div className="flex gap-5 text-xl text-theme-500">
             <Button
               variant="action"
-              className="!text-theme-500 tooltip"
+              color="theme"
+              className="tooltip"
               tooltip="Start an audio call"
             >
               <Phone />
             </Button>
             <Button
               variant="action"
-              className="!text-theme-500 tooltip"
+              color="theme"
+              className="tooltip"
               tooltip="Start a video call"
             >
               <VideoCamera />
             </Button>
             <Button
               variant="action"
-              className="!text-theme-500 tooltip"
+              color="theme"
+              className="tooltip tooltip-bl"
               tooltip="Conversation information"
             >
               <Info />
@@ -176,7 +179,7 @@ const MessagesPage: FC = () => {
             id="message"
             placeholder="Enter message:"
             type="text"
-            className="text-sm py-2 rounded-md border-2 border-slate-200 px-4 placeholder:text-slate-200 focus-within:border-slate-300 transition-colors items-center dark:border-slate-500"
+            className="text-sm py-2 rounded-lg border-2 border-slate-200 px-4 placeholder:text-slate-200 focus-within:border-slate-300 transition-colors items-center dark:border-slate-500"
             {...register("message")}
           />
           <div className="w-fit">

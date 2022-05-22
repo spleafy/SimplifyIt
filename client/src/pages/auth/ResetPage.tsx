@@ -107,7 +107,7 @@ const ResetPage: FC = () => {
               }}
             />
 
-            <Button variant="primary" submit>
+            <Button variant="primary" submit full>
               Reset Password
             </Button>
             <span className="block w-full text-center text-slate-400 pt-6 text-sm">
@@ -121,7 +121,7 @@ const ResetPage: FC = () => {
             </span>
           </Form>
         ) : (
-          <div className="text-center shadow-[0_0_20px_10px_rgba(0,0,0,0.1)] w-[480px] min-w-[480px] rounded-md px-16 py-8 animate-scale bg-white select-none">
+          <div className="text-center drop-shadow-lg w-[480px] min-w-[480px] rounded-lg px-16 py-8 animate-scale bg-white select-none">
             <h1>We didn't detect the reset token!</h1>
             <span className="block w-full text-slate-400 pt-6 text-sm">
               Go back to login?&nbsp;

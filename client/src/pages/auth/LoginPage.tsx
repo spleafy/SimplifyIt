@@ -105,7 +105,7 @@ const LoginPage: FC = () => {
               </Link>
             }
           />
-          <Button variant="primary" submit>
+          <Button variant="primary" submit full>
             Login
           </Button>
           <span className="block w-full text-center text-slate-400 pt-6 text-sm">

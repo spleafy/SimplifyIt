@@ -87,7 +87,7 @@ const NotificationSettingsPage: FC = () => {
 
   return (
     <div className="w-full flex justify-center">
-      <Card className="mb-20 p-8" width="100%">
+      <Card className="p-8 mb-8" width="100%">
         <form
           onSubmit={handleSubmit(submit)}
           onChange={() => {
@@ -101,7 +101,7 @@ const NotificationSettingsPage: FC = () => {
             <div className="w-fit">
               {savedUpdate ? (
                 <div
-                  className="w-[40px] h-[40px] aspect-square bg-theme-500 rounded-full flex justify-center items-center text-white cursor-pointer tooltip"
+                  className="w-[42px] h-[42px] aspect-square bg-theme-400 dark:bg-theme-600 rounded-full flex justify-center items-center text-white cursor-pointer tooltip"
                   data-tooltip="Saved"
                 >
                   <Check />

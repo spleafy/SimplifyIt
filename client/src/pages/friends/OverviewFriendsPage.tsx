@@ -64,7 +64,7 @@ const OveviewFriendsPage: FC = () => {
                     {friend.fullname.split(" ")[1].charAt(0)}
                   </h1>
                 </div>
-                {/* <div className="px-3 py-1 absolute right-3 top-3 bg-slate-900/20 rounded-md text-white text-sm">
+                {/* <div className="px-3 py-1 absolute right-3 top-3 bg-slate-900/20 rounded-lg text-white text-sm">
                   You
                 </div> */}
                 <div className="px-5 py-3 absolute bottom-0">

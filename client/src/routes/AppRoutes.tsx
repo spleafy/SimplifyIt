@@ -11,7 +11,7 @@ import NotFoundPage from "../pages/NotFoundPage";
 // Routes
 import UserRoutes from "./UserRoutes";
 import SettingsRoutes from "./SettingsRoutes";
-import ChallangesRoutes from "./ChallangesRoutes";
+import ChallengesRoutes from "./ChallengesRoutes";
 import FriendsRoutes from "./FriendsRoutes";
 import TeamRoutes from "./TeamRoutes";
 // Components
@@ -118,7 +118,10 @@ const AppRoutes: FC = () => {
     if (!settings) {
       // We create an initial settings object
       const initialSettings = {
-        challanges: {
+        navigation: {
+          expanded: true,
+        },
+        challenges: {
           personal: {
             activeLayout: "cards",
           },
@@ -189,9 +192,16 @@ const AppRoutes: FC = () => {
       // We loop over the color shades and set the css variables for the theme colors
       Object.keys(colors[loggedUser.settings.profile.themeColor]).forEach(
         (shade: string) => {
+          const hex = colors[loggedUser.settings.profile.themeColor][shade]
+            .split("#")[1]
+            .match(/.{1,2}/g);
+
           document.documentElement.style.setProperty(
             `--theme-color-${shade}`,
-            colors[loggedUser.settings.profile.themeColor][shade]
+            `${parseInt(hex[0], 16)} ${parseInt(hex[1], 16)} ${parseInt(
+              hex[2],
+              16
+            )}`
           );
         }
       );
@@ -216,14 +226,16 @@ const AppRoutes: FC = () => {
           {loggedUser.settings.initialSetup ? (
             <div className="flex flex-col w-full">
               <TopNavigation>
-                <h1
-                  className="w-full first-letter:uppercase cursor-pointer"
-                  onClick={() => {
-                    navigate("/app/home");
-                  }}
-                >
-                  SimplifyIt
-                </h1>
+                <div className="w-full">
+                  <h1
+                    className="w-fit first-letter:uppercase cursor-pointer"
+                    onClick={() => {
+                      navigate("/app/home");
+                    }}
+                  >
+                    SimplifyIt
+                  </h1>
+                </div>
                 <div className="flex justify-center items-center w-full">
                   <div
                     className="w-[300px] text-slate-600 bg-slate-100 dark:bg-slate-800 dark:text-white rounded-full py-2 pr-2 pl-3 flex items-center justify-between gap-3 text-sm cursor-pointer transition-colors hover:text-theme-500"
@@ -235,7 +247,7 @@ const AppRoutes: FC = () => {
                       <MagnifyingGlass />
                       Search
                     </div>
-                    <div className="px-3 py-1 text-xs bg-gray-200/60 text-slate-800 dark:bg-gray-700 dark:text-slate-200 rounded-full">
+                    <div className="px-3 py-1 text-xs bg-slate-200/50 text-slate-800 dark:bg-slate-700/50 dark:text-slate-200 rounded-full">
                       Shift + S
                     </div>
                   </div>
@@ -299,7 +311,7 @@ const AppRoutes: FC = () => {
                   </div>
                 </div>
               </TopNavigation>
-              <div className="flex h-full w-full">
+              <div className="flex h-[calc(100%-55px)] w-full">
                 <Navigation />
                 <div className="flex flex-col w-full">
                   <main>
@@ -312,8 +324,8 @@ const AppRoutes: FC = () => {
                       <Route path="teams/*" element={<TeamRoutes />} />
                       <Route path="settings/*" element={<SettingsRoutes />} />
                       <Route
-                        path="challanges/*"
-                        element={<ChallangesRoutes />}
+                        path="challenges/*"
+                        element={<ChallengesRoutes />}
                       />
                       <Route path="u/*" element={<UserRoutes />} />
                       <Route path="*" element={<NotFoundPage />} />

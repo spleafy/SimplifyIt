@@ -61,7 +61,7 @@ const TwoFactorPage: FC = () => {
               error={errors.twofactorcode}
               validators={{ required: (v: string) => validateRequired(v) }}
             />
-            <Button variant="primary" submit>
+            <Button variant="primary" submit full>
               Submit
             </Button>
           </Form>

@@ -39,7 +39,7 @@ const NotificationsPanel: FC<NotificationsPanelProps> = ({ setShown }) => {
               {notifications.map(
                 (notification: NotificationType, index: number) => (
                   <div
-                    className={`w-full flex items-center text-sm cursor-pointer px-3 py-1 rounded-md mt-2 first:mt-0 relative`}
+                    className={`w-full flex items-center text-sm cursor-pointer px-3 py-1 rounded-lg mt-2 first:mt-0 relative`}
                     key={index}
                     onClick={async () => {
                       if (!notification.opened) {
@@ -87,7 +87,7 @@ const NotificationsPanel: FC<NotificationsPanelProps> = ({ setShown }) => {
                     ) : (
                       <></>
                     )}
-                    <div className="ml-2 text-base hover:text-red-500 hover:bg-slate-100/50 dark:hover:bg-slate-700 p-1 rounded-md transition-colors">
+                    <div className="ml-2 text-base hover:text-red-500 hover:bg-slate-100/50 dark:hover:bg-slate-700 p-1 rounded-lg transition-colors">
                       <Trash />
                     </div>
                   </div>

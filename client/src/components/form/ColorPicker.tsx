@@ -51,7 +51,7 @@ const ColorPicker: FC<ColorPickerProps> = ({
               size === "xl" ? "!w-20" : ""
             } aspect-square transition-all cursor-pointer flex justify-center items-center text-white ${
               variant === "rounded" ? "rounded-full" : ""
-            } ${variant === "squared" ? "rounded-md" : ""}  ${
+            } ${variant === "squared" ? "rounded-lg" : ""}  ${
               animate === "scale"
                 ? `${
                     key === getValues(name)
