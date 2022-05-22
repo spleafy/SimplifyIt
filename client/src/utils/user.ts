@@ -9,7 +9,7 @@ import { teamSlice } from "../redux/teamSlice";
 import {
   fetchUserNotifications,
   fetchUserWorkspace,
-  fecthUserData,
+  fetchUserData,
   fetchFriendRequests,
   updateNotificationState,
   acceptFriendRequest,
@@ -33,7 +33,7 @@ export const updateUserData = async () => {
   const stateUser: RootStateOrAny = store.getState().user.user;
 
   if (stateUser.username === undefined) {
-    const response = await fecthUserData();
+    const response = await fetchUserData();
     store.dispatch(userSlice.actions.updateUser(response.data.user));
   }
 };

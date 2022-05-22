@@ -92,11 +92,12 @@ const SelectFormField: FC<SelectFormFieldProps> = ({
         >
           <Card
             variant="panel"
-            className="absolute top-[80px] left-0 flex min-w-[150px]"
+            className="absolute top-[80px] left-0 flex !px-2"
+            width="100%"
           >
             {options?.map((option: string, index: number) => (
               <div
-                className="text-sm transition-colors text-gray-600 dark:text-gray-400 cursor-pointer hover:text-black dark:hover:text-white px-1 py-2"
+                className="text-sm transition-colors text-gray-600 dark:text-gray-400 cursor-pointer hover:text-black dark:hover:text-white px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg"
                 onClick={() => {
                   setValue(name, option, {
                     shouldValidate: true,

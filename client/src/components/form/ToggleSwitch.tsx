@@ -26,8 +26,14 @@ const ToggleSwitch: FC<ToggleSwitchProps> = ({ name, register, getValues }) => {
 
   return (
     <label
-      className={`${toggled ? "bg-theme-500" : "bg-gray-400"} ${
-        toggled ? "hover:bg-theme-600" : "hover:bg-gray-500"
+      className={`${
+        toggled
+          ? "bg-theme-500 dark:bg-theme-600"
+          : "bg-slate-400 dark:bg-slate-500"
+      } ${
+        toggled
+          ? "hover:bg-theme-600 dark:hover:bg-theme-700"
+          : "hover:bg-slate-500 dark:hover:bg-slate-600"
       } flex justify-center items-center transition-colors rounded-2xl h-[20px] w-[40px] cursor-pointer relative`}
       htmlFor={name}
       onClick={() => {

@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { useForm } from "react-hook-form";
+import { Trash } from "phosphor-react";
 // Components
 import Column from "../components/basic/Column";
 import Button from "../components/basic/Button";
@@ -36,15 +37,45 @@ const HomePage: FC = () => {
   return (
     <>
       <Column>
-        <h1 className="mt-10">Components</h1>
+        <h1 className="mt-10">Heading</h1>
+        <h2 className="mt-5">Heading</h2>
+        <h3 className="mt-5">Heading</h3>
+        <h4 className="mt-5">Heading</h4>
+        <h5 className="mt-5">Heading</h5>
+        <h6 className="mt-5">Heading</h6>
         <div className="w-[200px] mt-5">
           <Button variant="primary">Primary</Button>
+        </div>
+        <div className="w-[200px] mt-5">
+          <Button variant="primary" loading={true}>
+            Loading...
+          </Button>
+        </div>
+        <div className="w-[200px] mt-5">
+          <Button variant="primary" icon={<Trash />}>
+            Icon
+          </Button>
+        </div>
+        <div className="w-[200px] mt-5">
+          <Button variant="primary" disabled>
+            Disabled
+          </Button>
         </div>
         <div className="w-[200px] mt-5">
           <Button variant="secondary">Secondary</Button>
         </div>
         <div className="w-[200px] mt-5">
           <Button variant="text">Text</Button>
+        </div>
+        <div className="w-[200px] mt-5">
+          <Button variant="action">
+            <Trash />
+          </Button>
+        </div>
+        <div className="w-[200px] mt-5">
+          <Button variant="action" color="theme">
+            <Trash />
+          </Button>
         </div>
         <div className="mt-5">
           <Card variant="popup" width="480px" heading="Test Form">
@@ -61,7 +92,7 @@ const HomePage: FC = () => {
                 error={errors.field}
                 validators={{ required: (v: string) => validateRequired(v) }}
               />
-              <Button variant="primary" submit>
+              <Button variant="primary" submit full>
                 Submit
               </Button>
             </Form>

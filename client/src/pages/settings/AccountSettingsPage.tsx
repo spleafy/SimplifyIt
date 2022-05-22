@@ -142,7 +142,7 @@ const AccountSettingsPage: FC = () => {
 
   return (
     <div className="w-full flex justify-center">
-      <Card className="mb-20 p-8" width="100%">
+      <Card className="p-8 mb-8" width="100%">
         <form
           onSubmit={handleSubmitSettings(submitSettings)}
           onChange={() => {
@@ -157,7 +157,7 @@ const AccountSettingsPage: FC = () => {
             <div className="w-fit">
               {savedUpdate ? (
                 <div
-                  className="w-[40px] h-[40px] aspect-square bg-theme-500 rounded-full flex justify-center items-center text-white cursor-pointer tooltip"
+                  className="w-[42px] h-[42px] aspect-square bg-theme-400 dark:bg-theme-600 rounded-full flex justify-center items-center text-white cursor-pointer tooltip"
                   data-tooltip="Saved"
                 >
                   <Check />
@@ -244,7 +244,6 @@ const AccountSettingsPage: FC = () => {
                   placeholder="Enter new full name:"
                   register={registerSettings}
                   error={errorsSettings.fullname}
-                  className="mb-2"
                   validators={{
                     required: (v: string) => validateRequired(v),
                   }}
@@ -255,7 +254,6 @@ const AccountSettingsPage: FC = () => {
                   placeholder="Enter new username:"
                   register={registerSettings}
                   error={errorsSettings.username}
-                  className="mb-2"
                   validators={{
                     required: (v: string) => validateRequired(v),
                     min: (v: string) => validateMin(v, 4, "Username"),
@@ -275,7 +273,6 @@ const AccountSettingsPage: FC = () => {
                   placeholder="Enter new email:"
                   register={registerSettings}
                   error={errorsSettings.email}
-                  className="mb-2"
                   validators={{
                     required: (v: string) => validateRequired(v),
                     regex: (v: string) => validateEmailRegex(v),
@@ -296,7 +293,6 @@ const AccountSettingsPage: FC = () => {
                   placeholder="Enter your job title:"
                   register={registerSettings}
                   error={errorsSettings.jobtitle}
-                  className="mb-2"
                 />
                 <TextFormField
                   name="website"
@@ -304,7 +300,6 @@ const AccountSettingsPage: FC = () => {
                   placeholder="Enter a wesite:"
                   register={registerSettings}
                   error={errorsSettings.website}
-                  className="mb-2"
                   validators={{ regex: (v: string) => validateURLRegex(v) }}
                 />
                 <TextFormField
@@ -313,7 +308,6 @@ const AccountSettingsPage: FC = () => {
                   placeholder="Enter your location:"
                   register={registerSettings}
                   error={errorsSettings.location}
-                  className="mb-2"
                 />
               </div>
             </div>
@@ -368,7 +362,6 @@ const AccountSettingsPage: FC = () => {
             placeholder="Enter current password:"
             register={registerReset}
             error={errorsReset.password}
-            className="mb-2"
             validators={{
               required: (v: string) => validateRequired(v),
             }}
@@ -379,7 +372,6 @@ const AccountSettingsPage: FC = () => {
             placeholder="Enter new password:"
             register={registerReset}
             error={errorsReset.newpassword}
-            className="mb-2"
             validators={{
               required: (v: string) => validateRequired(v),
             }}
@@ -390,7 +382,6 @@ const AccountSettingsPage: FC = () => {
             placeholder="Confirm new password:"
             register={registerReset}
             error={errorsReset.confirmnewpassword}
-            className="mb-2"
             validators={{
               required: (v: string) => validateRequired(v),
             }}

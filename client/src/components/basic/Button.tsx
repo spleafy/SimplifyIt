@@ -1,16 +1,18 @@
-import { MouseEventHandler, ReactChild, FC } from "react";
+import { MouseEventHandler, ReactNode, FC } from "react";
 import { useLocation } from "react-router-dom";
 // Components
 import Loading from "./Loading";
 
 interface ButtonProps {
-  children: ReactChild | ReactChild[];
+  children: ReactNode;
+  icon?: ReactNode;
   submit?: boolean;
-  onClick?: MouseEventHandler;
+  onClick?: MouseEventHandler | any;
   loading?: boolean;
   disabled?: boolean;
   variant: string;
   color?: string;
+  full?: boolean;
   tooltip?: string;
   className?: string;
 }
@@ -28,12 +30,14 @@ interface ButtonProps {
 
 const Button: FC<ButtonProps> = ({
   children,
+  icon,
   submit,
   onClick,
   loading,
   disabled,
   variant,
   color,
+  full,
   tooltip,
   className,
 }) => {
@@ -51,55 +55,61 @@ const Button: FC<ButtonProps> = ({
         variant === "primary"
           ? `${
               location.pathname.split("/")[1] === "app"
-                ? "bg-theme-500 hover:bg-theme-600 disabled:bg-theme-300 dark:disabled:bg-theme-900"
-                : "bg-primary-500 hover:bg-primary-600"
+                ? "disabled:opacity-50 border bg-theme-400 border-theme-500 hover:bg-theme-400/90 dark:bg-theme-600 dark:border-theme-700 dark:hover:bg-theme-600/90"
+                : "disabled:opacity-50 border bg-primary-400 border-primary-500 hover:bg-primary-400/90"
             } ${
               color === "warning"
-                ? "bg-yellow-500 hover:bg-yellow-600 disabled:bg-yellow-300 dark:disabled:bg-yellow-900"
+                ? "bg-yellow-400 border-yellow-500 hover:bg-yellow-400/90 dark:bg-yellow-600 dark:border-yellow-700 dark:hover:bg-yellow-600/90"
                 : ""
             } ${
               color === "error"
-                ? "bg-red-500 hover:bg-red-600 disabled:bg-red-300 dark:disabled:bg-red-900"
+                ? "bg-red-400 border-red-500 hover:bg-red-400/90 dark:bg-red-600 dark:border-red-700 dark:hover:bg-red-600/90"
                 : ""
             } `
           : ""
       } ${
         variant === "secondary"
-          ? `text-theme-500 bg-theme-100 hover:text-theme-600 hover:bg-theme-200 dark:text-theme-100 dark:bg-theme-900 dark:hover:bg-theme-800 dark:hover:text-theme-200 opacity-90 ${
+          ? `border bg-transparent border-theme-500 text-theme-500 hover:bg-theme-100 dark:border-theme-700 dark:text-theme-600 dark:hover:bg-theme-900/20 ${
               color === "warning"
-                ? "text-yellow-500 bg-yellow-100 hover:text-yellow-600 hover:bg-yellow-200 dark:text-yellow-100 dark:bg-yellow-900 dark:hover:bg-yellow-800 dark:hover:text-yellow-200"
+                ? "border-yellow-500 !text-yellow-500 hover:bg-yellow-100 dark:border-yellow-700 dark:text-yellow-600 dark:hover:bg-yellow-900/20"
                 : ""
             } ${
               color === "error"
-                ? "text-red-500 bg-red-100 hover:text-red-600 hover:bg-red-200/80 dark:text-red-100 dark:bg-red-900 dark:hover:bg-red-800 dark:hover:text-red-200"
+                ? "border-red-500 !text-red-500 hover:bg-red-100 dark:border-red-700 dark:text-red-600 dark:hover:bg-red-900/20"
                 : ""
             }`
           : ""
       } ${
         variant === "text"
-          ? `text-theme-500 bg-transparent hover:bg-theme-100 opacity-50 dark:text-theme-600 dark:opacity-100 dark:hover:bg-theme-800 ${
+          ? `text-theme-400 hover:bg-theme-100 dark:text-theme-600 dark:hover:bg-theme-900/20 ${
               color === "warning"
-                ? "text-yellow-500 bg-transparent hover:bg-yellow-100 opacity-50 dark:text-yellow-900 dark:hover:bg-yellow-800"
+                ? "text-yellow-400 hover:bg-yellow-100 dark:text-yellow-600 dark:hover:bg-yellow-900/20"
                 : ""
             } ${
               color === "error"
-                ? "text-red-500 bg-transparent hover:bg-red-100 opacity-50 dark:text-red-900 dark:hover:bg-red-800"
+                ? "text-red-400 hover:bg-red-100 dark:text-red-600 dark:hover:bg-red-900/20"
                 : ""
             }`
           : ""
       } ${
         variant === "action"
-          ? `flex items-center justify-center !text-xl text-slate-600 aspect-square !w-[35px] !h-[35px] !p-0 transition-colors cursor-pointer hover:bg-slate-200/50 dark:text-slate-500 dark:hover:bg-slate-800  ${
+          ? `!rounded-full !text-xl aspect-square !w-[35px] !h-[35px] !p-0 text-slate-600 hover:bg-slate-200/30 dark:text-slate-500 dark:hover:bg-slate-800  ${
               color === "warning"
-                ? "text-yellow-600 hover:bg-yellow-200/70 dark:text-yellow-500 dark:hover:bg-yellow-800"
+                ? "text-yellow-600 hover:bg-yellow-200/30 dark:text-yellow-500 dark:hover:bg-yellow-800/30"
                 : ""
             } ${
               color === "error"
-                ? "text-red-600 hover:bg-red-200/70 dark:text-red-500 dark:hover:bg-red-800"
+                ? "text-red-600 hover:bg-red-200/30 dark:text-red-500 dark:hover:bg-red-800/30"
+                : ""
+            } ${
+              color === "theme"
+                ? "text-theme-600 hover:bg-theme-200/30 dark:text-theme-500 dark:hover:bg-theme-800/30"
                 : ""
             }`
           : ""
-      } transition-colors px-8 py-[10px] text-sm text-white rounded-full w-full whitespace-nowrap ${className}`}
+      } disabled:pointer-events-none transition-all px-8 py-[10px] text-sm font-bold text-white rounded-lg w-fit whitespace-nowrap flex gap-2 items-center justify-center ${
+        full ? "!w-full" : ""
+      } ${className}`}
       type={submit ? "submit" : "button"}
       onClick={onClick}
       disabled={disabled}
@@ -107,10 +117,13 @@ const Button: FC<ButtonProps> = ({
     >
       {loading ? (
         <div className="flex justify-center h-5">
-          <Loading color="fill-white" />
+          <Loading color="text-white" />
         </div>
       ) : (
-        children
+        <>
+          {icon ? <div className="text-lg">{icon}</div> : <></>}
+          {children}
+        </>
       )}
     </button>
   );

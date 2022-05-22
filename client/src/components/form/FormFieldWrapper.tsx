@@ -1,6 +1,7 @@
 import { ReactElement, FC, ReactNode } from "react";
 import { FieldError } from "react-hook-form";
 import { RootStateOrAny, useSelector } from "react-redux";
+import { WarningCircle } from "phosphor-react";
 
 interface FormFieldWrapperProps {
   name: string;
@@ -49,15 +50,16 @@ const FormFieldWrapper: FC<FormFieldWrapperProps> = ({
         {action}
       </label>
       <div
-        className={`rounded-md border-[1px] border-slate-300 px-4 placeholder:text-slate-200 transition-colors flex items-center dark:border-slate-500 ${
+        className={`rounded-lg border border-slate-300 px-4 placeholder:text-slate-200 transition-colors flex items-center dark:border-slate-500 gap-2 ${
           loggedUser.settings
             ? "focus-within:border-theme-400 hover:border-theme-400"
             : "focus-within:border-primary-400 hover:border-primary-500"
-        }`}
+        } ${error ? "!border-red-500" : ""}`}
       >
         {children}
+        {error ? <WarningCircle className="text-red-500 text-lg" /> : <></>}
       </div>
-      <div className="text-red-600 mt-3 text-sm">
+      <div className="text-red-500 mt-2 text-sm flex gap-2 items-center">
         {error ? error.message : ""}
       </div>
     </div>

@@ -1,10 +1,12 @@
 import { Dispatch, FC } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Gear, User, SignOut } from "phosphor-react";
 // Components
 import Card from "./basic/Card";
 import NavigationLink from "./navigation/NavigationLink";
 import OutsideEventHandler from "./OutsideEventHandler";
+import Separator from "./basic/Separator";
 // Redux
 import { updateUser } from "../redux/userSlice";
 import { updateNotifications } from "../redux/notificationSlice";
@@ -40,14 +42,15 @@ const AccountMenuPanel: FC<AccountMenuPanelProps> = ({ setShown }) => {
     >
       {" "}
       <Card variant="panel" width="200px">
-        <NavigationLink to={`/app/u/${loggedUser.username}`} variant={"basic"}>
+        <NavigationLink to={`/app/u/${loggedUser.username}`} icon={<User />}>
           My Account
         </NavigationLink>
-        <NavigationLink to="/app/settings/account" variant={"basic"}>
+        <NavigationLink to="/app/settings/account" icon={<Gear />}>
           My Settings
         </NavigationLink>
+        <Separator />
         <span
-          className="py-2 flex items-center justify-between transition-colors px-3 text-red-700 dark:text-red-700"
+          className="py-2 flex items-center gap-3 transition-colors px-4 !text-red-500"
           onClick={() => {
             localStorage.removeItem("X-Auth-Token");
             dispatch(updateUser({}));
@@ -59,6 +62,7 @@ const AccountMenuPanel: FC<AccountMenuPanelProps> = ({ setShown }) => {
             navigate("/auth/login");
           }}
         >
+          <SignOut />
           Log out
         </span>
       </Card>

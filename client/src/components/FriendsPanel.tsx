@@ -18,28 +18,26 @@ const FriendsPanel = () => {
       <Separator />
       {friends && friends.length > 0 ? (
         <>
-          {friends.map((friend: UserType) => (
-            <>
-              <div
-                className="flex w-full gap-5 items-center py-1 cursor-pointer"
-                onClick={() => {
-                  navigate(`/app/u/${friend.username}`);
-                }}
-              >
-                <ProfilePicture
-                  color={friend.settings.profile.profileColor}
-                  name={friend.fullname}
-                  size="sm"
-                />
-                <div className="flex flex-col">
-                  <h4>{friend.fullname}</h4>
-                  <span className="text-sm text-slate-500">
-                    @{friend.username}
-                  </span>
-                </div>
+          {friends.map((friend: UserType, index: number) => (
+            <div
+              className="flex w-full gap-5 items-center py-1 cursor-pointer"
+              onClick={() => {
+                navigate(`/app/u/${friend.username}`);
+              }}
+              key={index}
+            >
+              <ProfilePicture
+                color={friend.settings.profile.profileColor}
+                name={friend.fullname}
+                size="sm"
+              />
+              <div className="flex flex-col">
+                <h4>{friend.fullname}</h4>
+                <span className="text-sm text-slate-500">
+                  @{friend.username}
+                </span>
               </div>
-              {/* <Separator /> */}
-            </>
+            </div>
           ))}
         </>
       ) : (

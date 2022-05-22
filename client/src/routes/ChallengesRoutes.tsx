@@ -5,16 +5,16 @@ import Column from "../components/basic/Column";
 import NavigationLink from "../components/navigation/NavigationLink";
 import TopNavigation from "../components/navigation/TopNavigation";
 // Pages
-import PersonalChallangesPage from "../pages/challanges/PersonalChallangesPage";
-import TeamChallangesPage from "../pages/challanges/TeamChallangesPage";
+import PersonalChallengesPage from "../pages/challenges/PersonalChallengesPage";
+import TeamChallengesPage from "../pages/challenges/TeamChallengesPage";
 import NotFoundPage from "../pages/NotFoundPage";
 
-const ChallangesRoutes: FC = () => {
+const ChallengesRoutes: FC = () => {
   /**
    * Document title
    * @description Updating the document title
    */
-  document.title = `Challanges / ${process.env.REACT_APP_TITLE}`;
+  document.title = `Challenges / ${process.env.REACT_APP_TITLE}`;
 
   return (
     <div className="flex flex-col w-full h-full">
@@ -31,8 +31,8 @@ const ChallangesRoutes: FC = () => {
       <Column>
         <Routes>
           <Route path="/" element={<Navigate to={"personal"} />} />
-          <Route path="personal" element={<PersonalChallangesPage />} />
-          <Route path="team" element={<TeamChallangesPage />} />
+          <Route path="personal" element={<PersonalChallengesPage />} />
+          <Route path="team" element={<TeamChallengesPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Column>
@@ -40,4 +40,4 @@ const ChallangesRoutes: FC = () => {
   );
 };
 
-export default ChallangesRoutes;
+export default ChallengesRoutes;

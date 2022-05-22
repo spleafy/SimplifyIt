@@ -1,9 +1,9 @@
-import { ReactElement, FC } from "react";
+import { ReactNode, FC } from "react";
 
 interface CardProps {
   heading?: string;
   alignHeading?: string;
-  children: ReactElement | HTMLElement | ReactElement[] | HTMLElement[];
+  children: ReactNode;
   width?: string;
   height?: string;
   className?: string;
@@ -36,13 +36,13 @@ const Card: FC<CardProps> = ({
     <div
       className={`${
         variant === "popup"
-          ? "shadow-[0_0_20px_10px_rgba(0,0,0,0.1)] px-16 py-8 animate-scale !overflow-y-auto"
+          ? "drop-shadow-lg px-16 py-12 animate-scale !overflow-y-auto"
           : ""
       } ${
         variant === "panel"
-          ? "shadow-[0_0_20px_10px_rgba(0,0,0,0.1)] px-3 py-2 animate-slideTop z-10 !overflow-y-auto"
+          ? "drop-shadow-lg px-3 py-2 animate-slideTop z-10 !overflow-y-auto"
           : ""
-      } bg-white dark:bg-slate-800 dark:text-white flex flex-col rounded-md overflow-hidden ${className}`}
+      } bg-white dark:bg-slate-800 dark:text-white flex flex-col rounded-lg overflow-hidden ${className}`}
       style={{
         width: width ? width : "fit-content",
         height: height ? height : "fit-content",
@@ -50,7 +50,7 @@ const Card: FC<CardProps> = ({
     >
       {heading ? (
         <div
-          className={`mb-8 mt-3 ${
+          className={`mb-8 ${
             alignHeading === "left" ? "text-left" : "text-center"
           }`}
         >

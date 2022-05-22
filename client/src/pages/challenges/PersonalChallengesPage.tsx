@@ -1,6 +1,6 @@
 import { useEffect, useState, FC } from "react";
 import { useSelector, RootStateOrAny } from "react-redux";
-import { Plus, Cards, Table, X } from "phosphor-react";
+import { Plus, SquaresFour, ListBullets, X } from "phosphor-react";
 import { useForm } from "react-hook-form";
 import { DayPickerSingleDateController } from "react-dates";
 import "react-dates/initialize";
@@ -13,14 +13,15 @@ import Separator from "../../components/basic/Separator";
 import ProfilePicture from "../../components/basic/ProfilePicture";
 import Form from "../../components/form/Form";
 import TextFormField from "../../components/form/TextFormField";
+import FloatingActionButtonsPanel from "../../components/FloatingActionButtonsPanel";
 
-const PersonalChallangesPage: FC = () => {
+const PersonalChallengesPage: FC = () => {
   /**
    * Settings state
    * @description Creating UseState variable, so we can change the settings.
    */
   const [settings, setSettings] = useState({
-    challanges: {
+    challenges: {
       personal: {
         activeLayout: "cards",
       },
@@ -105,39 +106,24 @@ const PersonalChallangesPage: FC = () => {
       // Settings the settings in the page
       setSettings(JSON.parse(jsonSettings));
       // Settings the active layout
-      setActiveLayout(settings.challanges.personal.activeLayout);
+      setActiveLayout(settings.challenges.personal.activeLayout);
     }
-  }, [settings.challanges.personal.activeLayout]);
+  }, [settings.challenges.personal.activeLayout]);
 
   return (
     <>
       <div className="flex justify-between items-center w-full">
-        <div
-          className="flex gap-5 items-center"
-          onClick={() => {
-            setExpandedAddPanel(true);
-          }}
-        >
-          <h1>Personal Challanges</h1>
-          <Button
-            variant="action"
-            className="bg-slate-200/70 dark:bg-slate-800 w-[30px] h-[30px] text-sm tooltip"
-            tooltip="Add a personal challange"
-          >
-            <Plus />
-          </Button>
-        </div>
         <div className="flex gap-3">
           <Button
             variant="action"
-            className={`text-sm w-[30px] h-[30px] tooltip ${
+            className={`text-sm w-[30px] h-[30px] tooltip tooltip-r ${
               activeLayout === "cards"
                 ? "bg-slate-200/60 dark:bg-slate-700 hover:bg-slate-200/60 dark:hover:bg-slate-700"
                 : "text-slate-600"
             }`}
             onClick={() => {
               if (settings) {
-                settings.challanges.personal.activeLayout = "cards";
+                settings.challenges.personal.activeLayout = "cards";
                 setSettings(settings);
                 setActiveLayout("cards");
                 localStorage.setItem("si-settings", JSON.stringify(settings));
@@ -145,90 +131,90 @@ const PersonalChallangesPage: FC = () => {
             }}
             tooltip="Card layout"
           >
-            <Cards fill="thin" />
+            <SquaresFour fill="thin" />
           </Button>
           <Button
             variant="action"
-            className={`text-sm w-[30px] h-[30px] tooltip ${
-              activeLayout === "table"
+            className={`text-sm w-[30px] h-[30px] tooltip tooltip-r ${
+              activeLayout === "list"
                 ? "bg-slate-200/60 dark:bg-slate-700 hover:bg-slate-200/60 dark:hover:bg-slate-700"
                 : "text-slate-600"
             }`}
             onClick={() => {
               if (settings) {
-                settings.challanges.personal.activeLayout = "table";
+                settings.challenges.personal.activeLayout = "list";
                 setSettings(settings);
-                setActiveLayout("table");
+                setActiveLayout("list");
                 localStorage.setItem("si-settings", JSON.stringify(settings));
               }
             }}
-            tooltip="Table layout"
+            tooltip="List layout"
           >
-            <Table />
+            <ListBullets />
           </Button>
         </div>
       </div>
       <>
         {activeLayout === "cards" ? (
-          <div className="flex w-full flex-wrap gap-5 mt-10 mb-20">
+          <div className="flex w-full flex-wrap gap-5 mt-10">
             <Card width="200px" height="250px" className="px-5 py-3">
-              <h1>Challange</h1>
+              <h1>Challenge</h1>
             </Card>
             <Card width="200px" height="250px" className="px-5 py-3">
-              <h1>Challange</h1>
+              <h1>Challenge</h1>
             </Card>
             <Card width="200px" height="250px" className="px-5 py-3">
-              <h1>Challange</h1>
+              <h1>Challenge</h1>
             </Card>
             <Card width="200px" height="250px" className="px-5 py-3">
-              <h1>Challange</h1>
+              <h1>Challenge</h1>
             </Card>
             <Card width="200px" height="250px" className="px-5 py-3">
-              <h1>Challange</h1>
+              <h1>Challenge</h1>
             </Card>
             <Card width="200px" height="250px" className="px-5 py-3">
-              <h1>Challange</h1>
+              <h1>Challenge</h1>
             </Card>
             <Card width="200px" height="250px" className="px-5 py-3">
-              <h1>Challange</h1>
+              <h1>Challenge</h1>
             </Card>
             <Card width="200px" height="250px" className="px-5 py-3">
-              <h1>Challange</h1>
+              <h1>Challenge</h1>
             </Card>
             <Card width="200px" height="250px" className="px-5 py-3">
-              <h1>Challange</h1>
+              <h1>Challenge</h1>
             </Card>
             <Card width="200px" height="250px" className="px-5 py-3">
-              <h1>Challange</h1>
+              <h1>Challenge</h1>
             </Card>
             <Card width="200px" height="250px" className="px-5 py-3">
-              <h1>Challange</h1>
+              <h1>Challenge</h1>
             </Card>
             <Card width="200px" height="250px" className="px-5 py-3">
-              <h1>Challange</h1>
+              <h1>Challenge</h1>
             </Card>
             <Card width="200px" height="250px" className="px-5 py-3">
-              <h1>Challange</h1>
+              <h1>Challenge</h1>
             </Card>
             <Card width="200px" height="250px" className="px-5 py-3">
-              <h1>Challange</h1>
+              <h1>Challenge</h1>
             </Card>
             <Card width="200px" height="250px" className="px-5 py-3">
-              <h1>Challange</h1>
+              <h1>Challenge</h1>
             </Card>
             <Card width="200px" height="250px" className="px-5 py-3">
-              <h1>Challange</h1>
+              <h1>Challenge</h1>
             </Card>
           </div>
         ) : (
           <></>
         )}
-        {activeLayout === "table" ? (
-          <Card width="full" className="px-5 py-3 mt-10 mb-20">
+        {activeLayout === "list" ? (
+          <Card width="full" className="px-5 py-3 mt-10">
             <div className="flex w-full flex-col">
               <div className="w-full flex justify-between items-center">
                 <div>
-                  <h1>spleafy's challange</h1>
+                  <h1>spleafy's challenge</h1>
                 </div>
                 <div className="flex flex-col">
                   <span>status: online</span>
@@ -244,7 +230,7 @@ const PersonalChallangesPage: FC = () => {
               <Separator />
               <div className="w-full flex justify-between items-center">
                 <div>
-                  <h1>spleafy's challange</h1>
+                  <h1>spleafy's challenge</h1>
                 </div>
                 <div className="flex flex-col">
                   <span>status: online</span>
@@ -263,6 +249,19 @@ const PersonalChallangesPage: FC = () => {
           <></>
         )}
       </>
+      <FloatingActionButtonsPanel>
+        <Button
+          variant="primary"
+          className="tooltip tooltip-tl"
+          tooltip="Add a personal challange"
+          onClick={() => {
+            setExpandedAddPanel(true);
+          }}
+          icon={<Plus />}
+        >
+          Add
+        </Button>
+      </FloatingActionButtonsPanel>
       {expandedAddPanel ? (
         <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-slate-900/30">
           <div
@@ -400,4 +399,4 @@ const PersonalChallangesPage: FC = () => {
   );
 };
 
-export default PersonalChallangesPage;
+export default PersonalChallengesPage;

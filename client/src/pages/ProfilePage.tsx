@@ -10,7 +10,7 @@ import Loading from "../components/basic/Loading";
 import ProfilePicture from "../components/basic/ProfilePicture";
 import FriendsPanel from "../components/FriendsPanel";
 // Utils
-import { fecthUserData } from "../utils/api";
+import { fetchUserData } from "../utils/api";
 import {
   sendFriendRequestAndUpdate,
   cancelFriendRequestAndUpdate,
@@ -85,7 +85,7 @@ const ProfilePage: FC = () => {
         setPersonalProfile(true);
       } else {
         // Fetch the wanted user from the backend
-        const response = await fecthUserData(username);
+        const response = await fetchUserData(username);
         // Set the user state to the fetched user
         setUser(response.data.user);
         // Setting the personal profile state to false, because the wanted user is not the logged user
@@ -130,74 +130,66 @@ const ProfilePage: FC = () => {
                   </div>
                   <div className="mt-5 flex gap-5 items-center">
                     {personalProfile ? (
-                      <>
-                        <div className="w-[150px]">
-                          <Button
-                            variant="secondary"
-                            onClick={() => {
-                              navigate("/app/settings/account");
-                            }}
-                          >
-                            Edit Profile
-                          </Button>
-                        </div>
-                      </>
+                      <Button
+                        variant="secondary"
+                        onClick={() => {
+                          navigate("/app/settings/account");
+                        }}
+                      >
+                        Edit Profile
+                      </Button>
                     ) : (
                       <>
-                        <div className="w-[150px]">
-                          {loggedUser.friends ? (
-                            loggedUser.friends.includes(user._id) ? (
-                              <Button
-                                variant="secondary"
-                                onClick={async () => {
-                                  setProcessing(true);
-                                  await removeFriendAndUpdate(user._id);
-                                  setProcessing(false);
-                                }}
-                                loading={processing}
-                              >
-                                Friends
-                              </Button>
-                            ) : (
-                              <>
-                                {friendRequests.sent &&
-                                friendRequests.sent.some(
-                                  ({ to }: FriendRequestType) => to === user._id
-                                ) ? (
-                                  <Button
-                                    variant="primary"
-                                    onClick={async () => {
-                                      setProcessing(true);
-                                      await cancelFriendRequestAndUpdate(
-                                        user._id
-                                      );
-                                      setProcessing(false);
-                                    }}
-                                    loading={processing}
-                                  >
-                                    Cancel Request
-                                  </Button>
-                                ) : (
-                                  <Button
-                                    variant="primary"
-                                    onClick={async () => {
-                                      setProcessing(true);
-                                      await sendFriendRequestAndUpdate(
-                                        user._id
-                                      );
-                                      setProcessing(false);
-                                    }}
-                                    loading={processing}
-                                  >
-                                    Add Friend
-                                  </Button>
-                                )}
-                              </>
-                            )
+                        {loggedUser.friends ? (
+                          loggedUser.friends.includes(user._id) ? (
+                            <Button
+                              variant="secondary"
+                              onClick={async () => {
+                                setProcessing(true);
+                                await removeFriendAndUpdate(user._id);
+                                setProcessing(false);
+                              }}
+                              loading={processing}
+                            >
+                              Friends
+                            </Button>
                           ) : (
-                            <></>
-                          )}
-                        </div>
+                            <>
+                              {friendRequests.sent &&
+                              friendRequests.sent.some(
+                                ({ to }: FriendRequestType) => to === user._id
+                              ) ? (
+                                <Button
+                                  variant="primary"
+                                  onClick={async () => {
+                                    setProcessing(true);
+                                    await cancelFriendRequestAndUpdate(
+                                      user._id
+                                    );
+                                    setProcessing(false);
+                                  }}
+                                  loading={processing}
+                                >
+                                  Cancel Request
+                                </Button>
+                              ) : (
+                                <Button
+                                  variant="primary"
+                                  onClick={async () => {
+                                    setProcessing(true);
+                                    await sendFriendRequestAndUpdate(user._id);
+                                    setProcessing(false);
+                                  }}
+                                  loading={processing}
+                                >
+                                  Add Friend
+                                </Button>
+                              )}
+                            </>
+                          )
+                        ) : (
+                          <></>
+                        )}
                         <div className="w-[150px]">
                           <Button variant="secondary">More</Button>
                         </div>

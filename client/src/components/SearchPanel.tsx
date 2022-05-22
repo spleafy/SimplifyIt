@@ -65,7 +65,7 @@ const SearchPanel: FC<SearchPanelProps> = ({ setShown }: SearchPanelProps) => {
    * @description Deconstructing the useForm hook into variables
    */
 
-  const { register, getValues } = useForm({
+  const { register } = useForm({
     mode: "all",
   });
 
@@ -89,12 +89,15 @@ const SearchPanel: FC<SearchPanelProps> = ({ setShown }: SearchPanelProps) => {
       >
         <Card
           variant="panel"
-          className={`w-[650px] bg-white !px-7 !py-6 rounded-md flex items-start flex-col`}
+          className={`w-[650px] bg-white !px-7 !py-6 rounded-lg flex items-start flex-col`}
         >
           <div className="flex justify-between w-full items-center gap-5">
             <form
               onChange={_.debounce(async () => {
-                const response = await searchData(getValues("search"), "all");
+                const response = await searchData(
+                  input.current?.value as string,
+                  "all"
+                );
                 setSearchResponse(response.data.user);
               }, 300)}
             >
@@ -120,7 +123,7 @@ const SearchPanel: FC<SearchPanelProps> = ({ setShown }: SearchPanelProps) => {
             <div className="flex gap-5 items-center">
               {searchOptions.map((message, index) => (
                 <div
-                  className={`px-5 py-1 rounded-md mt-5 cursor-pointer transition-colors dark:text-white ${
+                  className={`px-5 py-1 rounded-lg mt-5 cursor-pointer transition-colors dark:text-white ${
                     searchParams === message
                       ? "bg-theme-500 text-white"
                       : "text-slate-800 hover:bg-theme-100 dark:hover:bg-transparent dark:hover:text-theme-500"
@@ -139,7 +142,7 @@ const SearchPanel: FC<SearchPanelProps> = ({ setShown }: SearchPanelProps) => {
             <div className="flex w-full mt-5 flex-col">
               {searchResponse.map((user: UserType, index: number) => (
                 <div
-                  className="flex w-full hover:bg-theme-100 dark:hover:bg-slate-700 p-2 rounded-md transition-colors cursor-pointer gap-5 items-center mt-2"
+                  className="flex w-full hover:bg-theme-100 dark:hover:bg-slate-700 p-2 rounded-lg transition-colors cursor-pointer gap-5 items-center mt-2"
                   key={index}
                   onClick={() => {
                     setShown(false);
