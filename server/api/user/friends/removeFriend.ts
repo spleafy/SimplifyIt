@@ -2,13 +2,14 @@ import { Request, Response } from "express";
 import User from "../../../models/database/user";
 import ResponseUser from "../../../models/responseUser";
 import ResponseMessage from "../../../models/responseMessage";
+import ResponseError from "../../../models/responseError";
 // Utils
 import { validateObjectKeys } from "../../../utils";
 import { UserType } from "../../../types";
 
 const removeFriend = async (req: Request | any, res: Response) => {
   if (!validateObjectKeys(req.body, ["id"])) {
-    res.json(new ResponseMessage(403));
+    res.status(403).json(ResponseError.params());
     return;
   }
 
@@ -20,9 +21,9 @@ const removeFriend = async (req: Request | any, res: Response) => {
 
   await User.updateOne({ _id: req.body.id }, { $pull: { friends: req.id } });
 
-  res.json(
-    new ResponseMessage(200, { user: new ResponseUser(user).getUser() })
-  );
+  res
+    .status(200)
+    .json(new ResponseMessage(200, { user: new ResponseUser(user).getUser() }));
 };
 
 export default removeFriend;

@@ -40,6 +40,8 @@ const userSchema = new mongoose.Schema({
   posts: [String],
   friends: [String],
   teams: [String],
+  workspaces: [String],
+  activeWorkspace: String,
 });
 
 const User = mongoose.model("User", userSchema);

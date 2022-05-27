@@ -4,12 +4,13 @@ import mail from "@sendgrid/mail";
 import Team from "../../models/database/team";
 import User from "../../models/database/user";
 import ResponseMessage from "../../models/responseMessage";
+import ResponseError from "../../models/responseError";
 // Utils
 import { validateObjectKeys } from "../../utils";
 
 const createTeam = async (req: Request | any, res: Response) => {
   if (!validateObjectKeys(req.body, ["users", "name", "color"])) {
-    res.json(new ResponseMessage(403));
+    res.status(403).json(ResponseError.params());
     return;
   }
 
@@ -49,7 +50,7 @@ const createTeam = async (req: Request | any, res: Response) => {
     await mail.send(message);
   });
 
-  res.json(new ResponseMessage(200, { team }));
+  res.status(200).json(new ResponseMessage(200, { team }));
 };
 
 export default createTeam;

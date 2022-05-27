@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
 import User from "../../models/database/user";
 import ResponseMessage from "../../models/responseMessage";
+import ResponseError from "../../models/responseError";
 // Utils
 import { validateObjectKeys, filterUsers } from "../../utils";
 
 const fetchData = async (req: Request | any, res: Response) => {
   if (!validateObjectKeys(req.query, ["param"])) {
-    res.json(new ResponseMessage(403));
+    res.status(403).json(ResponseError.params());
     return;
   }
 
@@ -22,7 +23,7 @@ const fetchData = async (req: Request | any, res: Response) => {
 
   const users = filterUsers(await User.find({ $text: { $search: search } }));
 
-  res.json(new ResponseMessage(200, { user: users }));
+  res.status(200).json(new ResponseMessage(200, { user: users }));
 };
 
 export default fetchData;

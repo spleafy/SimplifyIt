@@ -13,6 +13,8 @@ export default class ResponseUser {
     posts: string[];
     friends: string[];
     teams: string[];
+    workspaces: string[];
+    activeWorkspace: string;
   } | null;
 
   constructor(
@@ -28,6 +30,8 @@ export default class ResponseUser {
       posts: string[];
       friends: string[];
       teams: string[];
+      workspaces: string[];
+      activeWorkspace: string;
     } | null
   ) {
     if (user) {
@@ -43,6 +47,8 @@ export default class ResponseUser {
         posts: user.posts,
         friends: user.friends,
         teams: user.teams,
+        workspaces: user.workspaces,
+        activeWorkspace: user.activeWorkspace,
       };
     } else {
       this.user = null;
@@ -62,6 +68,8 @@ export default class ResponseUser {
       posts: this.user?.posts,
       friends: this.user?.friends,
       teams: this.user?.teams,
+      workspaces: this.user?.workspaces,
+      activeWorkspace: this.user?.activeWorkspace,
     };
   };
 }

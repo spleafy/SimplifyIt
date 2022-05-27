@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import User from "../../../models/database/user";
 import ResponseMessage from "../../../models/responseMessage";
 import ResponseUser from "../../../models/responseUser";
+import ResponseError from "../../../models/responseError";
 // Types
 import { UserType } from "../../../types";
 // Utils
@@ -14,14 +15,14 @@ const authRegister = async (req: Request, res: Response) => {
   if (
     !validateObjectKeys(req.body, ["fullname", "email", "password", "username"])
   ) {
-    res.json(new ResponseMessage(403));
+    res.status(403).json(ResponseError.params());
     return;
   }
 
   const registeredUser = await User.findOne({ email: req.body.email });
 
   if (registeredUser) {
-    res.json(new ResponseMessage(403, {}, { msg: "User already registered" }));
+    res.status(403).json(new ResponseError(403, "User is already registered!"));
     return;
   }
 
@@ -75,7 +76,7 @@ const authRegister = async (req: Request, res: Response) => {
     { id: createdUser._id },
     process.env.TOKEN_SECRET as string
   );
-  res.json(new ResponseMessage(200, { token }));
+  res.status(200).json(new ResponseMessage(200, { token }));
 };
 
 export default authRegister;
