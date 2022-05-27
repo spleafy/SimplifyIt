@@ -2,10 +2,11 @@ import { Request, Response } from "express";
 import User from "../../../models/database/user";
 import ResponseMessage from "../../../models/responseMessage";
 import ResponseUser from "../../../models/responseUser";
+import ResponseError from "../../../models/responseError";
 
 const updateUserAccount = async (req: Request | any, res: Response) => {
   if (!req.body) {
-    res.json(new ResponseMessage(400));
+    res.status(403).json(ResponseError.params());
     return;
   }
 
@@ -34,9 +35,9 @@ const updateUserAccount = async (req: Request | any, res: Response) => {
     { new: true }
   );
 
-  res.json(
-    new ResponseMessage(200, { user: new ResponseUser(user).getUser() })
-  );
+  res
+    .status(200)
+    .json(new ResponseMessage(200, { user: new ResponseUser(user).getUser() }));
 };
 
 export default updateUserAccount;

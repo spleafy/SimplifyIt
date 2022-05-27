@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 // Models
 import User from "../../../models/database/user";
 import ResponseMessage from "../../../models/responseMessage";
+import ResponseError from "../../../models/responseError";
 // Types
 import { UserType } from "../../../types";
 // Utils
@@ -12,7 +13,7 @@ import { validateObjectKeys } from "../../../utils";
 
 const authLogin = async (req: Request, res: Response) => {
   if (!validateObjectKeys(req.body, ["username", "password"])) {
-    res.json(new ResponseMessage(400));
+    res.status(403).json(ResponseError.params());
     return;
   }
 
@@ -21,12 +22,12 @@ const authLogin = async (req: Request, res: Response) => {
   });
 
   if (!user) {
-    res.json(new ResponseMessage(400));
+    res.status(404).json(ResponseError.notFound());
     return;
   }
 
   if (!(await bcrypt.compare(req.body.password, user.password))) {
-    res.json(new ResponseMessage(400));
+    res.status(403).json(ResponseError.unauthorized());
     return;
   }
 
@@ -36,7 +37,7 @@ const authLogin = async (req: Request, res: Response) => {
       process.env.TOKEN_SECRET as string
     );
 
-    res.json(new ResponseMessage(200, { token }));
+    res.status(200).json(new ResponseMessage(200, { token }));
     return;
   }
 
@@ -63,7 +64,7 @@ const authLogin = async (req: Request, res: Response) => {
     { expiresIn: "1h" }
   );
 
-  res.json(
+  res.status(200).json(
     new ResponseMessage(200, {
       twoFactorToken,
       mailStatus: response[0].statusCode,

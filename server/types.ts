@@ -30,6 +30,8 @@ export interface UserType {
   posts: string[];
   friends: string[];
   teams: string[];
+  workspaces: string[];
+  activeWorkspace: string;
 }
 
 export interface NotificationType {

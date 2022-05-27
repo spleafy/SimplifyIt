@@ -2,13 +2,14 @@ import { Request, Response } from "express";
 import FriendRequest from "../../../models/database/friendRequest";
 import User from "../../../models/database/user";
 import ResponseMessage from "../../../models/responseMessage";
+import ResponseError from "../../../models/responseError";
 import ResponseUser from "../../../models/responseUser";
 // Utils
 import { validateObjectKeys } from "../../../utils";
 
 const acceptFriendRequest = async (req: Request | any, res: Response) => {
   if (!validateObjectKeys(req.body, ["id"])) {
-    res.json(new ResponseMessage(403));
+    res.status(403).json(ResponseError.params());
     return;
   }
 
@@ -18,7 +19,7 @@ const acceptFriendRequest = async (req: Request | any, res: Response) => {
   });
 
   if (!friendRequest) {
-    res.json(new ResponseMessage(400));
+    res.status(404).json(ResponseError.notFound());
     return;
   }
 

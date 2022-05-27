@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 // Models
 import User from "../../../models/database/user";
 import ResponseMessage from "../../../models/responseMessage";
+import ResponseError from "../../../models/responseError";
 // Types
 import { UserType } from "../../../types";
 // Utils
@@ -11,14 +12,14 @@ import { validateObjectKeys } from "../../../utils";
 
 const authForgot = async (req: Request, res: Response) => {
   if (!validateObjectKeys(req.body, ["email"])) {
-    res.json(new ResponseMessage(401));
+    res.status(403).json(ResponseError.params());
     return;
   }
 
   const user: UserType | null = await User.findOne({ email: req.body.email });
 
   if (!user) {
-    res.json(new ResponseMessage(403));
+    res.status(403).json(ResponseError.unauthorized());
     return;
   }
 
@@ -36,7 +37,7 @@ const authForgot = async (req: Request, res: Response) => {
 
   const response = await mail.send(message);
 
-  res.json(new ResponseMessage(response[0].statusCode));
+  res.status(200).json(new ResponseMessage(response[0].statusCode));
 };
 
 export default authForgot;

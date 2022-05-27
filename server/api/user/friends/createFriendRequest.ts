@@ -3,13 +3,14 @@ import FriendRequest from "../../../models/database/friendRequest";
 import User from "../../../models/database/user";
 import Notification from "../../../models/database/notification";
 import ResponseUser from "../../../models/responseUser";
+import ResponseError from "../../../models/responseError";
 import ResponseMessage from "../../../models/responseMessage";
 // Utils
 import { validateObjectKeys } from "../../../utils";
 
 const createFriendRequest = async (req: Request | any, res: Response) => {
   if (!validateObjectKeys(req.body, ["id"])) {
-    res.json(new ResponseMessage(403));
+    res.status(403).json(ResponseError.params());
     return;
   }
 
@@ -19,7 +20,9 @@ const createFriendRequest = async (req: Request | any, res: Response) => {
   });
 
   if (createdFriendRequest) {
-    res.json(new ResponseMessage(403));
+    res
+      .status(403)
+      .json(new ResponseError(403, "Friend request already exists"));
     return;
   }
 
@@ -34,7 +37,7 @@ const createFriendRequest = async (req: Request | any, res: Response) => {
       userFrom: new ResponseUser(userFrom).getUser(),
     }).save();
 
-    res.json(new ResponseMessage(200, { friendRequest }));
+    res.status(200).json(new ResponseMessage(200, { friendRequest }));
     return;
   }
 
@@ -57,7 +60,7 @@ const createFriendRequest = async (req: Request | any, res: Response) => {
     date: new Date(),
   }).save();
 
-  res.json(new ResponseMessage(200, { friendRequest }));
+  res.status(200).json(new ResponseMessage(200, { friendRequest }));
 };
 
 export default createFriendRequest;

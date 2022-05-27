@@ -10,7 +10,7 @@ import { UserType, WorkspaceType } from "../../types";
 // Utils
 import { validateObjectKeys } from "../../utils";
 
-const createWorkspace = async (req: Request | any, res: Response) => {
+const initialSetup = async (req: Request | any, res: Response) => {
   if (!validateObjectKeys(req.body, ["name", "color"])) {
     res.status(403).json(ResponseError.params());
     return;
@@ -34,13 +34,17 @@ const createWorkspace = async (req: Request | any, res: Response) => {
   const user: UserType | null = await User.findOneAndUpdate(
     { _id: req.id },
     {
+      $set: {
+        "settings.initialSetup": true,
+        activeWorkspace: workspace._id,
+      },
       $push: {
         workspaces: workspace._id,
       },
     },
     { new: true }
   );
-  res.status(200).json(
+  res.json(
     new ResponseMessage(200, {
       user: new ResponseUser(user).getUser(),
       workspace: new ResponseWorkspace(workspace).getWorkspace(),
@@ -48,4 +52,4 @@ const createWorkspace = async (req: Request | any, res: Response) => {
   );
 };
 
-export default createWorkspace;
+export default initialSetup;

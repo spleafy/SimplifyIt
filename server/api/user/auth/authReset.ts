@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 // Models
 import User from "../../../models/database/user";
 import ResponseMessage from "../../../models/responseMessage";
+import ResponseError from "../../../models/responseError";
 // Types
 import { UserType } from "../../../types";
 // Utils
@@ -10,7 +11,7 @@ import { validateObjectKeys } from "../../../utils";
 
 const authReset = async (req: Request | any, res: Response) => {
   if (!validateObjectKeys(req.body, ["password"])) {
-    res.json(new ResponseMessage(403));
+    res.status(403).json(ResponseError.params());
     return;
   }
 
@@ -23,11 +24,11 @@ const authReset = async (req: Request | any, res: Response) => {
   );
 
   if (!user) {
-    res.json(new ResponseMessage(403));
+    res.status(404).json(ResponseError.notFound());
     return;
   }
 
-  res.json(new ResponseMessage(200));
+  res.status(200).json(new ResponseMessage(200));
 };
 
 export default authReset;

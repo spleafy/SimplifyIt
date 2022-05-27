@@ -7,7 +7,7 @@ const fetchTeams = async (req: Request | any, res: Response) => {
     users: req.id,
   });
 
-  res.json(new ResponseMessage(200, { teams }));
+  res.status(200).json(new ResponseMessage(200, { teams }));
 };
 
 export default fetchTeams;

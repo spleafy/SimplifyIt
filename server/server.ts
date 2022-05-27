@@ -48,13 +48,14 @@ import validateToken from "./api/user/validate/validateToken";
 // User Endpoints
 import fetchUserData from "./api/user/fetchUserData";
 import fetchData from "./api/user/fetchData";
-import fetchNotifications from "./api/user/notifications/fetchNotifications";
+import initialSetup from "./api/user/initialSetup";
 
 // Settings Endpoints
 import updateUserAccount from "./api/user/settings/updateUserAccount";
 
 // Notifications Endpoints
 import updateNotificationState from "./api/user/notifications/updateNotificationState";
+import fetchNotifications from "./api/user/notifications/fetchNotifications";
 
 // Friend Endpoints
 import createFriendRequest from "./api/user/friends/createFriendRequest";
@@ -67,7 +68,7 @@ import removeFriend from "./api/user/friends/removeFriend";
 
 // Workspace Endpoints
 import createWorkspace from "./api/workspace/createWorkspace";
-import getWorkspace from "./api/workspace/getWorkspace";
+import fetchWorkspace from "./api/workspace/fetchWorkspace";
 
 // Team Endpoints
 import createTeam from "./api/team/createTeam";
@@ -103,6 +104,8 @@ app.get("/api/v1/user/validate/token", verifyToken, validateToken);
 app.get("/api/v1/user", verifyToken, fetchUserData);
 
 app.get("/api/v1/user/search", verifyToken, fetchData);
+
+app.post("/api/v1/user/initial", verifyToken, upload.none(), initialSetup);
 
 // Settings Routes
 app.put(
@@ -163,7 +166,7 @@ app.post(
 );
 
 // Workspace Routes
-app.get("/api/v1/workspace", verifyToken, getWorkspace);
+app.get("/api/v1/workspace", verifyToken, fetchWorkspace);
 
 app.post("/api/v1/workspace", verifyToken, upload.none(), createWorkspace);
 
