@@ -1,6 +1,6 @@
 import { useEffect, useState, FC } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import { MagnifyingGlass, Bell } from "phosphor-react";
+import { MagnifyingGlass, Bell, ArrowFatUp } from "phosphor-react";
 import { useSelector, RootStateOrAny } from "react-redux";
 
 // Pages
@@ -28,7 +28,6 @@ import { authToken } from "../utils/api";
 import {
   updateUserData,
   updateUserNotifications,
-  updateWorkspace,
   updateUserFriends,
 } from "../utils/user";
 import { getColors } from "../utils/utils";
@@ -83,7 +82,7 @@ const AppRoutes: FC = () => {
 
   /**
    * Event listener
-   * @description Adding an event listener to the document, so we can listen for each key press and close the menus on key compinations
+   * @description Adding an event listener to the document, so we can listen for each key press and close the menus on key combinations
    * @description We use a debounced function, so we don't have to compute the function on each keypress, but we compute it 150ms after the last keydown event
    */
   document.addEventListener(
@@ -151,8 +150,6 @@ const AppRoutes: FC = () => {
         await updateUserData();
         // Setting the user notifications
         await updateUserNotifications();
-        // Setting the workspace
-        await updateWorkspace();
         // Setting the user friends
         await updateUserFriends();
       }
@@ -247,8 +244,8 @@ const AppRoutes: FC = () => {
                       <MagnifyingGlass />
                       Search
                     </div>
-                    <div className="px-3 py-1 text-xs bg-slate-200/50 text-slate-800 dark:bg-slate-700/50 dark:text-slate-200 rounded-full">
-                      Shift + S
+                    <div className="px-2 py-1 text-xs bg-slate-200/50 text-slate-800 dark:bg-slate-700/50 dark:text-slate-200 rounded-full flex items-center gap-1">
+                      <ArrowFatUp />S
                     </div>
                   </div>
                 </div>
@@ -331,13 +328,9 @@ const AppRoutes: FC = () => {
                       <Route path="*" element={<NotFoundPage />} />
                     </Routes>
                   </main>
-                  {searchShown ? (
-                    <SearchPanel setShown={setSearchShown} />
-                  ) : (
-                    <></>
-                  )}
                 </div>
               </div>
+              {searchShown ? <SearchPanel setShown={setSearchShown} /> : <></>}
             </div>
           ) : (
             <></>

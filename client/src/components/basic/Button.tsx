@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import Loading from "./Loading";
 
 interface ButtonProps {
-  children: ReactNode;
+  children?: ReactNode;
   icon?: ReactNode;
   submit?: boolean;
   onClick?: MouseEventHandler | any;

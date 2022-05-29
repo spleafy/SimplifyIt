@@ -1,14 +1,12 @@
 import store from "../redux/store";
 import { userSlice } from "../redux/userSlice";
 import { notificationSlice } from "../redux/notificationSlice";
-import { workspaceSlice } from "../redux/workspaceSlice";
 import { friendRequestSlice } from "../redux/friendRequestSlice";
 import { friendSlice } from "../redux/friendSlice";
 import { teamSlice } from "../redux/teamSlice";
 // Utils
 import {
   fetchUserNotifications,
-  fetchUserWorkspace,
   fetchUserData,
   fetchFriendRequests,
   updateNotificationState,

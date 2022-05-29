@@ -252,15 +252,13 @@ const PersonalChallengesPage: FC = () => {
       <FloatingActionButtonsPanel>
         <Button
           variant="primary"
-          className="tooltip tooltip-tl"
-          tooltip="Add a personal challange"
+          className="tooltip tooltip-tl !rounded-full !w-[35px] !h-[35px] !p-0"
+          tooltip="Add a personal challenge"
           onClick={() => {
             setExpandedAddPanel(true);
           }}
           icon={<Plus />}
-        >
-          Add
-        </Button>
+        ></Button>
       </FloatingActionButtonsPanel>
       {expandedAddPanel ? (
         <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-slate-900/30">
