@@ -13,8 +13,6 @@
   src: url("./assets/fonts/Satoshi-Bold.ttf") format("truetype");
 }
 
-/* @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"); */
-
 :root {
   --theme-color-50: theme("colors.blue.50");
   --theme-color-100: theme("colors.blue.100");
@@ -30,9 +28,9 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "DM Sans", Satoshi Regular,
-    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
-    "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Satoshi Regular, "Segoe UI",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

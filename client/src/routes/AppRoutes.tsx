@@ -13,7 +13,6 @@ import UserRoutes from "./UserRoutes";
 import SettingsRoutes from "./SettingsRoutes";
 import ChallengesRoutes from "./ChallengesRoutes";
 import FriendsRoutes from "./FriendsRoutes";
-import TeamRoutes from "./TeamRoutes";
 // Components
 import Navigation from "../components/navigation/Navigation";
 import TopNavigation from "../components/navigation/TopNavigation";
@@ -318,7 +317,6 @@ const AppRoutes: FC = () => {
                       <Route path="workspace" element={<WorkspacePage />} />
                       <Route path="messages" element={<MessagesPage />} />
                       <Route path="friends/*" element={<FriendsRoutes />} />
-                      <Route path="teams/*" element={<TeamRoutes />} />
                       <Route path="settings/*" element={<SettingsRoutes />} />
                       <Route
                         path="challenges/*"
