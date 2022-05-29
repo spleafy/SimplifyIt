@@ -129,7 +129,7 @@ input:-webkit-autofill {
 
   .tooltip::after,
   .tooltip-rel::after {
-    @apply h-fit content-[attr(data-tooltip)] drop-shadow-md z-[1000] hidden absolute py-1 px-3 rounded-lg whitespace-nowrap text-sm text-slate-800 bg-slate-100 dark:text-slate-300 dark:bg-slate-800;
+    @apply h-fit content-[attr(data-tooltip)] drop-shadow-lg z-[1000] hidden absolute py-1 px-3 rounded-lg whitespace-nowrap text-sm text-slate-800 bg-white dark:text-slate-300 dark:bg-slate-800;
   }
 
   .tooltip::after {
@@ -146,26 +146,26 @@ input:-webkit-autofill {
   }
 
   .tooltip-tr::after {
-    @apply -top-7 left-[100%] translate-y-1/2;
+    @apply -top-7 left-[100%];
   }
 
   .tooltip-tl::after {
-    @apply -top-7 right-[100%] translate-y-1/2;
+    @apply -top-7 right-[100%];
   }
 
   .tooltip-br::after {
-    @apply -bottom-7 left-[100%] translate-y-1/2;
+    @apply -bottom-7 left-[100%];
   }
 
   .tooltip-bl::after {
-    @apply -bottom-7 right-[100%] translate-y-1/2;
+    @apply -bottom-7 right-[100%];
   }
 
   .tooltip-r::after {
-    @apply bottom-0 left-[120%] translate-y-1/2;
+    @apply bottom-[5px] left-[120%];
   }
 
   .tooltip-l::after {
-    @apply bottom-0 right-[120%] translate-y-1/2;
+    @apply bottom-[5px] right-[120%];
   }
 }

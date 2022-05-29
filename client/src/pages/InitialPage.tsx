@@ -15,7 +15,6 @@ import { updateUserData } from "../utils/user";
 import { authToken } from "../utils/api";
 // Redux
 import { updateUser } from "../redux/userSlice";
-import { updateWorkspace } from "../redux/workspaceSlice";
 
 const InitialSetupPage: FC = () => {
   /**

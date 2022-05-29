@@ -22,7 +22,7 @@ const verifyToken = (req: Request | any, res: Response, next: NextFunction) => {
     process.env.TOKEN_SECRET as string,
     (err: any, data: any) => {
       if (err) {
-        res.status(401).json(new ResponseError(401, "Token is invalid"));
+        res.status(401).json(new ResponseError(401, "Token is invalid!"));
       } else {
         req.id = data.id;
         req.code = data.code;
