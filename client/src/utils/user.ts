@@ -3,7 +3,6 @@ import { userSlice } from "../redux/userSlice";
 import { notificationSlice } from "../redux/notificationSlice";
 import { friendRequestSlice } from "../redux/friendRequestSlice";
 import { friendSlice } from "../redux/friendSlice";
-import { teamSlice } from "../redux/teamSlice";
 // Utils
 import {
   fetchUserNotifications,
@@ -16,12 +15,11 @@ import {
   sendFriendRequest,
   removeFriend,
   fetchUserFriends,
-  fetchUserTeams,
 } from "./api";
 import { RootStateOrAny } from "react-redux";
 import { FriendRequestType } from "./types";
 
-// Main Methods
+// User Methods
 
 /**
  * updateUserData
@@ -34,38 +32,6 @@ export const updateUserData = async () => {
     const response = await fetchUserData();
     store.dispatch(userSlice.actions.updateUser(response.data.user));
   }
-};
-
-// Notification Methods
-
-/**
- * updateUserNotifications
- * @description Method to check if notifications exist in the redux store, if not, they will be fetched from the backend and the redux store updated
- */
-export const updateUserNotifications = async () => {
-  const stateNotifications: RootStateOrAny =
-    store.getState().notifications.notifications;
-
-  if (stateNotifications.length === 0) {
-    const response = await fetchUserNotifications();
-    store.dispatch(
-      notificationSlice.actions.updateNotifications(response.data.notifications)
-    );
-  }
-};
-
-/**
- * updateWorkspace
- * @description Method to check if a workspace exists in the redux store, if not, it will be fetched from the backend and the redux store updated
- */
-export const updateWorkspace = async () => {
-  // const stateWorkspace: WorkspaceType = store.getState().workspace.workspace;
-  // if (!stateWorkspace.name) {
-  // const response = await fetchUserWorkspace();
-  // store.dispatch(
-  //   workspaceSlice.actions.updateWorkspace(response.data.workspace)
-  // );
-  // }
 };
 
 // Friend Methods
@@ -182,6 +148,24 @@ export const cancelFriendRequestAndUpdate = async (id: string) => {
   return response;
 };
 
+// Notification Methods
+
+/**
+ * updateUserNotifications
+ * @description Method to check if notifications exist in the redux store, if not, they will be fetched from the backend and the redux store updated
+ */
+export const updateUserNotifications = async () => {
+  const stateNotifications: RootStateOrAny =
+    store.getState().notifications.notifications;
+
+  if (stateNotifications.length === 0) {
+    const response = await fetchUserNotifications();
+    store.dispatch(
+      notificationSlice.actions.updateNotifications(response.data.notifications)
+    );
+  }
+};
+
 /**
  * updateNotificationStateAndUpdate
  * @param {string} id The id of the notification
@@ -194,16 +178,4 @@ export const updateNotificationStateAndUpdate = async (id: string) => {
     notificationSlice.actions.updateNotifications(response.data.notifications)
   );
   return response;
-};
-
-// Team Methods
-
-export const updateUserTeams = async () => {
-  const stateTeams = store.getState().teams.teams;
-
-  if (stateTeams.length === 0) {
-    const response = await fetchUserTeams();
-    store.dispatch(teamSlice.actions.updateTeams(response.data.teams));
-    return response;
-  }
 };

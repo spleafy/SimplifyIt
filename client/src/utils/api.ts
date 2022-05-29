@@ -51,6 +51,8 @@ export const authToken = async () => {
   return response;
 };
 
+// User Methods
+
 /**
  * fetchUserData
  * @param {string | undefined} username The requested user's username
@@ -68,6 +70,8 @@ export const fetchUserData = async (username?: string | undefined) => {
 
   return response;
 };
+
+// Friend Methods
 
 /**
  * fetchFriendRequests
@@ -211,6 +215,11 @@ export const removeFriend = async (id: string | undefined) => {
   return response;
 };
 
+/**
+ * fetchUserFriends
+ * @returns {Object}
+ * @description Method that fetches users's friends
+ */
 export const fetchUserFriends = async () => {
   const token = localStorage.getItem("X-Auth-Token");
 
@@ -222,6 +231,8 @@ export const fetchUserFriends = async () => {
 
   return response;
 };
+
+// Search Method
 
 /**
  * searchData
@@ -242,6 +253,8 @@ export const searchData = async (search: string, param: string) => {
 
   return response;
 };
+
+// Notification Methods
 
 /**
  * fetchUserNotifications
@@ -274,35 +287,6 @@ export const updateNotificationState = async (id: string) => {
     "PUT",
     token ? { "X-Auth-Token": token } : {},
     { id }
-  );
-
-  return response;
-};
-
-/**
- * fetchUserWorkspace
- * @returns {Object}
- * @description Method that fetches the user active workspace
- */
-export const fetchUserWorkspace = async () => {
-  const token = localStorage.getItem("X-Auth-Token");
-
-  const response = await fetchBackendAsync(
-    `api/v1/workspace`,
-    "GET",
-    token ? { "X-Auth-Token": token } : {}
-  );
-
-  return response;
-};
-
-export const fetchUserTeams = async () => {
-  const token = localStorage.getItem("X-Auth-Token");
-
-  const response = await fetchBackendAsync(
-    `api/v1/teams`,
-    "GET",
-    token ? { "X-Auth-Token": token } : {}
   );
 
   return response;

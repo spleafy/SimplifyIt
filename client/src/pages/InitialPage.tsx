@@ -46,7 +46,7 @@ const InitialSetupPage: FC = () => {
 
   /**
    * Submit method
-   * @descritpion Creating a submit method for the form onSubmit method
+   * @description Creating a submit method for the form onSubmit method
    */
   const submit = async (values: FieldValues) => {
     // Getting the token from the local storage
@@ -58,7 +58,7 @@ const InitialSetupPage: FC = () => {
     // If the response is 200, update the user and update the workspace in the redux store, then navigate the user to the home page of the app
     if (response.status === 200) {
       dispatch(updateUser(response.data.user));
-      dispatch(updateWorkspace(response.data.workspace));
+      // dispatch(updateWorkspace(response.data.workspace));
       navigate("/app/home");
     }
   };
@@ -74,7 +74,7 @@ const InitialSetupPage: FC = () => {
    * @description Creating a useEffect hook
    */
   useEffect(() => {
-    // Reseting the form values, when we get the user back from the redux store
+    // Resetting the form values, when we get the user back from the redux store
     reset({
       name: loggedUser.username ? `${loggedUser.username}'s workspace` : "",
       color: "slate",
