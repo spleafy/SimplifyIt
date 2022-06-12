@@ -1,4 +1,6 @@
 import { FC } from "react";
+// Components
+import Initials from "./Initials";
 // Utils
 import { getColors } from "../../utils/utils";
 
@@ -34,8 +36,7 @@ const ProfilePicture: FC<ProfilePictureProps> = ({ color, name, size }) => {
       }}
     >
       <h1 className={`text-white text-${size}`}>
-        {name.split(" ")[0] ? name.split(" ")[0].charAt(0).toUpperCase() : ""}
-        {name.split(" ")[1] ? name.split(" ")[1].charAt(0).toUpperCase() : ""}
+        <Initials text={name} />
       </h1>
     </div>
   );

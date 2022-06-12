@@ -9,6 +9,7 @@ import ToggleSwitch from "../../components/form/ToggleSwitch";
 import Separator from "../../components/basic/Separator";
 import Card from "../../components/basic/Card";
 import ColorPicker from "../../components/form/ColorPicker";
+import Initials from "../../components/basic/Initials";
 // Redux
 import { updateUser } from "../../redux/userSlice";
 // Utils
@@ -187,8 +188,7 @@ const AccountSettingsPage: FC = () => {
               ></div>
               {loggedUser.fullname ? (
                 <h1 className="text-white">
-                  {loggedUser.fullname.split(" ")[0].charAt(0)}
-                  {loggedUser.fullname.split(" ")[1].charAt(0)}
+                  <Initials text={loggedUser.fullname} />
                 </h1>
               ) : (
                 <></>

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Plus } from "phosphor-react";
 // Components
 import Card from "../../components/basic/Card";
+import TransparentBackground from "../../components/basic/TransparentBackground";
 // Utils
 import { WorkspaceType } from "../../utils/types";
 import { getColors } from "../../utils/utils";
@@ -14,6 +15,7 @@ import TextFormField from "../../components/form/TextFormField";
 import Button from "../../components/basic/Button";
 import ColorPicker from "../../components/form/ColorPicker";
 import OutsideEventHandler from "../../components/OutsideEventHandler";
+import Initials from "../../components/basic/Initials";
 // Utils
 import { validateRequired } from "../../utils/validators";
 import { submitForm } from "../../utils/form";
@@ -61,6 +63,10 @@ const WorkspacesOverviewPage: FC = () => {
 
   const workspaces = useSelector(
     (state: RootStateOrAny) => state.workspace.workspaces
+  );
+
+  const activeWorkspace = useSelector(
+    (state: RootStateOrAny) => state.workspace.active
   );
 
   const loggedUser = useSelector((state: RootStateOrAny) => state.user.user);
@@ -115,19 +121,18 @@ const WorkspacesOverviewPage: FC = () => {
                   }}
                 >
                   <h1 className="text-white select-none">
-                    {workspace.name.split(" ")[0]
-                      ? workspace.name.split(" ")[0].charAt(0).toUpperCase()
-                      : ""}
-                    {workspace.name.split(" ")[1]
-                      ? workspace.name.split(" ")[1].charAt(0).toUpperCase()
-                      : ""}
+                    <Initials text={workspace.name} />
                   </h1>
                 </div>
-                {/* <div className="px-3 py-1 absolute right-3 top-3 bg-slate-900/20 rounded-lg text-white text-sm">
-                  You
-                </div> */}
+                {workspace._id === activeWorkspace._id ? (
+                  <div className="px-3 py-1 absolute right-3 top-3 bg-slate-900/20 rounded-lg text-white text-sm">
+                    Active
+                  </div>
+                ) : (
+                  <></>
+                )}
                 <div className="px-5 py-3 absolute bottom-0">
-                  <h1 className="text-white line-clamp-2">{workspace.name}</h1>
+                  <h1 className="text-white line-clamp-1">{workspace.name}</h1>
                 </div>
               </div>
             </Card>
@@ -150,7 +155,7 @@ const WorkspacesOverviewPage: FC = () => {
         </Card>
       </div>
       {expandedCreatePanel ? (
-        <div className="w-full h-full flex justify-center items-center absolute top-0 left-0 bg-gray-900/50">
+        <TransparentBackground>
           <OutsideEventHandler
             onEvent={() => {
               setExpandedCreatePanel(false);
@@ -158,8 +163,9 @@ const WorkspacesOverviewPage: FC = () => {
           >
             <Card
               variant="popup"
-              heading="Let's setup your workspace"
+              heading="Create workspace"
               width="480px"
+              setShown={setExpandedCreatePanel}
             >
               <Form submit={handleSubmit(submit)}>
                 <TextFormField
@@ -194,7 +200,7 @@ const WorkspacesOverviewPage: FC = () => {
               </Form>
             </Card>
           </OutsideEventHandler>
-        </div>
+        </TransparentBackground>
       ) : (
         <></>
       )}
