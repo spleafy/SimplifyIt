@@ -5,7 +5,7 @@ import ResponseError from "../../../models/responseError";
 // Utils
 import { validateObjectKeys } from "../../../utils";
 
-const updateNotificationState = async (req: Request | any, res: Response) => {
+const updateNotificationState = async (req: Request, res: Response) => {
   if (!validateObjectKeys(req.body, ["id"])) {
     res.status(403).json(ResponseError.params());
     return;

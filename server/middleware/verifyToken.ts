@@ -10,7 +10,7 @@ const verifyToken = (req: Request | any, res: Response, next: NextFunction) => {
     return;
   }
 
-  const token: string = req.headers["x-auth-token"];
+  const token: string = req.headers["x-auth-token"] as string;
 
   if (!token) {
     res.status(401).json(ResponseError.token());

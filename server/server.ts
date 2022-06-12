@@ -69,10 +69,9 @@ import removeFriend from "./api/user/friends/removeFriend";
 // Workspace Endpoints
 import createWorkspace from "./api/workspace/createWorkspace";
 import fetchWorkspace from "./api/workspace/fetchWorkspace";
-
-// Team Endpoints
-import createTeam from "./api/team/createTeam";
-import fetchTeams from "./api/team/fetchTeams";
+import fetchActiveWorkspace from "./api/workspace/fetchActiveWorkspace";
+import fetchAllWorkspaces from "./api/workspace/fetchAllWorkspaces";
+import changeActiveWorkspace from "./api/workspace/changeActiveWorkspace";
 
 // Api Route
 app.get("/api", fetchApi);
@@ -170,10 +169,16 @@ app.get("/api/v1/workspace", verifyToken, fetchWorkspace);
 
 app.post("/api/v1/workspace", verifyToken, upload.none(), createWorkspace);
 
-// Team Routes
-app.get("/api/v1/teams", verifyToken, upload.none(), fetchTeams);
+app.get("/api/v1/workspace/active", verifyToken, fetchActiveWorkspace);
 
-app.post("/api/v1/teams", verifyToken, upload.none(), createTeam);
+app.post(
+  "/api/v1/workspace/active",
+  verifyToken,
+  upload.none(),
+  changeActiveWorkspace
+);
+
+app.get("/api/v1/workspace/all", verifyToken, fetchAllWorkspaces);
 
 app.listen(PORT, HOST, () => {
   console.log(`Server listening on port : http://${HOST}:${PORT}`);

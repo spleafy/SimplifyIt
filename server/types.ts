@@ -1,3 +1,5 @@
+import { Request, Response, RequestHandler } from "express";
+
 export interface UserType {
   _id: string;
   fullname: string;

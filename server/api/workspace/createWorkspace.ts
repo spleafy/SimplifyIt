@@ -10,7 +10,7 @@ import { UserType, WorkspaceType } from "../../types";
 // Utils
 import { validateObjectKeys } from "../../utils";
 
-const createWorkspace = async (req: Request | any, res: Response) => {
+const createWorkspace = async (req: Request, res: Response) => {
   if (!validateObjectKeys(req.body, ["name", "color"])) {
     res.status(403).json(ResponseError.params());
     return;

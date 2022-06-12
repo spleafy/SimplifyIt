@@ -9,7 +9,7 @@ import { UserType } from "../../../types";
 // Utils
 import { validateObjectKeys } from "../../../utils";
 
-const authReset = async (req: Request | any, res: Response) => {
+const authReset = async (req: Request, res: Response) => {
   if (!validateObjectKeys(req.body, ["password"])) {
     res.status(403).json(ResponseError.params());
     return;

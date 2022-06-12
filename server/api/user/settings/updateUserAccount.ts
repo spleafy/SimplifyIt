@@ -4,7 +4,7 @@ import ResponseMessage from "../../../models/responseMessage";
 import ResponseUser from "../../../models/responseUser";
 import ResponseError from "../../../models/responseError";
 
-const updateUserAccount = async (req: Request | any, res: Response) => {
+const updateUserAccount = async (req: Request, res: Response) => {
   if (!req.body) {
     res.status(403).json(ResponseError.params());
     return;

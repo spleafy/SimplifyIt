@@ -4,7 +4,7 @@ import ResponseMessage from "../../../models/responseMessage";
 // Utils
 import { validateObjectKeys } from "../../../utils";
 
-const rejectFriendRequest = async (req: Request | any, res: Response) => {
+const rejectFriendRequest = async (req: Request, res: Response) => {
   if (!validateObjectKeys(req.body, ["id"])) {
     res.status(403).json(new ResponseMessage(403));
     return;

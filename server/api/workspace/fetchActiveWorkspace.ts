@@ -2,18 +2,15 @@ import { Request, Response } from "express";
 import ResponseMessage from "../../models/responseMessage";
 import ResponseWorkspace from "../../models/responseWorkspace";
 import Workspace from "../../models/database/workspace";
-import ResponseError from "../../models/responseError";
-// Utils
-import { validateObjectKeys } from "../../utils";
+import User from "../../models/database/user";
+// Types
+import { UserType } from "../../types";
 
-const fetchWorkspace = async (req: Request, res: Response) => {
-  if (!validateObjectKeys(req.query, ["id"])) {
-    res.status(403).json(ResponseError.params());
-    return;
-  }
+const fetchActiveWorkspace = async (req: Request, res: Response) => {
+  const user: UserType | null = await User.findOne({ _id: req.id });
 
   const workspace = await Workspace.findOne({
-    _id: req.query.id,
+    _id: user?.activeWorkspace,
     users: {
       $in: [req.id],
     },
@@ -24,6 +21,7 @@ const fetchWorkspace = async (req: Request, res: Response) => {
       workspace: new ResponseWorkspace(workspace).getWorkspace(),
     })
   );
+  return;
 };
 
-export default fetchWorkspace;
+export default fetchActiveWorkspace;

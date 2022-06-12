@@ -5,7 +5,7 @@ import ResponseError from "../../models/responseError";
 // Utils
 import { validateObjectKeys, filterUsers } from "../../utils";
 
-const fetchData = async (req: Request | any, res: Response) => {
+const fetchData = async (req: Request, res: Response) => {
   if (!validateObjectKeys(req.query, ["param"])) {
     res.status(403).json(ResponseError.params());
     return;
@@ -21,7 +21,9 @@ const fetchData = async (req: Request | any, res: Response) => {
   } else {
   }
 
-  const users = filterUsers(await User.find({ $text: { $search: search } }));
+  const users = filterUsers(
+    await User.find({ $text: { $search: search as string } })
+  );
 
   res.status(200).json(new ResponseMessage(200, { user: users }));
 };
