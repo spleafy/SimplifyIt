@@ -7,7 +7,7 @@ import ResponseUser from "../../../models/responseUser";
 // Utils
 import { validateObjectKeys } from "../../../utils";
 
-const acceptFriendRequest = async (req: Request | any, res: Response) => {
+const acceptFriendRequest = async (req: Request, res: Response) => {
   if (!validateObjectKeys(req.body, ["id"])) {
     res.status(403).json(ResponseError.params());
     return;

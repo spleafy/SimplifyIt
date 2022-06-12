@@ -5,7 +5,7 @@ import ResponseError from "../../../models/responseError";
 // Utils
 import { filterUsers } from "../../../utils";
 
-const fetchFriends = async (req: Request | any, res: Response) => {
+const fetchFriends = async (req: Request, res: Response) => {
   const user = await User.findOne({ _id: req.id });
 
   if (!user) {

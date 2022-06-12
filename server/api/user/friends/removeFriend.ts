@@ -7,7 +7,7 @@ import ResponseError from "../../../models/responseError";
 import { validateObjectKeys } from "../../../utils";
 import { UserType } from "../../../types";
 
-const removeFriend = async (req: Request | any, res: Response) => {
+const removeFriend = async (req: Request, res: Response) => {
   if (!validateObjectKeys(req.body, ["id"])) {
     res.status(403).json(ResponseError.params());
     return;

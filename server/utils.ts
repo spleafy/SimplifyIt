@@ -1,5 +1,6 @@
 import ResponseUser from "./models/responseUser";
-import { UserType } from "./types";
+import ResponseWorkspace from "./models/responseWorkspace";
+import { UserType, WorkspaceType } from "./types";
 
 export const validateObjectKeys = (obj: any, keys: string[]) => {
   let res = true;
@@ -21,4 +22,14 @@ export const filterUsers = (unfiltered: UserType[]) => {
   });
 
   return users;
+};
+
+export const filterWorkspaces = (unfiltered: WorkspaceType[]) => {
+  const workspaces: WorkspaceType[] = [];
+
+  unfiltered.forEach((workspace: WorkspaceType) => {
+    workspaces.push(new ResponseWorkspace(workspace).getWorkspace());
+  });
+
+  return workspaces;
 };

@@ -8,7 +8,7 @@ import ResponseMessage from "../../../models/responseMessage";
 // Utils
 import { validateObjectKeys } from "../../../utils";
 
-const createFriendRequest = async (req: Request | any, res: Response) => {
+const createFriendRequest = async (req: Request, res: Response) => {
   if (!validateObjectKeys(req.body, ["id"])) {
     res.status(403).json(ResponseError.params());
     return;

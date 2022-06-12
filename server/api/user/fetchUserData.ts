@@ -5,7 +5,7 @@ import ResponseUser from "../../models/responseUser";
 // Utils
 import { validateObjectKeys } from "../../utils";
 
-const fetchUserData = async (req: Request | any, res: Response) => {
+const fetchUserData = async (req: Request, res: Response) => {
   if (!validateObjectKeys(req.query, ["username"])) {
     const user = await User.findOne({ _id: req.id });
     res.json(

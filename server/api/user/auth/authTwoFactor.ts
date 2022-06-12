@@ -6,7 +6,7 @@ import ResponseError from "../../../models/responseError";
 // Utils
 import { validateObjectKeys } from "../../../utils";
 
-const authReset = async (req: Request | any, res: Response) => {
+const authReset = async (req: Request, res: Response) => {
   if (!validateObjectKeys(req.body, ["twofactorcode"])) {
     res.status(403).json(ResponseError.params());
     return;
@@ -14,7 +14,7 @@ const authReset = async (req: Request | any, res: Response) => {
 
   const code = Number(req.body.twofactorcode);
 
-  if (!code === req.code) {
+  if (code !== req.code) {
     res.status(403).json(ResponseError.unauthorized());
     return;
   }
