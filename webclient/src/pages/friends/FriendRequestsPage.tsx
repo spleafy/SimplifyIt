@@ -3,6 +3,7 @@ import { useSelector, RootStateOrAny } from "react-redux";
 import { Check, X } from "phosphor-react";
 // Components
 import Card from "../../components/basic/Card";
+import Initials from "../../components/basic/Initials";
 // Utils
 import { getColors } from "../../utils/utils";
 import {
@@ -47,8 +48,7 @@ const FriendRequestsPage: FC<FriendRequestsPageProps> = ({ type }) => {
                   }}
                 >
                   <h1 className="text-white select-none">
-                    {friendRequest[userType].fullname.split(" ")[0].charAt(0)}
-                    {friendRequest[userType].fullname.split(" ")[1].charAt(0)}
+                    <Initials text={friendRequest[userType].fullname} />
                   </h1>
                 </div>
                 <div className="px-5 py-3 absolute bottom-0 w-full">

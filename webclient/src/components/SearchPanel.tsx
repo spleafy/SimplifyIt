@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import ProfilePicture from "./basic/ProfilePicture";
 import Card from "./basic/Card";
 import OutsideEventHandler from "./OutsideEventHandler";
+import TransparentBackground from "./basic/TransparentBackground";
 // Utils
 import { searchData } from "../utils/api";
 import { UserType } from "../utils/types";
@@ -85,9 +86,7 @@ const SearchPanel: FC<SearchPanelProps> = ({
   return (
     <>
       {shown ? (
-        <div
-          className={`fixed w-full h-full flex justify-center items-center bg-gray-900/50 z-20 top-0 left-0`}
-        >
+        <TransparentBackground>
           <OutsideEventHandler
             onEvent={() => {
               setShown(false);
@@ -171,7 +170,7 @@ const SearchPanel: FC<SearchPanelProps> = ({
               )}
             </Card>
           </OutsideEventHandler>
-        </div>
+        </TransparentBackground>
       ) : (
         <></>
       )}
