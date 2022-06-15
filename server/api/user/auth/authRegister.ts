@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { mkdirSync } from "fs";
 // Models
 import User from "../../../models/database/user";
 import ResponseMessage from "../../../models/responseMessage";
@@ -55,6 +56,7 @@ const authRegister = async (req: Request, res: Response) => {
     initialSetup: false,
     profile: {
       profileColor: colors[Math.floor(Math.random() * colors.length) - 1],
+      profilePicture: false,
       themeColor: "blue",
       darkTheme: false,
     },

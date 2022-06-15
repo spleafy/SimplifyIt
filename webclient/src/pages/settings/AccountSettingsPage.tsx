@@ -1,7 +1,8 @@
-import { useState, FC } from "react";
-import { Check, X } from "phosphor-react";
+import { useState, FC, useRef } from "react";
+import { Check } from "phosphor-react";
 import { useSelector, useDispatch, RootStateOrAny } from "react-redux";
 import { FieldValues, useForm } from "react-hook-form";
+import Draggable from "react-draggable";
 // Components
 import TextFormField from "../../components/form/TextFormField";
 import Button from "../../components/basic/Button";
@@ -10,10 +11,12 @@ import Separator from "../../components/basic/Separator";
 import Card from "../../components/basic/Card";
 import ColorPicker from "../../components/form/ColorPicker";
 import Initials from "../../components/basic/Initials";
+import TransparentBackground from "../../components/basic/TransparentBackground";
 // Redux
 import { updateUser } from "../../redux/userSlice";
 // Utils
 import { submitForm } from "../../utils/form";
+import { uploadUserProfilePictureAndUpdate } from "../../utils/user";
 import {
   validateRequired,
   validateMin,
@@ -43,6 +46,24 @@ const AccountSettingsPage: FC = () => {
    * @description Creating a useState variable, so we can toggle the expansion of the menu
    */
   const [expandedProfileColor, setExpandedProfileColor] = useState(false);
+
+  const [expandedProfilePicture, setExpandedProfilePicture] = useState(false);
+
+  const [profilePictureURL, setProfilePictureURL] = useState("");
+
+  const fileInputRef: any = useRef(null);
+
+  const targetRef: any = useRef(null);
+
+  const canvasRef: any = useRef(null);
+
+  const imageRef: any = useRef(null);
+
+  const [imageWidth, setImageWidth] = useState(0);
+
+  const parentSize = 300;
+
+  const childSize = 200;
 
   /**
    * Submiting form state
@@ -141,6 +162,41 @@ const AccountSettingsPage: FC = () => {
     }
   };
 
+  const uploadProfilePicture = async () => {
+    const str = targetRef.current.style.transform
+      .replace(/[a-zA-Z!@#$%^&*() ]/g, "")
+      .split(",");
+
+    const left = str[0] ? Number(str[0]) : 0;
+
+    const top = str[1] ? Number(str[1]) : 0;
+
+    const ctx = canvasRef.current.getContext("2d");
+
+    console.log(top, left);
+
+    ctx.drawImage(
+      imageRef.current,
+      (left - (parentSize - imageWidth) / 2) * 4,
+      top * 4,
+      childSize * 3.5,
+      childSize * 3.5,
+      0,
+      0,
+      childSize,
+      childSize
+    );
+
+    const file = canvasRef.current.toDataURL();
+
+    const response = await uploadUserProfilePictureAndUpdate(file);
+    // Checking if the status is 200, then we update the user settings, if not - display an error message
+    if (response.status === 200) {
+      addSuccess("settings");
+      dispatch(updateUser(response.data.user));
+    }
+  };
+
   return (
     <div className="w-full flex justify-center">
       <Card className="p-8 mb-8" width="100%">
@@ -173,11 +229,16 @@ const AccountSettingsPage: FC = () => {
           <Separator />
           <div className="flex gap-10 mt-10">
             <div
-              className={`w-[125px] h-[125px] aspect-square rounded-full flex justify-center items-center relative overflow-hidden select-none`}
+              className={`w-[125px] h-[125px] aspect-square rounded-full flex justify-center items-center relative overflow-hidden select-none bg-no-repeat bg-cover`}
               style={{
-                backgroundColor: loggedUser.settings
-                  ? getColors(getValuesSettings().profileColor)[500]
-                  : "#f3f3f3",
+                backgroundColor:
+                  loggedUser.settings && !loggedUser.settings.profilePicture
+                    ? getColors(getValuesSettings().profileColor)[500]
+                    : "#f3f3f3",
+                backgroundImage:
+                  loggedUser.settings && !loggedUser.settings.profilePicture
+                    ? `url(${process.env.REACT_APP_BACKEND_PROTOCOL}://${process.env.REACT_APP_BACKEND_URL}:${process.env.REACT_APP_BACKEND_PORT}/files/${loggedUser._id}.png)`
+                    : "",
               }}
             >
               <div
@@ -186,7 +247,8 @@ const AccountSettingsPage: FC = () => {
                   setExpandedProfileColor(true);
                 }}
               ></div>
-              {loggedUser.fullname ? (
+              {loggedUser.fullname &&
+              !loggedUser.settings.profile.profilePicture ? (
                 <h1 className="text-white">
                   <Initials text={loggedUser.fullname} />
                 </h1>
@@ -195,44 +257,153 @@ const AccountSettingsPage: FC = () => {
               )}
             </div>
             {expandedProfileColor ? (
-              <>
-                <div className="absolute w-full h-full bg-slate-900/30 top-0 left-0 flex justify-center items-center z-10">
-                  <Card variant="popup" width="480px">
-                    <div className="flex flex-col p-5">
-                      <X
-                        size={20}
-                        className="absolute right-[10px] top-[10px] cursor-pointer text-slate-700 dark:text-white rotate"
+              <TransparentBackground>
+                <Card
+                  variant="popup"
+                  width="480px"
+                  heading="Profile Color"
+                  setShown={setExpandedProfileColor}
+                >
+                  <div className="flex flex-col p-5">
+                    <div className="flex flex-wrap gap-5 mt-5">
+                      <ColorPicker
+                        register={registerSettings}
+                        name="profileColor"
+                        getValues={getValuesSettings}
+                        setValue={setValueSettings}
+                        reset={resetSettings}
+                        variant="squared"
+                        animate="border"
+                        active="dot"
                         onClick={() => {
-                          setExpandedProfileColor(false);
+                          resetSettings(getValuesSettings());
+                          setSavedUpdate(false);
                         }}
                       />
-                      <h1>Profile Color</h1>
-                      <div className="flex flex-wrap gap-5 mt-5">
-                        <ColorPicker
-                          register={registerSettings}
-                          name="profileColor"
-                          getValues={getValuesSettings}
-                          setValue={setValueSettings}
-                          reset={resetSettings}
-                          variant="squared"
-                          animate="border"
-                          active="dot"
-                          onClick={() => {
-                            resetSettings(getValuesSettings());
-                            setSavedUpdate(false);
+                    </div>
+                    <div className="flex justify-center gap-5 items-center my-5">
+                      <Separator />
+                      <h2>OR</h2>
+                      <Separator />
+                    </div>
+                    <Button
+                      variant="primary"
+                      onClick={() => {
+                        setExpandedProfilePicture(true);
+                        setExpandedProfileColor(false);
+                      }}
+                      full
+                    >
+                      Upload a profile picture
+                    </Button>
+                  </div>
+                </Card>
+              </TransparentBackground>
+            ) : (
+              <></>
+            )}
+            {expandedProfilePicture ? (
+              <TransparentBackground>
+                <Card
+                  variant="popup"
+                  width="480px"
+                  heading="Profile Picture"
+                  setShown={() => {
+                    setExpandedProfilePicture(false);
+                    setProfilePictureURL("");
+                    setImageWidth(0);
+                  }}
+                >
+                  <div className="flex flex-col p-5">
+                    <div
+                      className="flex justify-center items-center relative aspect-square overflow-hidden"
+                      style={{ width: parentSize, height: parentSize }}
+                    >
+                      {profilePictureURL ? (
+                        <img
+                          ref={imageRef}
+                          src={profilePictureURL}
+                          alt=""
+                          className="h-full"
+                          onLoad={(e) => {
+                            setImageWidth(e.currentTarget.width);
                           }}
                         />
-                      </div>
-                      <div className="flex justify-center gap-5 items-center my-5">
-                        <Separator />
-                        <h2>OR</h2>
-                        <Separator />
-                      </div>
-                      <Button variant="primary">Choose File</Button>
+                      ) : (
+                        <h4>No image chosen.</h4>
+                      )}
+                      {imageWidth > 0 ? (
+                        <>
+                          <Draggable
+                            axis="both"
+                            defaultPosition={{
+                              x: (imageWidth - childSize) / 2,
+                              y: (parentSize - childSize) / 2,
+                            }}
+                            grid={[10, 10]}
+                            nodeRef={targetRef}
+                            scale={1}
+                            bounds={{
+                              top: 0,
+                              left: (parentSize - imageWidth) / 2,
+                              bottom: parentSize - childSize,
+                              right:
+                                (parentSize - imageWidth) / 2 +
+                                imageWidth -
+                                childSize,
+                            }}
+                          >
+                            <div
+                              ref={targetRef}
+                              className="aspect-square border border-white absolute left-0 top-0 cursor-move"
+                              style={{ width: childSize, height: childSize }}
+                            ></div>
+                          </Draggable>
+                          <canvas
+                            ref={canvasRef}
+                            width={childSize}
+                            height={childSize}
+                            className="relative hidden"
+                          ></canvas>
+                        </>
+                      ) : (
+                        <></>
+                      )}
                     </div>
-                  </Card>
-                </div>
-              </>
+                    <div className="flex gap-2 mt-8">
+                      <Button
+                        variant="primary"
+                        onClick={() => {
+                          fileInputRef.current.click();
+                        }}
+                        full
+                      >
+                        Choose File
+                      </Button>
+                      <Button
+                        variant="primary"
+                        onClick={async () => {
+                          await uploadProfilePicture();
+                          setExpandedProfilePicture(false);
+                        }}
+                        full
+                      >
+                        Confirm
+                      </Button>
+                    </div>
+                    <input
+                      type="file"
+                      className="hidden"
+                      ref={fileInputRef}
+                      onChange={(e: any) => {
+                        setProfilePictureURL(
+                          URL.createObjectURL(e.currentTarget.files[0])
+                        );
+                      }}
+                    />
+                  </div>
+                </Card>
+              </TransparentBackground>
             ) : (
               <></>
             )}

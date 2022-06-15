@@ -158,6 +158,8 @@ const SearchPanel: FC<SearchPanelProps> = ({
                         <ProfilePicture
                           color={user.settings.profile.profileColor}
                           name={user.fullname}
+                          picture={user.settings.profile.profilePicture}
+                          id={user._id}
                           size="xs"
                         />
                       </div>

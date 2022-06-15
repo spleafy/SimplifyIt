@@ -7,6 +7,8 @@ import { getColors } from "../../utils/utils";
 interface ProfilePictureProps {
   color: string;
   name: string;
+  picture?: boolean;
+  id?: string;
   size?: string;
 }
 
@@ -19,7 +21,13 @@ interface ProfilePictureProps {
  * @returns Element
  */
 
-const ProfilePicture: FC<ProfilePictureProps> = ({ color, name, size }) => {
+const ProfilePicture: FC<ProfilePictureProps> = ({
+  color,
+  name,
+  picture,
+  id,
+  size,
+}) => {
   const tailwindColor = getColors(color)[500];
 
   return (
@@ -30,14 +38,23 @@ const ProfilePicture: FC<ProfilePictureProps> = ({ color, name, size }) => {
         size === "md" ? "!w-14 !min-w-14" : ""
       } ${size === "lg" ? "!w-16 !min-w-16" : ""} ${
         size === "xl" ? "!w-20 !min-w-20" : ""
-      } aspect-square flex justify-center items-center`}
+      } ${size === "2xl" ? "!w-[120px] !min-w-[100px]" : ""} ${
+        size === "3xl" ? "!w-[200px] !min-w-[200px]" : ""
+      } aspect-square flex justify-center items-center bg-no-repeat bg-contain`}
       style={{
-        backgroundColor: tailwindColor ? tailwindColor : "#f3f3f3",
+        backgroundColor: tailwindColor && !picture ? tailwindColor : "#f3f3f3",
+        backgroundImage: picture
+          ? `url(${process.env.REACT_APP_BACKEND_PROTOCOL}://${process.env.REACT_APP_BACKEND_URL}:${process.env.REACT_APP_BACKEND_PORT}/files/${id}.png)`
+          : "",
       }}
     >
-      <h1 className={`text-white text-${size}`}>
-        <Initials text={name} />
-      </h1>
+      {!picture ? (
+        <h1 className={`text-white text-${size}`}>
+          <Initials text={name} />
+        </h1>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

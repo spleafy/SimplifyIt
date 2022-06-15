@@ -20,6 +20,7 @@ import {
   createWorkspace,
   fetchAllWorkspaces,
   changeActiveWorkspace,
+  uploadUserProfilePicture,
 } from "./api";
 import { RootStateOrAny } from "react-redux";
 import { FriendRequestType } from "./types";
@@ -37,6 +38,12 @@ export const updateUserData = async () => {
     const response = await fetchUserData();
     store.dispatch(userSlice.actions.updateUser(response.data.user));
   }
+};
+
+export const uploadUserProfilePictureAndUpdate = async (file: string) => {
+  const response = await uploadUserProfilePicture(file);
+  store.dispatch(userSlice.actions.updateUser(response.data.user));
+  return response;
 };
 
 // Friend Methods

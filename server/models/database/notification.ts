@@ -4,6 +4,7 @@ const notificationSchema = new mongoose.Schema({
   userId: String,
   type: String,
   data: {
+    _id: String,
     username: String,
     fullname: String,
     settings: mongoose.SchemaTypes.Mixed,

@@ -21,6 +21,7 @@ const userSchema = new mongoose.Schema({
     initialSetup: Boolean,
     profile: {
       profileColor: String,
+      profilePicture: Boolean,
       themeColor: String,
       darkTheme: Boolean,
     },

@@ -10,6 +10,7 @@ export interface UserType {
     initialSetup: boolean;
     profile: {
       profileColor: string;
+      profilePicture: boolean;
       themeColor: string;
       darkTheme: boolean;
     };
@@ -36,6 +37,7 @@ export interface NotificationType {
   userID: string;
   type: string;
   data: {
+    _id: string;
     username: string;
     fullname: string;
     settings: UserType["settings"];
