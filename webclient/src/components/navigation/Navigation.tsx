@@ -4,7 +4,6 @@ import {
   PresentationChart,
   PaperPlaneTilt,
   Users,
-  Trophy,
   Gear,
   CaretDoubleRight,
   Cards,
@@ -67,14 +66,7 @@ const Navigation: FC = () => {
           >
             Friends
           </NavigationLink>
-          <NavigationLink
-            variant="navigation"
-            icon={<Trophy />}
-            expanded={expanded}
-            to={"/app/challenges"}
-          >
-            Challenges
-          </NavigationLink>
+
           <NavigationLabel expanded={expanded}>Spaces</NavigationLabel>
           <NavigationLink
             variant="navigation"

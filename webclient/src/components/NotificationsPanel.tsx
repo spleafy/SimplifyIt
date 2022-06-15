@@ -42,7 +42,7 @@ const NotificationsPanel: FC<NotificationsPanelProps> = ({
         setShown={setShown}
       >
         {notifications.length > 0 ? (
-          <>
+          <div className="overflow-y-auto flex flex-col h-full">
             {notifications.map(
               (notification: NotificationType, index: number) => (
                 <div
@@ -77,6 +77,10 @@ const NotificationsPanel: FC<NotificationsPanelProps> = ({
                               notification.data.settings.profile.profileColor
                             }
                             name={notification.data.fullname}
+                            picture={
+                              notification.data.settings.profile.profilePicture
+                            }
+                            id={notification.data._id}
                             size="xs"
                           />
                         </div>
@@ -97,7 +101,7 @@ const NotificationsPanel: FC<NotificationsPanelProps> = ({
                 </div>
               )
             )}
-          </>
+          </div>
         ) : (
           <div className="w-full h-[200px] flex items-center justify-center">
             <span className="text-slate-700">No notifications!</span>

@@ -71,6 +71,19 @@ export const fetchUserData = async (username?: string | undefined) => {
   return response;
 };
 
+export const uploadUserProfilePicture = async (file: string) => {
+  const token = localStorage.getItem("X-Auth-Token");
+
+  const response = await fetchBackendAsync(
+    "api/v1/user/settings/account/picture",
+    "POST",
+    token ? { "X-Auth-Token": token } : {},
+    { file }
+  );
+
+  return response;
+};
+
 // Friend Methods
 
 /**

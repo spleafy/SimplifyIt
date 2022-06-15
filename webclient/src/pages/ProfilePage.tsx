@@ -106,13 +106,13 @@ const ProfilePage: FC = () => {
             <>
               <Column>
                 <div className="flex flex-col w-full">
-                  <div className={`w-[100px]`}>
-                    <ProfilePicture
-                      color={user.settings.profile.profileColor}
-                      name={user.fullname}
-                      size="xl"
-                    />
-                  </div>
+                  <ProfilePicture
+                    color={user.settings.profile.profileColor}
+                    name={user.fullname}
+                    picture={user.settings.profile.profilePicture}
+                    id={user._id}
+                    size="2xl"
+                  />
                   <h1 className="mt-3">{user ? user.fullname : ""}</h1>
                   <h3 className="text-lg text-slate-600 dark:text-slate-300">
                     @{user.username ? user.username : ""}

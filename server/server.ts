@@ -52,6 +52,7 @@ import initialSetup from "./api/user/initialSetup";
 
 // Settings Endpoints
 import updateUserAccount from "./api/user/settings/updateUserAccount";
+import uploadUserProfilePicture from "./api/user/settings/uploadUserProfilePicture";
 
 // Notifications Endpoints
 import updateNotificationState from "./api/user/notifications/updateNotificationState";
@@ -72,6 +73,8 @@ import fetchWorkspace from "./api/workspace/fetchWorkspace";
 import fetchActiveWorkspace from "./api/workspace/fetchActiveWorkspace";
 import fetchAllWorkspaces from "./api/workspace/fetchAllWorkspaces";
 import changeActiveWorkspace from "./api/workspace/changeActiveWorkspace";
+
+app.use("/files", express.static("files"));
 
 // Api Route
 app.get("/api", fetchApi);
@@ -112,6 +115,13 @@ app.put(
   upload.none(),
   verifyToken,
   updateUserAccount
+);
+
+app.post(
+  "/api/v1/user/settings/account/picture",
+  verifyToken,
+  upload.none(),
+  uploadUserProfilePicture
 );
 
 // Notification Routes

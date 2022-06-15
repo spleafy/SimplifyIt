@@ -29,6 +29,8 @@ const FriendsPanel = () => {
               <ProfilePicture
                 color={friend.settings.profile.profileColor}
                 name={friend.fullname}
+                picture={friend.settings.profile.profilePicture}
+                id={friend._id}
                 size="sm"
               />
               <div className="flex flex-col">

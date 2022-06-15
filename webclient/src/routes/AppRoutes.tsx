@@ -10,7 +10,6 @@ import NotFoundPage from "../pages/NotFoundPage";
 // Routes
 import UserRoutes from "./UserRoutes";
 import SettingsRoutes from "./SettingsRoutes";
-import ChallengesRoutes from "./ChallengesRoutes";
 import FriendsRoutes from "./FriendsRoutes";
 import WorkspaceRoutes from "./WorkspaceRoutes";
 // Components
@@ -306,6 +305,8 @@ const AppRoutes: FC = () => {
                     <ProfilePicture
                       color={loggedUser.settings.profile.profileColor}
                       name={loggedUser.fullname}
+                      picture={loggedUser.settings.profile.profilePicture}
+                      id={loggedUser._id}
                       size="xs"
                     />
                     {accountMenuShown ? (
@@ -332,10 +333,6 @@ const AppRoutes: FC = () => {
                       <Route path="messages" element={<MessagesPage />} />
                       <Route path="friends/*" element={<FriendsRoutes />} />
                       <Route path="settings/*" element={<SettingsRoutes />} />
-                      <Route
-                        path="challenges/*"
-                        element={<ChallengesRoutes />}
-                      />
                       <Route path="u/*" element={<UserRoutes />} />
                       <Route path="*" element={<NotFoundPage />} />
                     </Routes>
