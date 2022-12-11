@@ -1,0 +1,66 @@
+@font-face {
+  font-family: "Satoshi";
+  src: url("./assets/fonts/Satoshi-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Satoshi Light";
+  src: url("./assets/fonts/Satoshi-Light.ttf");
+}
+
+@font-face {
+  font-family: "Satoshi Medium";
+  src: url("./assets/fonts/Satoshi-Medium.ttf");
+}
+
+@font-face {
+  font-family: "Satoshi Italic";
+  src: url("./assets/fonts/Satoshi-Italic.ttf");
+}
+
+@font-face {
+  font-family: "Satoshi Bold";
+  src: url("./assets/fonts/Satoshi-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Satoshi Black";
+  src: url("./assets/fonts/Satoshi-Black.ttf");
+}
+
+body {
+  margin: 0;
+  font-family: "Satoshi" !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: inset 0 0 0px 9999px white;
+  box-shadow: inset 0 0 0px 9999px white;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply m-0 p-0 border-0;
+  }
+
+  body,
+  html,
+  #root {
+    @apply flex flex-col h-full grow overflow-x-hidden;
+  }
+
+  input {
+    @apply bg-transparent focus:outline-none;
+  }
+}
