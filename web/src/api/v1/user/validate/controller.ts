@@ -1,9 +1,9 @@
 import prefix from "./prefix";
 // Utils
-import { fetchBackendAsync } from "../../../../utils/api";
+import { fetchAPI } from "../../../../utils/api";
 
 const username = async (value: string) => {
-  const response = await fetchBackendAsync(
+  const response = await fetchAPI(
     prefix + `/username?username=${encodeURIComponent(value)}`
   );
 
@@ -11,7 +11,7 @@ const username = async (value: string) => {
 };
 
 const email = async (value: string) => {
-  const response = await fetchBackendAsync(
+  const response = await fetchAPI(
     prefix + `/email?email=${encodeURIComponent(value)}`
   );
 
@@ -21,9 +21,10 @@ const email = async (value: string) => {
 const token = async () => {
   const token = localStorage.getItem("X-Auth-Token");
 
-  const response = await fetchBackendAsync(
+  const response = await fetchAPI(
     prefix + "/token",
     "GET",
+    {},
     token ? { "X-Auth-Token": token } : {}
   );
 

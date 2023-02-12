@@ -31,9 +31,7 @@ const appearance = async (req: Request, res: Response) => {
 
   res
     .status(200)
-    .json(
-      new ResponseMessage("SUCCESS", { user: new ResponseUser(user).getUser() })
-    );
+    .json(ResponseMessage.SUCCESS({ user: new ResponseUser(user).getUser() }));
 };
 
 const notifications = async (req: Request, res: Response) => {
@@ -54,9 +52,7 @@ const notifications = async (req: Request, res: Response) => {
 
   res
     .status(200)
-    .json(
-      new ResponseMessage("SUCCESS", { user: new ResponseUser(user).getUser() })
-    );
+    .json(ResponseMessage.SUCCESS({ user: new ResponseUser(user).getUser() }));
 };
 
 const security = async (req: Request, res: Response) => {
@@ -77,9 +73,7 @@ const security = async (req: Request, res: Response) => {
 
   res
     .status(200)
-    .json(
-      new ResponseMessage("SUCCESS", { user: new ResponseUser(user).getUser() })
-    );
+    .json(ResponseMessage.SUCCESS({ user: new ResponseUser(user).getUser() }));
 };
 
 export default { appearance, notifications, security };

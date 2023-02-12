@@ -1,13 +1,14 @@
 import prefix from "./prefix";
 // Utils
-import { fetchBackendAsync } from "../../../utils/api";
+import { fetchAPI } from "../../../utils/api";
 
 const fetch = async (id?: string) => {
   const token = localStorage.getItem("X-Auth-Token");
 
-  const response = await fetchBackendAsync(
+  const response = await fetchAPI(
     prefix + `/${id ? `?id=${encodeURIComponent(id)}` : ""}`,
     "GET",
+    {},
     token ? { "X-Auth-Token": token } : {}
   );
 

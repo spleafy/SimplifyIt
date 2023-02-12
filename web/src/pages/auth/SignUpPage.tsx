@@ -33,7 +33,7 @@ const SignUpPage = () => {
 
     if (response.status === "SUCCESS") {
       localStorage.setItem("X-Auth-Token", response.data.token);
-      navigate("/");
+      navigate("app");
       return;
     }
 
@@ -131,7 +131,7 @@ const SignUpPage = () => {
         alternate={alternate}
       >
         <h1
-          className={`uppercase text-white text-9xl font-['Satoshi_Bold'] tracking-wide mb-5 drop-shadow-md`}
+          className={`uppercase text-white text-9xl font-bold tracking-wide mb-5 drop-shadow-md`}
         >
           Start your journey with us.
         </h1>

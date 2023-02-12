@@ -18,6 +18,8 @@ const config = (app: Application) => {
 
   app.use(api.v1.user.validate.routes);
 
+  app.use(api.v1.project.routes);
+
   logger.info("Configured routes");
 };
 

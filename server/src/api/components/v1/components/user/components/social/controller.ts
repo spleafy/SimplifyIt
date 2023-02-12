@@ -40,7 +40,7 @@ const follow = async (req: Request, res: Response) => {
   );
 
   res.status(200).json(
-    new ResponseMessage("SUCCESS", {
+    ResponseMessage.SUCCESS({
       user: new ResponseUser(logged).getUser(),
     })
   );
@@ -79,7 +79,7 @@ const unfollow = async (req: Request, res: Response) => {
   );
 
   res.status(200).json(
-    new ResponseMessage("SUCCESS", {
+    ResponseMessage.SUCCESS({
       user: new ResponseUser(logged).getUser(),
     })
   );
@@ -109,7 +109,7 @@ const block = async (req: Request, res: Response) => {
   );
 
   res.status(200).json(
-    new ResponseMessage("SUCCESS", {
+    ResponseMessage.SUCCESS({
       user: new ResponseUser(logged).getUser(),
     })
   );
@@ -139,7 +139,7 @@ const unblock = async (req: Request, res: Response) => {
   );
 
   res.status(200).json(
-    new ResponseMessage("SUCCESS", {
+    ResponseMessage.SUCCESS({
       user: new ResponseUser(logged).getUser(),
     })
   );

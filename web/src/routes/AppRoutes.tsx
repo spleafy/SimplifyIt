@@ -1,14 +1,18 @@
 import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+// Components
+import SitNav from "../layouts/navigation/SitNav";
+import SitNavTop from "../layouts/navigation/SitNavTop";
 // Layout
 import SitLayout from "../layouts/SitLayout";
 // Pages
 import HomePage from "../pages/app/HomePage";
+import ProjectsPage from "../pages/app/ProjectsPage";
 import NotFoundPage from "../pages/NotFoundPage";
-// // Services
+// Services
 import api from "../api";
-// // Redux
+// Redux
 import store from "../redux/store";
 import { slice as user } from "../redux/user";
 
@@ -30,12 +34,13 @@ const AppRoutes = () => {
   }, []);
 
   return (
-    <SitLayout header>
+    <SitLayout aside={<SitNav />} header={<SitNavTop />}>
       <Routes>
-        <Route path="/*" element={<HomePage />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/projects/*" element={<ProjectsPage />} />
         <Route
           path="*"
-          element={<NotFoundPage to="/auth" name="Login Page" />}
+          element={<NotFoundPage to="/app/home" name="Home Page" />}
         />
       </Routes>
     </SitLayout>

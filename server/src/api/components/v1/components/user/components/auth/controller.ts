@@ -6,6 +6,7 @@ import {
   ResponseMessage,
   validateObjectKeys,
 } from "../../../../../../../services/helper";
+import { fetchAPI } from "../../../../../../../services/api";
 // Models
 import { UserType, User } from "../../model";
 
@@ -36,9 +37,9 @@ const login = async (req: Request, res: Response) => {
     return;
   }
 
-  const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET as string);
+  const token = jwt.sign({ id: user._id }, process.env.SECRET as string);
 
-  res.status(200).json(new ResponseMessage("SUCCESS", { token }));
+  res.status(200).json(ResponseMessage.SUCCESS({ token }));
 };
 
 /**
@@ -80,9 +81,25 @@ const signup = async (req: Request, res: Response) => {
 
   const user = await new User(structure).save();
 
-  const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET as string);
+  const token = jwt.sign({ id: user._id }, process.env.SECRET as string);
 
-  res.status(200).json(new ResponseMessage("SUCCESS", { token }));
+  const project = await fetchAPI(
+    "api/v1/project",
+    "POST",
+    {
+      name: `${user.fullname}'s Project`,
+    },
+    {
+      "X-Auth-Token": token,
+    }
+  );
+
+  if (project.status !== "SUCCESS") {
+    res.status(500).json(ResponseMessage.INTERNAL_ERROR());
+    return;
+  }
+
+  res.status(200).json(ResponseMessage.SUCCESS({ token }));
 };
 
 export default { login, signup };

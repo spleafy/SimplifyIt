@@ -4,7 +4,7 @@ import { ResponseMessage } from "../services/helper";
 
 const api = (req: Request, res: Response) => {
   res.status(200).json(
-    new ResponseMessage("SUCCESS", {
+    ResponseMessage.SUCCESS({
       versions: ["v1"],
       status: "healthy",
     })

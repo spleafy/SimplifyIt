@@ -1,25 +1,15 @@
 import prefix from "./prefix";
 // Utils
-import { fetchBackendAsync } from "../../../../utils/api";
+import { fetchAPI } from "../../../../utils/api";
 
 const login = async (values: any) => {
-  const response = await fetchBackendAsync(
-    prefix + "/login",
-    "POST",
-    {},
-    values
-  );
+  const response = await fetchAPI(prefix + "/login", "POST", values);
 
   return response;
 };
 
 const signup = async (values: any) => {
-  const response = await fetchBackendAsync(
-    prefix + "/signup",
-    "POST",
-    {},
-    values
-  );
+  const response = await fetchAPI(prefix + "/signup", "POST", values);
 
   return response;
 };

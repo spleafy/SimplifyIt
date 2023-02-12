@@ -17,9 +17,7 @@ export const fetchAPI = async (
 ): Promise<any> => {
   try {
     const response = await axios(
-      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${
-        import.meta.env.VITE_APP_BACKEND_URL
-      }:${import.meta.env.VITE_APP_BACKEND_PORT}/${path}`,
+      `http://${process.env.HOST}:${process.env.PORT}/${path}`,
       {
         method,
         data: body,

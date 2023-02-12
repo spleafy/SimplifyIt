@@ -1,13 +1,11 @@
 import controller from "./controller";
 import routes from "./routes";
 import prefix from "./prefix";
-import user from "./components/user";
-import project from "./components/project";
+import { Project } from "./model";
 
 export default {
   controller,
   routes,
   prefix,
-  user,
-  project,
+  model: Project,
 };

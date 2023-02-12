@@ -12,7 +12,7 @@ export const fetch = async (req: Request, res: Response) => {
     const user: UserType | null = await User.findOne({ _id: req.data.id });
 
     res.status(200).json(
-      new ResponseMessage("SUCCESS", {
+      ResponseMessage.SUCCESS({
         user: new ResponseUser(user).getUser(),
       })
     );
@@ -23,7 +23,7 @@ export const fetch = async (req: Request, res: Response) => {
   const user: UserType | null = await User.findOne({ _id: req.query.id });
 
   res.status(200).json(
-    new ResponseMessage("SUCCESS", {
+    ResponseMessage.SUCCESS({
       user: new ResponseUser(user).getUser(),
     })
   );

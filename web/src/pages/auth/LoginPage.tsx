@@ -27,7 +27,7 @@ const LoginPage = () => {
       localStorage.setItem("X-Auth-Token", response.data.token);
       setAlternate(true);
       setTimeout(() => {
-        navigate("/");
+        navigate("/app");
       }, 300);
     }
 
@@ -114,7 +114,7 @@ const LoginPage = () => {
         alternate={alternate}
       >
         <h1
-          className={`uppercase text-white text-9xl font-['Satoshi_Bold'] tracking-wide mb-5 drop-shadow-md`}
+          className={`uppercase text-white text-9xl font-bold tracking-wide mb-5 drop-shadow-md`}
         >
           Welcome back!
         </h1>

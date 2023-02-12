@@ -20,7 +20,7 @@ const SitPage: FC<SitPageProps> = ({
   return (
     <Animated
       animationIn={animationIn ? animationIn : "animate-fade-in"}
-      className={`grow ${className ? className : ""}`}
+      className={`grow p-5 ${className ? className : ""}`}
       style={style}
     >
       {children}

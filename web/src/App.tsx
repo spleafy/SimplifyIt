@@ -16,7 +16,7 @@ const App = () => {
 
   const theme = T.createTheme({
     colors: {
-      primary: T.colors["sky"],
+      primary: T.colors["indigo"],
     },
   });
 
@@ -25,7 +25,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/*" element={<AppRoutes />} />
+        <Route path="app/*" element={<AppRoutes />} />
         <Route path="auth/*" element={<AuthRoutes />} />
         <Route
           path="*"

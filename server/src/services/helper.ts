@@ -60,6 +60,18 @@ export class ResponseMessage {
       { message: "Resource already exists!" }
     );
   }
+
+  public static INTERNAL_ERROR() {
+    return new ResponseMessage(
+      "INTERNAL_ERROR",
+      {},
+      { message: "The server has experienced an internal error!" }
+    );
+  }
+
+  public static SUCCESS(data?: any) {
+    return new ResponseMessage("SUCCESS", data ? data : {});
+  }
 }
 
 export const validateObjectKeys = (

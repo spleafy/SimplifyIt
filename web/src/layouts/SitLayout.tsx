@@ -19,15 +19,15 @@ const SitLayout: FC<SitLayoutProps> = ({
 }) => {
   return (
     <div
-      className={`flex flex-row gap-5 h-full ${className ? className : ""}`}
+      className={`flex flex-col h-full ${className ? className : ""}`}
       style={style}
     >
-      {aside}
-      <div className="flex flex-col grow gap-5">
-        {header}
-        {children}
-        {footer}
+      {header && <header>{header}</header>}
+      <div className="flex grow">
+        {aside && <aside>{aside}</aside>}
+        <main className="flex grow">{children}</main>
       </div>
+      {footer && <footer>{footer}</footer>}
     </div>
   );
 };

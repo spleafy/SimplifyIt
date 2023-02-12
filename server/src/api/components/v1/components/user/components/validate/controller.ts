@@ -16,11 +16,11 @@ const username = async (req: Request, res: Response) => {
   const user = await User.findOne({ username: req.query.username });
 
   if (!user) {
-    res.status(200).json(new ResponseMessage("SUCCESS", { registered: false }));
+    res.status(200).json(ResponseMessage.SUCCESS({ registered: false }));
     return;
   }
 
-  res.status(200).json(new ResponseMessage("SUCCESS", { registered: true }));
+  res.status(200).json(ResponseMessage.SUCCESS({ registered: true }));
 };
 
 const email = async (req: Request, res: Response) => {
@@ -32,15 +32,15 @@ const email = async (req: Request, res: Response) => {
   const user = await User.findOne({ email: req.query.email });
 
   if (!user) {
-    res.status(200).json(new ResponseMessage("SUCCESS", { registered: false }));
+    res.status(200).json(ResponseMessage.SUCCESS({ registered: false }));
     return;
   }
 
-  res.status(200).json(new ResponseMessage("SUCCESS", { registered: true }));
+  res.status(200).json(ResponseMessage.SUCCESS({ registered: true }));
 };
 
 const token = async (req: Request, res: Response) => {
-  res.status(200).json(new ResponseMessage("SUCCESS", { active: true }));
+  res.status(200).json(ResponseMessage.SUCCESS({ active: true }));
 };
 
 export default { username, email, token };
