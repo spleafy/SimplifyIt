@@ -1,43 +1,34 @@
 import { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 // Components
-import SitNav from "../layouts/navigation/SitNav";
-import SitNavTop from "../layouts/navigation/SitNavTop";
+import SitNav from "../containers/SitNav";
+import SitNavTop from "../containers/SitHeader";
+// Containers
+import SitAppActions from "../containers/SitAppActions";
 // Layout
 import SitLayout from "../layouts/SitLayout";
 // Pages
 import HomePage from "../pages/app/HomePage";
-import ProjectsPage from "../pages/app/ProjectsPage";
 import NotFoundPage from "../pages/NotFoundPage";
-// Services
-import api from "../api";
-// Redux
-import store from "../redux/store";
-import { slice as user } from "../redux/user";
+// Routes
+import ProjectsRoutes from "./ProjectsRoutes";
+// Utils
+import setup from "../utils/setup";
 
 const AppRoutes = () => {
-  const navigate = useNavigate();
-
   useEffect(() => {
-    const effect = async () => {
-      const response = await api.v1.user.controller.fetch();
-
-      if (response.status === "SUCCESS" && response.data.user) {
-        store.dispatch(user.actions.update(response.data.user));
-      } else {
-        navigate("/auth");
-      }
-    };
-
-    effect();
+    setup();
   }, []);
 
   return (
     <SitLayout aside={<SitNav />} header={<SitNavTop />}>
+      <SitAppActions />
       <Routes>
+        <Route path="/" element={<Navigate to={"home"} />} />
         <Route path="/home" element={<HomePage />} />
-        <Route path="/projects/*" element={<ProjectsPage />} />
+        <Route path="/projects/*" element={<ProjectsRoutes />} />
         <Route
           path="*"
           element={<NotFoundPage to="/app/home" name="Home Page" />}

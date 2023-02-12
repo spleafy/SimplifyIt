@@ -2,7 +2,7 @@ import { FC } from "react";
 // Layouts
 import SitPage from "../layouts/SitPage";
 // Components
-import SitLink from "../components/basic/SitLink";
+import SitLink from "../components/navigation/SitLink";
 
 interface NotFoundPageProps {
   to: string;

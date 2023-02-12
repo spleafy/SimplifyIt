@@ -5,7 +5,10 @@ interface Type {
   owner: string;
   private: boolean;
   users: string[];
-  settings: {};
+  settings: {
+    shape: "star" | "circle" | "square" | "triangle";
+    color: string;
+  };
   createdAt: Date;
   updatedAt: Date;
 }
@@ -20,7 +23,10 @@ const projectSchema = new Schema<Type>(
     owner: String,
     private: Boolean,
     users: [String],
-    settings: {},
+    settings: {
+      shape: String,
+      color: String,
+    },
   },
   { timestamps: true }
 );

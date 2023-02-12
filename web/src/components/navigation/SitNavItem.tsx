@@ -45,7 +45,9 @@ const SitNavItem: FC<SitNavItemProps> = ({
     >
       {icon}
       {expanded && (
-        <div className="whitespace-nowrap grow text-sm">{children}</div>
+        <div className="whitespace-nowrap grow text-sm w-full overflow-hidden">
+          {children}
+        </div>
       )}
     </NavLink>
   );
@@ -57,7 +59,7 @@ const SitNavItem: FC<SitNavItemProps> = ({
       ) : (
         <>
           {tooltip ? (
-            <Tooltip title={tooltip} position="right">
+            <Tooltip title={tooltip} position="right" className="!left-[115%]">
               {item}
             </Tooltip>
           ) : (

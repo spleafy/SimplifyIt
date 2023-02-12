@@ -1,10 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { themes as T } from "@prismane/core";
+import { Provider } from "react-redux";
 // Routes
 import AuthRoutes from "./routes/AuthRoutes";
 import AppRoutes from "./routes/AppRoutes";
 // Pages
 import NotFoundPage from "./pages/NotFoundPage";
+// Redux
+import store from "./redux/store";
 
 const App = () => {
   console.log(`
@@ -23,16 +26,18 @@ const App = () => {
   T.applyTheme(theme);
 
   return (
-    <Router>
-      <Routes>
-        <Route path="app/*" element={<AppRoutes />} />
-        <Route path="auth/*" element={<AuthRoutes />} />
-        <Route
-          path="*"
-          element={<NotFoundPage to="auth" name="Login Page" />}
-        />
-      </Routes>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Routes>
+          <Route path="app/*" element={<AppRoutes />} />
+          <Route path="auth/*" element={<AuthRoutes />} />
+          <Route
+            path="*"
+            element={<NotFoundPage to="auth" name="Login Page" />}
+          />
+        </Routes>
+      </Router>
+    </Provider>
   );
 };
 

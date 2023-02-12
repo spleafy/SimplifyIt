@@ -1,7 +1,7 @@
-import v1 from "./v1";
+import api from "./api";
+import projects from "./projects";
+import subtask from "./subtask";
+import task from "./task";
+import user from "./user";
 
-const all = {
-  v1,
-};
-
-export default all;
+export default { api, projects, subtask, task, user };

@@ -9,7 +9,7 @@ import {
 } from "@prismane/core";
 // Components
 import SitPage from "../../layouts/SitPage";
-import SitLink from "../../components/basic/SitLink";
+import SitLink from "../../components/navigation/SitLink";
 // Utils
 import { validateUsernameBackend } from "../../utils/validators";
 // Services
@@ -21,7 +21,7 @@ const LoginPage = () => {
   const { alternate, setAlternate, duration } = H.useAnimation("short");
 
   const submit = async (values: any, options: any) => {
-    const response = await api.v1.user.auth.controller.login(values);
+    const response = await api.user.auth.login(values);
 
     if (response.status === "SUCCESS") {
       localStorage.setItem("X-Auth-Token", response.data.token);

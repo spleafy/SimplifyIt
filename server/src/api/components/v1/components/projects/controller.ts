@@ -9,7 +9,7 @@ import {
 import { Project } from "./model";
 
 export const create = async (req: Request, res: Response) => {
-  if (!validateObjectKeys(req.body, ["name"])) {
+  if (!validateObjectKeys(req.body, ["name", "settings"])) {
     res.status(403).json(ResponseMessage.INVALID_PARAMS());
     return;
   }
@@ -18,30 +18,29 @@ export const create = async (req: Request, res: Response) => {
     owner: req.data.id,
     private: true,
     users: [req.data.id],
-    settings: {},
   });
 
-  const project = await new Project(structure).save();
+  const projects = await new Project(structure).save();
 
-  res.status(200).json(ResponseMessage.SUCCESS({ project }));
+  res.status(200).json(ResponseMessage.SUCCESS({ projects }));
 };
 
 export const fetch = async (req: Request, res: Response) => {
   if (!validateObjectKeys(req.query, ["id"])) {
-    const project = await Project.find({
+    const projects = await Project.find({
       $or: [{ owner: req.data.id }, { users: req.data.id }],
     });
 
-    res.status(200).json(ResponseMessage.SUCCESS({ project }));
+    res.status(200).json(ResponseMessage.SUCCESS({ projects }));
     return;
   }
 
-  const project = await Project.findOne({
+  const projects = await Project.findOne({
     _id: req.query.id,
     owner: req.data.id,
   });
 
-  res.status(200).json(ResponseMessage.SUCCESS({ project }));
+  res.status(200).json(ResponseMessage.SUCCESS({ projects }));
 };
 
 export const update = async (req: Request, res: Response) => {
@@ -50,7 +49,7 @@ export const update = async (req: Request, res: Response) => {
     return;
   }
 
-  const project = await Project.findOneAndUpdate(
+  const projects = await Project.findOneAndUpdate(
     {
       _id: req.query.id,
       owner: req.data.id,
@@ -59,7 +58,7 @@ export const update = async (req: Request, res: Response) => {
     { new: true }
   );
 
-  res.status(200).json(ResponseMessage.SUCCESS(project));
+  res.status(200).json(ResponseMessage.SUCCESS({ projects }));
 };
 
 export const remove = async (req: Request, res: Response) => {

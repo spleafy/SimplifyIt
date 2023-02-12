@@ -9,7 +9,7 @@ import {
 } from "@prismane/core";
 // Components
 import SitPage from "../../layouts/SitPage";
-import SitLink from "../../components/basic/SitLink";
+import SitLink from "../../components/navigation/SitLink";
 // Services
 import api from "../../api";
 
@@ -29,11 +29,11 @@ const SignUpPage = () => {
   const submit = async (values: any, options: any) => {
     console.log(values);
 
-    const response = await api.v1.user.auth.controller.signup(values);
+    const response = await api.user.auth.signup(values);
 
     if (response.status === "SUCCESS") {
       localStorage.setItem("X-Auth-Token", response.data.token);
-      navigate("app");
+      navigate("/app");
       return;
     }
 

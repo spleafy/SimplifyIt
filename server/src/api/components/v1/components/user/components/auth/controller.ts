@@ -84,10 +84,14 @@ const signup = async (req: Request, res: Response) => {
   const token = jwt.sign({ id: user._id }, process.env.SECRET as string);
 
   const project = await fetchAPI(
-    "api/v1/project",
+    "api/v1/projects",
     "POST",
     {
       name: `${user.fullname}'s Project`,
+      settings: {
+        shape: "circle",
+        color: "#64748b",
+      },
     },
     {
       "X-Auth-Token": token,
