@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 // Components
 import SitNav from "../containers/SitNav";
 import SitNavTop from "../containers/SitHeader";
@@ -14,11 +13,42 @@ import HomePage from "../pages/app/HomePage";
 import NotFoundPage from "../pages/NotFoundPage";
 // Routes
 import ProjectsRoutes from "./ProjectsRoutes";
-// Utils
-import setup from "../utils/setup";
+// Services
+import api from "../api";
+// Redux
+import store from "../redux/store";
+import { slice as userSlice } from "../redux/user";
+import { slice as projectsSlice } from "../redux/projects";
 
 const AppRoutes = () => {
+  const navigate = useNavigate();
+
   useEffect(() => {
+    const user = async () => {
+      const response = await api.user.fetch();
+
+      if (response.status === "SUCCESS" && response.data.user) {
+        store.dispatch(userSlice.actions.update(response.data.user));
+      } else {
+        navigate("/auth");
+      }
+    };
+
+    const projects = async () => {
+      const response = await api.projects.fetch();
+
+      if (response.status === "SUCCESS" && response.data.projects) {
+        store.dispatch(projectsSlice.actions.init(response.data.projects));
+      } else {
+        console.error("ERROR! --project-setup--");
+      }
+    };
+
+    const setup = async () => {
+      await user();
+      await projects();
+    };
+
     setup();
   }, []);
 

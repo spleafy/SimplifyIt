@@ -9,13 +9,13 @@ import SitShape from "../../../components/basic/SitShape";
 // Utils
 import { events } from "../../../utils/utils";
 
-const ProjectsPage = () => {
+const MainPage = () => {
   const projects = useSelector((state: any) => state.projects.projects);
 
   const projectActionEvent = new CustomEvent(events.project);
 
   return (
-    <SitPage header={<h1 className="text-4xl">Projects</h1>}>
+    <SitPage header={<h1>Projects</h1>}>
       <div className="flex flex-wrap gap-5">
         {projects.map((project: any, index: number) => (
           <Card
@@ -38,7 +38,7 @@ const ProjectsPage = () => {
               <div className="flex flex-col gap-2 grow p-4">
                 <h3>{project.name}</h3>
                 <div className="flex items-center justify-between">
-                  <span>{project.owner}</span>
+                  <span>{project._id}</span>
                 </div>
               </div>
             </Link>
@@ -60,4 +60,4 @@ const ProjectsPage = () => {
   );
 };
 
-export default ProjectsPage;
+export default MainPage;

@@ -99,7 +99,7 @@ const SitNav: FC<SitComponent> = ({ className, style }) => {
             }`}
           >
             {expanded && (
-              <span className="text-sm text-base-900">Projects</span>
+              <span className="text-sm text-base-800">Projects</span>
             )}
             <div
               className={`flex items-center justify-center aspect-square border border-base-300 cursor-pointer rounded-lg ${

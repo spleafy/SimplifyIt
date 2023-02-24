@@ -20,6 +20,8 @@ const config = (app: Application) => {
 
   app.use(api.v1.projects.routes);
 
+  app.use(api.v1.tasks.routes);
+
   logger.info("Configured routes");
 };
 
