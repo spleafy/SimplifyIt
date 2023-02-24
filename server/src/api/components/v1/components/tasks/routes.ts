@@ -12,5 +12,6 @@ router.post(prefix + "/", token, upload.none(), controller.create);
 router.get(prefix + "/", token, controller.fetch);
 router.put(prefix + "/", token, upload.none(), controller.update);
 router.delete(prefix + "/", token, controller.remove);
+router.get(prefix + "/all", token, controller.fetchAll);
 
 export default router;

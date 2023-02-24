@@ -21,7 +21,7 @@ const MainPage = () => {
           <Card
             width="300px"
             height="350px"
-            className="border border-base-300 !p-0"
+            className="border border-base-300 !p-0 hover:border-primary-500 hover:bg-primary-100 transition-all"
             key={index}
           >
             <Link to={project._id} className="flex flex-col w-full h-full">
@@ -47,13 +47,18 @@ const MainPage = () => {
         <Card
           width="300px"
           height="350px"
-          className="border border-base-300 !p-0 flex flex-col !gap-2 justify-center items-center text-base-700 cursor-pointer"
+          className="border border-base-300 !p-0 flex flex-col !gap-2 justify-center items-center text-base-700 cursor-pointer hover:border-primary-500 hover:bg-primary-100 group transition-all"
           onClick={() => {
             document.dispatchEvent(projectActionEvent);
           }}
         >
-          <Plus size={32} className="text-base-500" />
-          <span>Add project</span>
+          <Plus
+            size={32}
+            className="text-base-500 group-hover:text-primary-500 transition-all"
+          />
+          <span className="group-hover:text-primary-500 transition-all">
+            Add project
+          </span>
         </Card>
       </div>
     </SitPage>

@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { themes as T } from "@prismane/core";
 import { Provider } from "react-redux";
 // Routes
@@ -29,7 +34,7 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Routes>
-          <Route path="/*" element={<AppRoutes />} />
+          <Route path="/" element={<Navigate to={"app"} />} />
           <Route path="app/*" element={<AppRoutes />} />
           <Route path="auth/*" element={<AuthRoutes />} />
           <Route
