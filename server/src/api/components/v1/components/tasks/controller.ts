@@ -15,6 +15,7 @@ const fetch = async (req: Request, res: Response) => {
 
   const tasks = await Task.findOne({
     _id: req.query.id,
+    creator: req.data.id,
   });
 
   res.status(200).json(ResponseMessage.SUCCESS({ tasks }));
@@ -28,6 +29,7 @@ const fetchAll = async (req: Request, res: Response) => {
 
   const tasks = await Task.find({
     projectId: req.query.id,
+    creator: req.data.id,
   });
 
   res.status(200).json(ResponseMessage.SUCCESS({ tasks }));
