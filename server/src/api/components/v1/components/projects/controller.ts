@@ -15,7 +15,7 @@ export const create = async (req: Request, res: Response) => {
   }
 
   const structure = Object.assign({}, req.body, {
-    owner: req.data.id,
+    creator: req.data.id,
     private: true,
     users: [req.data.id],
   });
@@ -28,7 +28,7 @@ export const create = async (req: Request, res: Response) => {
 export const fetch = async (req: Request, res: Response) => {
   if (!validateObjectKeys(req.query, ["id"])) {
     const projects = await Project.find({
-      $or: [{ owner: req.data.id }, { users: req.data.id }],
+      $or: [{ creator: req.data.id }, { users: req.data.id }],
     });
 
     res.status(200).json(ResponseMessage.SUCCESS({ projects }));
@@ -37,7 +37,7 @@ export const fetch = async (req: Request, res: Response) => {
 
   const projects = await Project.findOne({
     _id: req.query.id,
-    owner: req.data.id,
+    creator: req.data.id,
   });
 
   res.status(200).json(ResponseMessage.SUCCESS({ projects }));
@@ -52,7 +52,7 @@ export const update = async (req: Request, res: Response) => {
   const projects = await Project.findOneAndUpdate(
     {
       _id: req.query.id,
-      owner: req.data.id,
+      creator: req.data.id,
     },
     req.body,
     { new: true }
@@ -69,7 +69,7 @@ export const remove = async (req: Request, res: Response) => {
 
   const removed = await Project.deleteOne({
     _id: req.query.id,
-    owner: req.data.id,
+    creator: req.data.id,
   });
 
   if (!removed.acknowledged) {
@@ -87,7 +87,7 @@ export const invite = async (req: Request, res: Response) => {
 
   const project = await Project.findOne({
     _id: req.query.id,
-    owner: req.data.id,
+    creator: req.data.id,
   });
 
   if (!project) {

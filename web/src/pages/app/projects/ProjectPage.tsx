@@ -1,10 +1,12 @@
-import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useParams, Routes, Route, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Loader, Button } from "@prismane/core";
+import { Loader } from "@prismane/core";
 // Layouts
 import SitPage from "../../../layouts/SitPage";
 // Components
 import SitShape from "../../../components/basic/SitShape";
+import SitNavBar from "../../../components/navigation/SitNavBar";
 
 const ProjectPage = () => {
   const { id } = useParams();
@@ -12,6 +14,10 @@ const ProjectPage = () => {
   const projects = useSelector((state: any) => state.projects.projects);
 
   const project = projects.filter((v: any) => v._id === id)[0];
+
+  useEffect(() => {
+    const tasks = async () => {};
+  });
 
   return (
     <>
@@ -30,14 +36,22 @@ const ProjectPage = () => {
             </div>
             <h1 className="text-3xl">{project.name}</h1>
             <div className="flex items-center gap-5">
-              <Button variant="secondary">Overview</Button>
-              <Button variant="primary">Tasks</Button>
-              <Button variant="secondary">Chat</Button>
-              <Button variant="secondary">Notifications</Button>
-              <Button variant="secondary">Settings</Button>
+              <SitNavBar
+                links={[
+                  { element: "Overview", to: "overview" },
+                  { element: "Tasks", to: "tasks" },
+                  { element: "Settings", to: "settings" },
+                ]}
+                layoutId="project"
+              />
             </div>
-            <div className="flex justify-center items-center grow">
-              No tasks.
+            <div className="flex w-full grow">
+              <Routes>
+                <Route path="/" element={<Navigate to="overview" />} />
+                <Route path="/overview" element={<h1>Overview</h1>} />
+                <Route path="/tasks" element={<h1>Tasks</h1>} />
+                <Route path="/settings" element={<h1>Settings</h1>} />
+              </Routes>
             </div>
           </div>
         </SitPage>

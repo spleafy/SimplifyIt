@@ -29,6 +29,7 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Routes>
+          <Route path="/*" element={<AppRoutes />} />
           <Route path="app/*" element={<AppRoutes />} />
           <Route path="auth/*" element={<AuthRoutes />} />
           <Route

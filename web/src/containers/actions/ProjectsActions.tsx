@@ -95,7 +95,7 @@ const ProjectsActions = () => {
                 ]}
               />
               <Button variant="primary" className="mt-10" submit>
-                Submit
+                Create project
               </Button>
             </Form>
           </PopUp>
