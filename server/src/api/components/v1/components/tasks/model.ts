@@ -1,10 +1,14 @@
 import { Schema, model } from "mongoose";
 
 interface Type {
-  title: string;
+  name: string;
   description: string;
   projectId: string;
   completed: boolean;
+  settings: {
+    shape: "star" | "circle" | "square" | "triangle";
+    color: string;
+  };
   creator: string;
   createdAt: Date;
   updatedAt: Date;
@@ -15,10 +19,14 @@ export interface TaskType extends Type {
 
 const taskSchema = new Schema<Type>(
   {
-    title: String,
+    name: String,
     description: String,
     projectId: String,
     completed: Boolean,
+    settings: {
+      shape: String,
+      color: String,
+    },
     creator: String,
   },
   { timestamps: true }

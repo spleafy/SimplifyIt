@@ -14,6 +14,7 @@ export const getColors = () => {
 
 export const events = {
   project: "action-projects",
+  task: "action-tasks",
 };
 
 export default { events };

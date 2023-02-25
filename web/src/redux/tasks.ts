@@ -11,6 +11,10 @@ export const slice = createSlice({
   },
   reducers: {
     add: (state: any, action) => {
+      action.payload.forEach((task: any) => {
+        state.tasks = state.tasks.filter((p: any) => p._id !== task._id);
+      });
+
       state.tasks = [...state.tasks, ...action.payload];
     },
     remove: (state: any, action) => {

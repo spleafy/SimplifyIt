@@ -114,7 +114,7 @@ const SitNav: FC<SitComponent> = ({ className, style }) => {
           </div>
           <div className="flex flex-col w-full gap-3 max-h-[324px] items-center">
             <SitNavItem
-              to="projects/"
+              to="projects"
               icon={<SquaresFour size={24} />}
               expanded={expanded}
               tooltip="All Projects"

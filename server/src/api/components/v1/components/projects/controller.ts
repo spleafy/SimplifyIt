@@ -9,7 +9,10 @@ import {
 import { Project } from "./model";
 
 export const create = async (req: Request, res: Response) => {
-  if (!validateObjectKeys(req.body, ["name", "settings"])) {
+  if (
+    !validateObjectKeys(req.body, ["name", "settings"]) ||
+    !validateObjectKeys(req.body.settings, ["shape", "color"])
+  ) {
     res.status(403).json(ResponseMessage.INVALID_PARAMS());
     return;
   }
