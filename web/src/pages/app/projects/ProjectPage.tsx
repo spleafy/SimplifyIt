@@ -35,7 +35,7 @@ const ProjectPage = () => {
     };
 
     tasks();
-  }, []);
+  }, [project]);
 
   return (
     <>
@@ -47,7 +47,7 @@ const ProjectPage = () => {
               to="/app/projects"
             >
               <ArrowLeft size={24} />
-              <span className="text-inherit">Back</span>
+              <span className="text-inherit">All Projects</span>
             </Link>
             <div className="flex gap-8">
               <div
