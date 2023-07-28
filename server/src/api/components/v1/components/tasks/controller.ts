@@ -22,13 +22,7 @@ const fetch = async (req: Request, res: Response) => {
 };
 
 const fetchAll = async (req: Request, res: Response) => {
-  if (!validateObjectKeys(req.query, ["id"])) {
-    res.status(403).json(ResponseMessage.INVALID_PARAMS());
-    return;
-  }
-
   const tasks = await Task.find({
-    projectId: req.query.id,
     creator: req.data.id,
   });
 

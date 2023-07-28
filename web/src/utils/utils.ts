@@ -13,7 +13,10 @@ export const getColors = () => {
 };
 
 export const events = {
-  project: "action-projects",
+  project: {
+    create: "action-projects-create",
+    update: "action-projects-update",
+  },
   task: "action-tasks",
 };
 

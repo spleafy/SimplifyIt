@@ -4,7 +4,7 @@ import { Animated, hooks as H, Animations } from "@prismane/core";
 import { SitComponent } from "../types";
 
 interface SitPageProps extends SitComponent {
-  animationIn?: Animations;
+  entry?: Animations;
   title?: string;
   header?: ReactNode;
   footer?: ReactNode;
@@ -14,7 +14,7 @@ const SitPage: FC<SitPageProps> = ({
   children,
   className,
   style,
-  animationIn,
+  entry,
   title,
   header,
   footer,
@@ -23,7 +23,7 @@ const SitPage: FC<SitPageProps> = ({
 
   return (
     <Animated
-      animationIn={animationIn ? animationIn : "animate-fade-in"}
+      entry={entry ? entry : "fadeIn"}
       className={`grow p-5 ${className ? className : ""}`}
       style={style}
     >

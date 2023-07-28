@@ -6,6 +6,7 @@ import {
   PopUp,
   Form,
   TextField,
+  SelectField,
   ToggleBar,
   Button,
   validators as V,
@@ -20,55 +21,85 @@ import { slice as tasks } from "../../redux/tasks";
 import { useSelector } from "react-redux";
 
 const TasksActions = () => {
-  const navigate = useNavigate();
-
   const [shown, setShown] = useState(false);
 
   const [id, setId] = useState("");
 
   document.addEventListener(events.task, (e: any) => {
     setShown(true);
-    setId(e.detail.id);
+    if (e.detail.id) {
+      setId(e.detail.id);
+    }
   });
-
-  const project = useSelector((state: any) => state.projects.projects).filter(
-    (p: any) => p._id === id
-  )[0];
 
   const colors: any = getColors();
 
-  const submit = async (v: any) => {
-    v.projectId = id;
+  const projects = useSelector((state: any) => state.projects.projects);
 
+  const close = () => {
+    setId("");
+    setShown(false);
+  };
+
+  const submit = async (v: any) => {
     const response = await api.tasks.create(v);
 
-    if (response.status === "SUCCESS") {
-      store.dispatch(tasks.actions.add([response.data.tasks]));
+    if (response.status === "SUCCESS" && response.data.tasks) {
+      store.dispatch(tasks.actions.add(response.data.tasks));
       // navigate("/app/tasks/" + response.data.tasks._id);
     }
 
-    setShown(false);
+    close();
   };
 
   return (
     <>
       {shown && (
         <Backdrop>
-          <PopUp
-            header={<h1>Create Task</h1>}
-            setShown={setShown}
-            width="500px"
-          >
+          <PopUp header={<h1>Create Task</h1>} setShown={close} width="500px">
             <Form
               submit={submit}
               initial={{
-                name: `${project.name}'s Task`,
+                name: `Simple Task`,
                 settings: {
-                  color: project.settings.color,
-                  shape: project.settings.shape,
+                  color: colors["slate"][500],
+                  shape: "star",
                 },
               }}
             >
+              {id ? (
+                <div className="hidden">
+                  <TextField
+                    name="projectId"
+                    placeholder=""
+                    label=""
+                    value={id}
+                  />
+                </div>
+              ) : (
+                <SelectField
+                  name="projectId"
+                  placeholder="Choose project:"
+                  label="Choose project:"
+                  options={projects.map((project: any) => {
+                    return {
+                      element: (
+                        <div className="flex items-center gap-2">
+                          <div
+                            className="w-2 h-2 aspect-square rounded-sm"
+                            style={{ backgroundColor: project.settings.color }}
+                          ></div>
+                          <span className="text-sm">{project.name}</span>
+                        </div>
+                      ),
+                      value: project._id,
+                    };
+                  })}
+                  validators={{
+                    required: (v: string) => V.required(v),
+                  }}
+                />
+              )}
               <TextField
                 name="name"
                 placeholder="Enter task name:"
@@ -89,6 +120,7 @@ const TasksActions = () => {
               <ToggleBar
                 name="settings.color"
                 label="Task color:"
+                variant="filled"
                 options={Object.keys(colors).map(
                   (key: string, index: number) => {
                     return {
@@ -106,10 +138,13 @@ const TasksActions = () => {
                 validators={{
                   required: (v: string) => V.required(v),
                 }}
+                className="!bg-transparent"
+                border
               />
               <ToggleBar
                 name="settings.shape"
                 label="Task shape:"
+                variant="filled"
                 options={[
                   { element: <Star size={20} />, value: "star" },
                   { element: <Triangle size={20} />, value: "triangle" },
@@ -117,6 +152,8 @@ const TasksActions = () => {
                   { element: <Circle size={20} />, value: "circle" },
                 ]}
                 validators={{ required: (v: string) => V.required(v) }}
+                className="!bg-transparent"
+                border
               />
               <Button variant="primary" className="mt-10" submit>
                 Create task

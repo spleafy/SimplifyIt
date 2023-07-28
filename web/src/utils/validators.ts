@@ -16,7 +16,7 @@ export const validateEmailBackend = _.debounce(
       /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(value)
     ) {
       try {
-        const data = await api.v1.user.validate.controller.email(value);
+        const data = await api.user.validate.email(value);
 
         if (!data.data.registered && checkRegistered) {
           return "This email is not registered!";
@@ -42,7 +42,7 @@ export const validateUsernameBackend = _.debounce(
   async (value: string | undefined, checkRegistered: boolean) => {
     if (value && value.length > 4 && /^[a-z0-9_-]{4,255}$/.test(value)) {
       try {
-        const data = await api.v1.user.validate.controller.username(value);
+        const data = await api.user.validate.username(value);
 
         if (!data.data.registered && checkRegistered) {
           return "This username is not registered!";

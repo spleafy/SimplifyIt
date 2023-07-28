@@ -41,4 +41,30 @@ const create = async (values: string) => {
   return response;
 };
 
-export default { fetch, create };
+const update = async (values: string, id: string) => {
+  const token = localStorage.getItem("X-Auth-Token");
+
+  const response = await fetchAPI(
+    prefix + `/?id=${encodeURIComponent(id)}`,
+    "PUT",
+    values,
+    token ? { "X-Auth-Token": token } : {}
+  );
+
+  return response;
+};
+
+const remove = async (id: string) => {
+  const token = localStorage.getItem("X-Auth-Token");
+
+  const response = await fetchAPI(
+    prefix + `/?id=${encodeURIComponent(id)}`,
+    "DELETE",
+    {},
+    token ? { "X-Auth-Token": token } : {}
+  );
+
+  return response;
+};
+
+export default { fetch, create, update, remove };

@@ -10,17 +10,14 @@ export const slice = createSlice({
     tasks: [],
   },
   reducers: {
+    init: (state: any, action) => {
+      state.tasks = action.payload;
+    },
     add: (state: any, action) => {
-      action.payload.forEach((task: any) => {
-        state.tasks = state.tasks.filter((p: any) => p._id !== task._id);
-      });
-
-      state.tasks = [...state.tasks, ...action.payload];
+      state.tasks = [...state.tasks, action.payload];
     },
     remove: (state: any, action) => {
-      state.tasks = state.tasks.filter(
-        (p: any) => p._id !== action.payload._id
-      );
+      state.tasks = state.tasks.filter((p: any) => p._id !== action.payload);
     },
   },
 });
@@ -29,7 +26,7 @@ export const slice = createSlice({
  * slice actions
  * @description Exporting the deconstructed actions from the slice
  */
-export const { add, remove } = slice.actions;
+export const { init, add, remove } = slice.actions;
 
 /**
  * slice reducer
