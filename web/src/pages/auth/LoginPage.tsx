@@ -46,16 +46,17 @@ const LoginPage = () => {
     }
   };
 
+  const transition = {
+    duration: 0.3,
+  };
+
   return (
-    <SitPage
-      className="flex flex-row !p-0"
-      animationIn="animate-fade-in"
-      title="Login"
-    >
+    <SitPage className="flex flex-row !p-0" entry="fadeIn" title="Login">
       <Animated
         className="flex flex-col justify-center grow py-36 px-16"
-        animationIn="animate-slide-in-top"
-        animationOut="animate-slide-out-bottom"
+        entry="slideInTop"
+        exit="slideOutBottom"
+        transition={transition}
         alternate={alternate}
       >
         <h1 className="uppercase text-2xl mb-16">SimplifyIt</h1>
@@ -108,9 +109,10 @@ const LoginPage = () => {
         </Form>
       </Animated>
       <Animated
-        className="w-2/3 h-full flex flex-col bg-gradient-to-tr from-primary-500 to-pink-500 py-36 px-36 overflow-hidden"
-        animationIn="animate-slide-in-bottom"
-        animationOut="animate-slide-out-top"
+        className="!w-2/3 h-full flex flex-col bg-gradient-to-tr from-primary-500 to-pink-500 py-36 px-36 overflow-hidden"
+        entry="slideInBottom"
+        exit="slideOutTop"
+        transition={transition}
         alternate={alternate}
       >
         <h1

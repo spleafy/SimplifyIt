@@ -1,4 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+// Redux
+import store from "./store";
+import { slice as taskSlice } from "./tasks";
 
 /**
  * Projects slice
@@ -18,7 +21,7 @@ export const slice = createSlice({
     },
     remove: (state: any, action) => {
       state.projects = state.projects.filter(
-        (p: any) => p._id !== action.payload._id
+        (p: any) => p._id !== action.payload
       );
     },
   },
@@ -28,7 +31,7 @@ export const slice = createSlice({
  * slice actions
  * @description Exporting the deconstructed actions from the slice
  */
-export const { init } = slice.actions;
+export const { init, add, remove } = slice.actions;
 
 /**
  * slice reducer

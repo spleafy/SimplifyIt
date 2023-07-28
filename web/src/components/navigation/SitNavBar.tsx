@@ -40,7 +40,7 @@ const SitNavBar: FC<SitNavigationBarProps> = ({
               {isActive && (
                 <motion.div
                   layoutId={layoutId}
-                  className="flex w-full h-[2px] absolute bottom-0 left-0 bg-primary-500 rounded-md"
+                  className="flex w-full h-[2px] absolute z-10 bottom-0 left-0 bg-primary-500 rounded-md"
                 ></motion.div>
               )}
             </div>

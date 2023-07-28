@@ -7,6 +7,9 @@ import {
 } from "../../../../../services/helper";
 // Models
 import { Project } from "./model";
+import { Task } from "../tasks/model";
+// Services
+import { fetchAPI } from "../../../../../services/api";
 
 export const create = async (req: Request, res: Response) => {
   if (
@@ -70,24 +73,6 @@ export const remove = async (req: Request, res: Response) => {
     return;
   }
 
-  const removed = await Project.deleteOne({
-    _id: req.query.id,
-    creator: req.data.id,
-  });
-
-  if (!removed.acknowledged) {
-    res.status(200).json(ResponseMessage.NOT_FOUND());
-  }
-
-  res.status(200).json(ResponseMessage.SUCCESS());
-};
-
-export const invite = async (req: Request, res: Response) => {
-  if (!validateObjectKeys(req.query, ["id", "path"])) {
-    res.status(403).json(ResponseMessage.INVALID_PARAMS());
-    return;
-  }
-
   const project = await Project.findOne({
     _id: req.query.id,
     creator: req.data.id,
@@ -98,12 +83,31 @@ export const invite = async (req: Request, res: Response) => {
     return;
   }
 
-  const hash = await bcrypt.hash(req.query.id as string, 10);
+  const tasks = await Task.find({
+    projectId: req.query.id,
+  });
 
-  const invite =
-    req.protocol + "://" + req.get("host") + req.query.path + "/" + hash;
+  tasks.forEach(async (task: any) => {
+    await fetchAPI(
+      `api/v1/tasks?id=${task._id}`,
+      "DELETE",
+      {},
+      {
+        "X-Auth-Token": req.data.reqToken,
+      }
+    );
+  });
 
-  res.status(200).json(ResponseMessage.SUCCESS({ invite }));
+  const removed = await Project.deleteOne({
+    _id: req.query.id,
+    creator: req.data.id,
+  });
+
+  if (!removed.acknowledged) {
+    res.status(200).json(ResponseMessage.NOT_FOUND());
+  }
+
+  res.status(200).json(ResponseMessage.SUCCESS({ tasks }));
 };
 
-export default { create, fetch, update, remove, invite };
+export default { create, fetch, update, remove };

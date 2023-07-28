@@ -13,12 +13,14 @@ import HomePage from "../pages/app/HomePage";
 import NotFoundPage from "../pages/NotFoundPage";
 // Routes
 import ProjectsRoutes from "./ProjectsRoutes";
+import TasksRoutes from "./TasksRoutes";
 // Services
 import api from "../api";
 // Redux
 import store from "../redux/store";
 import { slice as userSlice } from "../redux/user";
 import { slice as projectsSlice } from "../redux/projects";
+import { slice as tasksSlice } from "../redux/tasks";
 
 const AppRoutes = () => {
   const navigate = useNavigate();
@@ -44,9 +46,20 @@ const AppRoutes = () => {
       }
     };
 
+    const tasks = async () => {
+      const response = await api.tasks.fetchAll();
+
+      if (response.status === "SUCCESS" && response.data.tasks) {
+        store.dispatch(tasksSlice.actions.init(response.data.tasks));
+      } else {
+        console.error("ERROR! --tasks-setup--");
+      }
+    };
+
     const setup = async () => {
       await user();
       await projects();
+      await tasks();
     };
 
     setup();
@@ -59,6 +72,7 @@ const AppRoutes = () => {
         <Route path="/" element={<Navigate to={"home"} />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/projects/*" element={<ProjectsRoutes />} />
+        <Route path="/tasks/*" element={<TasksRoutes />} />
         <Route
           path="*"
           element={<NotFoundPage to="/app/home" name="Home Page" />}

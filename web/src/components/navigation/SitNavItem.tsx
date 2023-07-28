@@ -35,7 +35,7 @@ const SitNavItem: FC<SitNavItemProps> = ({
     <NavLink
       to={to}
       className={({ isActive }) => {
-        return `flex w-full items-center rounded-lg  h-10 ${
+        return `flex w-full items-center rounded-lg transition-all h-10 ${
           expanded ? "gap-4 px-3 py-2" : "justify-center aspect-square !w-10"
         } ${isActive ? "bg-primary-100 text-primary-500" : "text-base-700"} ${
           className ? className : ""
@@ -45,7 +45,7 @@ const SitNavItem: FC<SitNavItemProps> = ({
     >
       {icon}
       {expanded && (
-        <div className="whitespace-nowrap grow text-sm w-full overflow-hidden">
+        <div className="whitespace-nowrap grow text-sm w-full transition-all overflow-hidden">
           {children}
         </div>
       )}

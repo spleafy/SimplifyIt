@@ -27,7 +27,9 @@ const SitNav: FC<SitComponent> = ({ className, style }) => {
 
   const projects = useSelector((state: any) => state.projects.projects);
 
-  const projectActionEvent = new CustomEvent(events.project);
+  const tasks = useSelector((state: any) => state.tasks.tasks);
+
+  const createProjectActionEvent = new CustomEvent(events.project.create);
 
   return (
     <nav
@@ -57,7 +59,7 @@ const SitNav: FC<SitComponent> = ({ className, style }) => {
           Dashboard
         </SitNavItem>
         <SitNavItem
-          to="tasks"
+          to="tasks/"
           icon={<CheckSquareOffset size={24} />}
           expanded={expanded}
           tooltip="Tasks | 12"
@@ -65,7 +67,7 @@ const SitNav: FC<SitComponent> = ({ className, style }) => {
           <div className="flex justify-between items-center">
             Tasks{" "}
             <div className="flex items-center justify-center w-6 aspect-square bg-primary-500 text-white rounded-md text-xs">
-              12
+              {tasks.length}
             </div>
           </div>
         </SitNavItem>
@@ -106,7 +108,7 @@ const SitNav: FC<SitComponent> = ({ className, style }) => {
                 expanded ? "w-6" : "w-10"
               }`}
               onClick={() => {
-                document.dispatchEvent(projectActionEvent);
+                document.dispatchEvent(createProjectActionEvent);
               }}
             >
               <Plus size={16} />
@@ -114,7 +116,7 @@ const SitNav: FC<SitComponent> = ({ className, style }) => {
           </div>
           <div className="flex flex-col w-full gap-3 max-h-[324px] items-center">
             <SitNavItem
-              to="projects"
+              to="projects/"
               icon={<SquaresFour size={24} />}
               expanded={expanded}
               tooltip="All Projects"

@@ -12,10 +12,10 @@ import { events } from "../../../utils/utils";
 const MainPage = () => {
   const projects = useSelector((state: any) => state.projects.projects);
 
-  const projectActionEvent = new CustomEvent(events.project);
+  const createProjectActionEvent = new CustomEvent(events.project.create);
 
   return (
-    <SitPage header={<h1>Projects</h1>}>
+    <SitPage header={<h1 className="text-4xl font-bold">All Projects</h1>}>
       <div className="flex flex-wrap gap-5">
         {projects.map((project: any, index: number) => (
           <Card
@@ -36,9 +36,14 @@ const MainPage = () => {
                 />
               </div>
               <div className="flex flex-col gap-2 grow p-4">
-                <h3>{project.name}</h3>
+                <span className="font-bold text-lg line-clamp-1">
+                  {project.name}
+                </span>
                 <div className="flex items-center justify-between">
-                  <span>{project._id}</span>
+                  <span>
+                    Last updated on:{" "}
+                    {new Date(project.updatedAt).toLocaleDateString("en-US")}
+                  </span>
                 </div>
               </div>
             </Link>
@@ -49,7 +54,7 @@ const MainPage = () => {
           height="350px"
           className="border border-base-300 !p-0 flex flex-col !gap-2 justify-center items-center text-base-700 cursor-pointer hover:border-primary-500 hover:bg-primary-100 group transition-all"
           onClick={() => {
-            document.dispatchEvent(projectActionEvent);
+            document.dispatchEvent(createProjectActionEvent);
           }}
         >
           <Plus

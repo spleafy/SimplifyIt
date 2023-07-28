@@ -28,6 +28,7 @@ const token = (req: Request | any, res: Response, next: NextFunction) => {
         )
       );
     } else {
+      data.reqToken = token;
       req.data = data;
       next();
     }

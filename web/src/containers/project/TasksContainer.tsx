@@ -31,10 +31,13 @@ const TasksContainer = () => {
           className="border border-base-300 !p-0 cursor-pointer hover:border-primary-500 hover:bg-primary-100 group transition-all"
           key={index}
         >
-          <Link to={task._id} className="w-full h-full p-2 flex flex-col gap-2">
+          <Link
+            to={"/app/tasks/" + task._id}
+            className="w-full h-full p-3 flex flex-col gap-2"
+          >
             <div className="flex gap-4">
               <div
-                className="w-16 h-16 rounded-md flex items-center justify-center text-white"
+                className="w-16 h-16 !aspect-square rounded-md flex items-center justify-center text-white"
                 style={{
                   background: task.settings.color,
                 }}
@@ -42,7 +45,7 @@ const TasksContainer = () => {
                 <SitShape shape={task.settings.shape} size={24} />
               </div>
               <div className="flex flex-col">
-                <span className="font-medium text-lg line-clamp-1">
+                <span className="font-bold text-lg line-clamp-1">
                   {task.name}
                 </span>
                 <span>

@@ -12,6 +12,5 @@ router.post(prefix + "/", token, upload.none(), controller.create);
 router.get(prefix + "/", token, controller.fetch);
 router.put(prefix + "/", token, upload.none(), controller.update);
 router.delete(prefix + "/", token, controller.remove);
-router.get(prefix + "/invite", token, controller.invite);
 
 export default router;
